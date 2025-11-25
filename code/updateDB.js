@@ -10,9 +10,9 @@ function main({body, body_i}) {
   const data = JSON.stringify({
     name: 'product.csv',
     indexing_technique: res_i.indexing_technique || 'high_quality',
-    doc_form: res_i.doc_form || 'text_model',
+    doc_form: res_i.doc_form || 'hierarchical_model',
     process_rule: {
-      mode: 'custom',
+      mode: 'hierarchical',
       rules: {
         pre_processing_rules: [
           {
@@ -25,9 +25,15 @@ function main({body, body_i}) {
           }
         ],
         segmentation: {
-          delimiter: '\n',
+          separator: '\n',
           max_tokens: 4000,
-          chunk_overlap: 50
+          chunk_overlap: 0
+        },
+        parent_mode: 'paragraph',
+        subchunk_segmentation: {
+          separator: ';',
+          max_tokens: 100,
+          chunk_overlap: 0
         }
       },
       limits: {
@@ -47,8 +53,8 @@ function main({body, body_i}) {
       score_threshold_enabled: false,
       score_threshold: null
     },
-    embedding_model_provider: res_i.embedding_model_provider || 'azure_openai',
-    embedding_model: res_i.embedding_model || 'text-embedding-3-large'
+    embedding_model_provider: res_i.embedding_model_provider || 'langgenius/ollama/ollama',
+    embedding_model: res_i.embedding_model || 'quentinz/bge-large-zh-v1.5:latest'
   })
   return {
     url,
