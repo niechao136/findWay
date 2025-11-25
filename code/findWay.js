@@ -1,4 +1,33 @@
 
+//#region 处理用户意图
+
+function handleLLM(text) {
+  const regex = /```json([\s\S]*?)```/
+  const _res = text.replaceAll(/<think>[\s\S]*?<\/think>/g, '')
+  const match = _res.match(regex);
+  const res = !!match ? match[1].trim() : _res
+  const str = res.replaceAll(/\/\/.*$/gm, '').replaceAll(/\/\*[\s\S]*?\*\//g, '')
+  let obj
+  try {
+    obj = JSON.parse(str)
+  } catch (e) {
+    obj = {}
+  }
+  return obj
+}
+function main({text, query}) {
+  const obj = handleLLM(text)
+  const find = obj.find || ''
+  const answer = obj.text || ''
+  const tran = obj.tran || query
+  return {
+    find,
+    answer,
+    tran,
+  }
+}
+
+//#endregion
 //#region 处理检索结果
 
 function parseToObject(str) {
@@ -35,110 +64,93 @@ function parseToObject(str) {
 
   return obj;
 }
-function main({result, query}) {
+function main({result, find}) {
   let answer = '检索到以下结果，请输入序号进行选择：\n'
-  const store_id = {}
   const list = Array.from(result).map(o => {
-    const obj = parseToObject(o.content)
-    if (!obj['product_id']) {
-      const obj_n = {}
-      Object.keys(obj).forEach(key => {
-        if (key !== 'store_id') {
-          obj_n[`store_${key}`] = obj[key]
-        }
-      })
-      store_id[obj.store_id] = obj_n
-    }
-    return obj
+    return parseToObject(o.content)
   })
-  const product = []
-  const store = []
+  const filter = []
+  const check = {}
   let index = 1
   list.forEach(obj => {
-    if (!obj['product_id']) {
-      store.push({
-        ...obj,
-        index,
-      })
-      answer += `${index}. ${obj.name}${!!obj.time ? `（营业时间：${obj.time}）` : ''}\n`
-      index++
+    if (find === 'store') {
+      if (!check[obj.store_id]) {
+        check[obj.store_id] = true
+        filter.push({
+          ...obj,
+          index,
+        })
+        answer += `${index}. ${obj.store_name}${!!obj.store_time ? `（营业时间：${obj.store_time}）` : ''}\n`
+        index++
+      }
     }
-  })
-  list.forEach(obj => {
-    if (!!obj['product_id']) {
-      product.push({
+    if (find === 'product') {
+      filter.push({
         ...obj,
-        ...(store_id[obj.store_id] || {}),
         index,
       })
       answer += `${index}. ${obj.name}${!!obj.price ? `（价格：${obj.price}元）` : ''}\n`
       index++
     }
   })
-  const history = {
-    answer,
-    query,
-    product,
-    store,
-  }
-  const need_filter = list.length > 1
-  let res = ''
-  if (!list[0].product_id) {
-    res = `已为您找到门店：${list[0].name}。它的营业时间是：${list[0].time}。\n门店简介：${list[0].description}`
-  }
-  if (!!list[0].product_id && !!list[0].store_name) {
-    res = `已为您找到产品：${list[0].name}（价格：${list[0].price}元），它来自门店：${list[0].store_name}（营业时间：${list[0].store_time}）。\n产品简介：${list[0].description}\n门店简介：${list[0].store_desciption}`
-  }
-  const info = !list[0].product_id || !!list[0].store_name ? result[0].content : ''
-  const need_query = [list[0].store_id]
-  const sql = !list[0].product_id || !!list[0].store_name ? '' : `
-      SELECT *
-      FROM test_dify.store
-      WHERE store_id IN (${need_query.join(', ')});
-    `
+  const need_filter = filter.length > 1
+  const need_query = Array.from(new Set(filter.map(o => o.store_name))).map(o => `'${o}'`)
+  const sql = `SELECT * FROM test_dify.space WHERE child_space_name IN (${need_query.join(', ')});`
   return {
     answer,
-    product,
-    store,
+    filter,
     need_filter,
-    info,
     sql,
-    history,
-    res,
   }
 }
 
 //#endregion
-//#region 处理门店查询
+//#region 处理位置信息
 
-function main({product, text}) {
+function parseRow(line) {
+  return String(line).trim().replace(/^\|/, '').replace(/\|$/, '').split('|').map(col => String(col).trim())
+}
+function parseMd(text) {
   const md = String(text).replace(/(?<!\|)\n(?!\|)/g, ' ').replaceAll('\r', ' ')
   const lines = md.split('\n')
-  const parseRow = (line) => line.trim().replace(/^\|/, '').replace(/\|$/, '').split('|').map(col => col.trim())
   const head = parseRow(lines[0])
   const body = lines.slice(2)
-  const store_by_id = {}
-  const id = head.findIndex(o => o === 'store_id')
-  body.forEach(line => {
-    const cols = parseRow(line)
-    store_by_id[cols[id]] = {}
-    head.forEach((h, i) => {
-      if (h !== 'store_id') {
-        store_by_id[cols[id]][`store_${h}`] = cols[i] || ''
-      }
+  return body.map(line => {
+    const obj = {}
+    const arr = parseRow(line)
+    head.forEach((key, index) => {
+      obj[key] = arr[index]
     })
+    return obj
   })
-  const obj = {
-    ...product[0],
-    ...(store_by_id[product[0].store_id] || {}),
-  }
-  const res = Object.entries(obj)
-    .map(([key, val]) => `${key}: ${val}`)
-    .join('; ')
-  const result = `已为您找到产品：${obj.name}（价格：${obj.price}元），它来自门店：${obj.store_name}（营业时间：${obj.store_time}）。\n产品简介：${obj.description}\n门店简介：${obj.store_desciption}`
-  return {
-    product: res,
+}
+function main({text, filter, find}) {
+  const space = parseMd(text)
+  const space_by_name = {}
+  space.forEach(obj => {
+    space_by_name[obj.child_space_name] = obj
+  })
+  const result = Array.from(filter).map(o => {
+    return {
+      ...o,
+      map: space_by_name[o.store_name].space_property || '',
+      space: space_by_name[o.store_name].child_space_property || '',
+    }
+  })
+  const history = {
+    find,
     result,
+  }
+  let res = ''
+  if (find === 'store') {
+    res = `已为您找到门店：${filter[0].store_name}。它的营业时间是：${filter[0].store_time}。\n门店简介：${filter[0].store_desciption}\n地图信息：${result[0].map}\n门店位置：${result[0].space}`
+  }
+  if (find === 'product') {
+    res = `已为您找到产品：${filter[0].name}（价格：${filter[0].price}元），它来自门店：${filter[0].store_name}（营业时间：${filter[0].store_time}）。\n产品简介：${filter[0].description}\n门店简介：${filter[0].store_desciption}\n地图信息：${result[0].map}\n门店位置：${result[0].space}`
+  }
+  return {
+    history,
+    res,
   }
 }
 
@@ -147,74 +159,18 @@ function main({product, text}) {
 
 function main({query, history}) {
   const index = Number(query)
-  const old_query = history.query || ''
-  const old_answer = history.answer || ''
-  const product = Array.from(history.product).find(o => o.index === index)
-  const store = Array.from(history.store).find(o => o.index === index)
-  const new_question = Number.isNaN(index) || (!product && !store)
-  let info = '', result = ''
-  if (!!store) {
-    info = Object.entries(Object(store))
-      .map(([key, val]) => `${key}: ${val}`)
-      .join('; ')
-    result = `您选择了门店：${store.name}。它的营业时间是：${store.time}。\n门店简介：${store.description}`
+  const find = history.find || ''
+  const filter = Array.from(history.result).find(o => o.index === index)
+  const new_question = Number.isNaN(index) || !filter
+  let result = ''
+  if (!!filter && find === 'store') {
+    result = `您选择了门店：${filter.store_name}。它的营业时间是：${filter.store_time}。\n门店简介：${filter.store_desciption}\n地图信息：${filter.map}\n门店位置：${filter.space}`
   }
-  if (!!product && !!product.store_name) {
-    info = Object.entries(Object(product))
-      .map(([key, val]) => `${key}: ${val}`)
-      .join('; ')
-    result = `您选择了产品：${product.name}（价格：${product.price}元），它来自门店：${product.store_name}（营业时间：${product.store_time}）。\n产品简介：${product.description}\n门店简介：${product.store_desciption}`
-  }
-  let sql = ''
-  if (!!product && !product.store_name) {
-    const need_query = [product.store_id]
-    sql = `
-      SELECT *
-      FROM test_dify.store
-      WHERE store_id IN (${need_query.join(', ')});
-    `
+  if (!!filter && find === 'product') {
+    result = `您选择了产品：${filter.name}（价格：${filter.price}元），它来自门店：${filter.store_name}（营业时间：${filter.store_time}）。\n产品简介：${filter.description}\n门店简介：${filter.store_desciption}\n地图信息：${filter.map}\n门店位置：${filter.space}`
   }
   return {
     new_question,
-    info,
-    sql,
-    product: product || {},
-    old_query,
-    old_answer,
-    result,
-  }
-}
-
-//#endregion
-//#region 处理门店查询
-
-function main({product, text}) {
-  const md = String(text).replace(/(?<!\|)\n(?!\|)/g, ' ').replaceAll('\r', ' ')
-  const lines = md.split('\n')
-  const parseRow = (line) => line.trim().replace(/^\|/, '').replace(/\|$/, '').split('|').map(col => col.trim())
-  const head = parseRow(lines[0])
-  const body = lines.slice(2)
-  const store_by_id = {}
-  const id = head.findIndex(o => o === 'store_id')
-  body.forEach(line => {
-    const cols = parseRow(line)
-    store_by_id[cols[id]] = {}
-    head.forEach((h, i) => {
-      if (h !== 'store_id') {
-        store_by_id[cols[id]][`store_${h}`] = cols[i] || ''
-      }
-    })
-  })
-  const obj = {
-    ...product,
-    ...(store_by_id[product.store_id] || {})
-  }
-  const res = Object.entries(obj)
-    .map(([key, val]) => `${key}: ${val}`)
-    .join('; ')
-  const result = `您选择了产品：${obj.name}（价格：${obj.price}元），它来自门店：${obj.store_name}（营业时间：${obj.store_time}）。\n产品简介：${obj.description}\n门店简介：${obj.store_desciption}`
-  return {
-    product: res,
     result,
   }
 }
