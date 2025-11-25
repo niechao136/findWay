@@ -1,82 +1,117 @@
 
-//#region 处理知识库文档列表
+//#region 处理知识库信息
 
-function main({body}) {
+function main({body, body_i}) {
   const res = JSON.parse(body) || {}
   const arr = Array.isArray(res.data) ? Array.from(res.data) : []
-  const result = arr.map(o => o.id)
-  return {
-    result: result
-  }
-}
-
-//#endregion
-//#region 生成表格数组
-
-function main({text, body}) {
-  const result = text.split('\n').slice(2).map(line => line.replace(/\|/g, '').trim()).filter(Boolean)
-  const res = JSON.parse(body) || {}
-  const request = result.map(name => {
-    return {
-      name: `${name}.csv`,
-      indexing_technique: res.indexing_technique || 'high_quality',
-      doc_form: res.doc_form || 'text_model',
-      "process_rule": {
-        "mode": "custom",
-        "rules": {
-          "pre_processing_rules": [
-            {
-              "id": "remove_extra_spaces",
-              "enabled": false
-            },
-            {
-              "id": "remove_urls_emails",
-              "enabled": false
-            }
-          ],
-          "segmentation": {
-            "delimiter": "\n",
-            "max_tokens": 1024,
-            "chunk_overlap": 50
+  const product = arr.find(o => o.name === 'product.csv')
+  const url = !!product ? `/documents/${product.id}/update-by-file` : '/document/create-by-file'
+  const res_i = JSON.parse(body_i) || {}
+  const data = JSON.stringify({
+    name: 'product.csv',
+    indexing_technique: res_i.indexing_technique || 'high_quality',
+    doc_form: res_i.doc_form || 'text_model',
+    process_rule: {
+      mode: 'custom',
+      rules: {
+        pre_processing_rules: [
+          {
+            id: 'remove_extra_spaces',
+            enabled: false
+          },
+          {
+            id: 'remove_urls_emails',
+            enabled: false
           }
-        },
-        "limits": {
-          "indexing_max_segmentation_tokens_length": 4000
+        ],
+        segmentation: {
+          delimiter: '\n',
+          max_tokens: 4000,
+          chunk_overlap: 50
         }
       },
-      "retrieval_model": res.retrieval_model_dict || {
-        "search_method": "semantic_search",
-        "reranking_enable": false,
-        "reranking_mode": null,
-        "reranking_model": {
-          "reranking_provider_name": "",
-          "reranking_model_name": ""
-        },
-        "weights": null,
-        "top_k": 5,
-        "score_threshold_enabled": false,
-        "score_threshold": null
+      limits: {
+        indexing_max_segmentation_tokens_length: 4000
+      }
+    },
+    retrieval_model: res_i.retrieval_model_dict || {
+      search_method: 'semantic_search',
+      reranking_enable: false,
+      reranking_mode: null,
+      reranking_model: {
+        reranking_provider_name: '',
+        reranking_model_name: ''
       },
-      "embedding_model_provider": res.embedding_model_provider || "azure_openai",
-      "embedding_model": res.embedding_model || "text-embedding-3-large"
-    }
+      weights: null,
+      top_k: 5,
+      score_threshold_enabled: false,
+      score_threshold: null
+    },
+    embedding_model_provider: res_i.embedding_model_provider || 'azure_openai',
+    embedding_model: res_i.embedding_model || 'text-embedding-3-large'
   })
   return {
-    result,
-    request,
+    url,
+    data,
   }
 }
 
 //#endregion
-//#region 生成request
+//#region 处理数据库结果
 
-function main({text, request, index}) {
+function parseRow(line) {
+  return String(line).trim().replace(/^\|/, '').replace(/\|$/, '').split('|').map(col => String(col).trim())
+}
+function parseMd(text) {
   const md = String(text).replace(/(?<!\|)\n(?!\|)/g, ' ').replaceAll('\r', ' ')
+  const lines = md.split('\n')
+  const head = parseRow(lines[0])
+  const body = lines.slice(2)
+  return body.map(line => {
+    const obj = {}
+    const arr = parseRow(line)
+    head.forEach((key, index) => {
+      obj[key] = arr[index]
+    })
+    return obj
+  })
+}
+function toMarkdownTable(arr) {
+  if (!arr.length) return '';
+
+  const headers = Object.keys(arr[0]);
+  const headerRow = `| ${headers.join(' | ')} |`;
+  const separator = `| ${headers.map(() => '---').join(' | ')} |`;
+
+  const rows = arr.map(obj =>
+    `| ${headers.map(h => obj[h] ?? '').join(' | ')} |`
+  );
+
+  return [headerRow, separator, ...rows].join('\n');
+}
+function main({text, text_p}) {
+  const list_s = parseMd(text)
+  const list_p = parseMd(text_p)
+  const store_by_id = {}
+  list_s.forEach(o => {
+    store_by_id[o.store_id] = {}
+    Object.keys(o).forEach(key => {
+      if (key !== 'store_id') {
+        store_by_id[o.store_id][`store_${key}`] = o[key]
+      }
+    })
+  })
+  const product = list_p.map(o => {
+    return {
+      ...o,
+      ...(store_by_id[o.store_id] || {})
+    }
+  })
+  const table = toMarkdownTable(product)
+  const name = 'product'
   return {
-    request: JSON.stringify({
-      ...request[index] || {}
-    }),
-    md,
+    table,
+    name,
   }
 }
 
