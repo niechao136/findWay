@@ -381,7 +381,7 @@ workflow:
       width: 242
     - data:
         dataset_ids:
-        - cHh5TQ1kXMref1XKYV9QsnzxSiT27ievcBiXgO0r5cURtVcePfs+6z6DoC0ru3xc
+        - JGo5ZzTSLRPloMAQtD7mqp14CnzJoh7ewu3PwIIFNzG8Dq8EKTYiYuno3IZoA07S
         metadata_filtering_mode: disabled
         metadata_model_config:
           completion_params:
@@ -392,15 +392,15 @@ workflow:
         multiple_retrieval_config:
           reranking_enable: false
           reranking_mode: weighted_score
-          score_threshold: 0.33
+          score_threshold: 0.3
           top_k: 10
           weights:
             keyword_setting:
-              keyword_weight: 0.2
+              keyword_weight: 0.3
             vector_setting:
-              embedding_model_name: bge-m3:567m
+              embedding_model_name: quentinz/bge-large-zh-v1.5:latest
               embedding_provider_name: langgenius/ollama/ollama
-              vector_weight: 0.8
+              vector_weight: 0.7
             weight_type: customized
         query_variable_selector:
         - '1764039841850'
@@ -412,12 +412,12 @@ workflow:
       height: 90
       id: '1763709024019'
       position:
-        x: 2796
-        y: 68
+        x: 2804.4825508549684
+        y: 51
       positionAbsolute:
-        x: 2796
-        y: 68
-      selected: false
+        x: 2804.4825508549684
+        y: 51
+      selected: true
       sourcePosition: right
       targetPosition: left
       type: custom
@@ -431,11 +431,11 @@ workflow:
       height: 103
       id: '1763709079438'
       position:
-        x: 5230
-        y: 85
+        x: 5241.310067806625
+        y: 113.85011301104134
       positionAbsolute:
-        x: 5230
-        y: 85
+        x: 5241.310067806625
+        y: 113.85011301104134
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -501,10 +501,10 @@ workflow:
       id: '1763709116753'
       position:
         x: 3500
-        y: 99
+        y: 81
       positionAbsolute:
         x: 3500
-        y: 99
+        y: 81
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -586,10 +586,10 @@ workflow:
       id: '1763709260746'
       position:
         x: 3842
-        y: 249
+        y: 257
       positionAbsolute:
         x: 3842
-        y: 249
+        y: 257
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -614,11 +614,11 @@ workflow:
       height: 124
       id: '1763714045216'
       position:
-        x: 4526
-        y: 63
+        x: 4530.71252825276
+        y: 81
       positionAbsolute:
-        x: 4526
-        y: 63
+        x: 4530.71252825276
+        y: 81
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -643,10 +643,10 @@ workflow:
       id: '1763714090029'
       position:
         x: 4888
-        y: 95
+        y: 113.85011301104134
       positionAbsolute:
         x: 4888
-        y: 95
+        y: 113.85011301104134
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -852,7 +852,7 @@ workflow:
       positionAbsolute:
         x: 1750
         y: 57
-      selected: true
+      selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
@@ -890,11 +890,11 @@ workflow:
       height: 52
       id: '1764039841850'
       position:
-        x: 2092
-        y: 75
+        x: 2091.057494349448
+        y: 57
       positionAbsolute:
-        x: 2092
-        y: 75
+        x: 2091.057494349448
+        y: 57
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -919,11 +919,11 @@ workflow:
       height: 124
       id: '1764039986891'
       position:
-        x: 2434
-        y: 39
+        x: 2446.252573457177
+        y: 15.43735873619832
       positionAbsolute:
-        x: 2434
-        y: 39
+        x: 2446.252573457177
+        y: 15.43735873619832
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -938,11 +938,11 @@ workflow:
       height: 103
       id: '1764040028060'
       position:
-        x: 2796
-        y: 238
+        x: 2804.4825508549684
+        y: -118.2671359086814
       positionAbsolute:
-        x: 2796
-        y: 238
+        x: 2804.4825508549684
+        y: -118.2671359086814
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -1339,18 +1339,18 @@ workflow:
       height: 52
       id: '1764041661411'
       position:
-        x: 4184
-        y: 99
+        x: 4187.770022602208
+        y: 81
       positionAbsolute:
-        x: 4184
-        y: 99
+        x: 4187.770022602208
+        y: 81
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
       width: 242
     viewport:
-      x: -985.7000000000014
-      y: 187.30000000000007
-      zoom: 0.7
+      x: -5883.426870136551
+      y: 228.9761123680242
+      zoom: 1.2187707886145742
   rag_pipeline_variables: []

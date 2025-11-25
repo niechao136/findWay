@@ -27,7 +27,7 @@ workflow:
     selector:
     - env
     - kb_id
-    value: 53894890-adf7-4845-b0af-54c73c4bd5cb
+    value: 55bd5b36-a30d-4b97-94b1-dfa7071c7f71
     value_type: string
   - description: 知识库token
     id: bffa307f-4fbd-4d85-9ad2-f92a7240fe47
@@ -675,22 +675,25 @@ workflow:
           \ = !!product ? `/documents/${product.id}/update-by-file` : '/document/create-by-file'\n\
           \  const res_i = JSON.parse(body_i) || {}\n  const data = JSON.stringify({\n\
           \    name: 'product.csv',\n    indexing_technique: res_i.indexing_technique\
-          \ || 'high_quality',\n    doc_form: res_i.doc_form || 'text_model',\n  \
-          \  process_rule: {\n      mode: 'custom',\n      rules: {\n        pre_processing_rules:\
-          \ [\n          {\n            id: 'remove_extra_spaces',\n            enabled:\
-          \ false\n          },\n          {\n            id: 'remove_urls_emails',\n\
-          \            enabled: false\n          }\n        ],\n        segmentation:\
-          \ {\n          delimiter: '\\n',\n          max_tokens: 4000,\n        \
-          \  chunk_overlap: 50\n        }\n      },\n      limits: {\n        indexing_max_segmentation_tokens_length:\
+          \ || 'high_quality',\n    doc_form: res_i.doc_form || 'hierarchical_model',\n\
+          \    process_rule: {\n      mode: 'hierarchical',\n      rules: {\n    \
+          \    pre_processing_rules: [\n          {\n            id: 'remove_extra_spaces',\n\
+          \            enabled: false\n          },\n          {\n            id:\
+          \ 'remove_urls_emails',\n            enabled: false\n          }\n     \
+          \   ],\n        segmentation: {\n          separator: '\\n',\n         \
+          \ max_tokens: 4000,\n          chunk_overlap: 0\n        },\n        parent_mode:\
+          \ 'paragraph',\n        subchunk_segmentation: {\n          separator: ';',\n\
+          \          max_tokens: 100,\n          chunk_overlap: 0\n        }\n   \
+          \   },\n      limits: {\n        indexing_max_segmentation_tokens_length:\
           \ 4000\n      }\n    },\n    retrieval_model: res_i.retrieval_model_dict\
           \ || {\n      search_method: 'semantic_search',\n      reranking_enable:\
           \ false,\n      reranking_mode: null,\n      reranking_model: {\n      \
           \  reranking_provider_name: '',\n        reranking_model_name: ''\n    \
           \  },\n      weights: null,\n      top_k: 5,\n      score_threshold_enabled:\
           \ false,\n      score_threshold: null\n    },\n    embedding_model_provider:\
-          \ res_i.embedding_model_provider || 'azure_openai',\n    embedding_model:\
-          \ res_i.embedding_model || 'text-embedding-3-large'\n  })\n  return {\n\
-          \    url,\n    data,\n  }\n}\n"
+          \ res_i.embedding_model_provider || 'langgenius/ollama/ollama',\n    embedding_model:\
+          \ res_i.embedding_model || 'quentinz/bge-large-zh-v1.5:latest'\n  })\n \
+          \ return {\n    url,\n    data,\n  }\n}\n"
         code_language: javascript
         outputs:
           data:
@@ -699,7 +702,7 @@ workflow:
           url:
             children: null
             type: string
-        selected: false
+        selected: true
         title: 处理知识库信息
         type: code
         variables:
@@ -1300,7 +1303,7 @@ workflow:
       type: custom
       width: 242
     viewport:
-      x: -391.3000000000002
-      y: 320.09999999999997
+      x: -85.30000000000018
+      y: 358.1
       zoom: 0.7
   rag_pipeline_variables: []
