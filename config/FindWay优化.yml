@@ -1,0 +1,1773 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: advanced-chat
+  name: FindWay优化
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/ollama:0.0.8@22213ae036605d41ea73bdd16908e03de1b9d5ab4656a49b8fb0343723f4cb4a
+    version: null
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: junjiem/db_query:0.0.9@1060683d13870d0cb77d47664e5100a16a2029dada24cf1193bc2ce312295764
+    version: null
+kind: app
+version: 0.5.0
+workflow:
+  conversation_variables:
+  - description: ''
+    id: 5976b2a0-6b29-42ff-b9f8-b95156cfb304
+    name: history
+    selector:
+    - conversation
+    - history
+    value: {}
+    value_type: object
+  environment_variables:
+  - description: 数据库库名
+    id: f4a44153-da7d-4674-a9d8-091de190f82c
+    name: db_dbname
+    selector:
+    - env
+    - db_dbname
+    value: advantech
+    value_type: string
+  - description: 数据库密码
+    id: dbfe305f-42c7-4e06-9f2f-00b080ffba0c
+    name: db_password
+    selector:
+    - env
+    - db_password
+    value: $t@k@Pp$
+    value_type: secret
+  - description: 数据库用户名
+    id: 4be88400-8e38-4158-8d43-8126bf7df33b
+    name: db_user
+    selector:
+    - env
+    - db_user
+    value: advantech
+    value_type: string
+  - description: 数据库端口
+    id: f6c5a67d-31ac-4244-be51-58d4a2e4bff0
+    name: db_port
+    selector:
+    - env
+    - db_port
+    value: 65432
+    value_type: integer
+  - description: 数据库地址
+    id: 4c9a9f97-8e72-4a43-9316-63c6304b0472
+    name: db_url
+    selector:
+    - env
+    - db_url
+    value: 172.22.132.124
+    value_type: string
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        image_file_size_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: knowledge-retrieval
+        targetType: if-else
+      id: 1763709024019-source-1763709241360-target
+      source: '1763709024019'
+      sourceHandle: source
+      target: '1763709241360'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: code
+      id: 1763709241360-true-1763709116753-target
+      source: '1763709241360'
+      sourceHandle: 'true'
+      target: '1763709116753'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: llm
+      id: 1763709241360-false-1763709255999-target
+      source: '1763709241360'
+      sourceHandle: 'false'
+      target: '1763709255999'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: 1763709255999-source-1763709260746-target
+      source: '1763709255999'
+      sourceHandle: source
+      target: '1763709260746'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: if-else
+      id: 1763709116753-source-1763714045216-target
+      source: '1763709116753'
+      sourceHandle: source
+      target: '1763714045216'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: assigner
+      id: 1763714045216-true-1763714090029-target
+      source: '1763714045216'
+      sourceHandle: 'true'
+      target: '1763714090029'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: assigner
+        targetType: answer
+      id: 1763714090029-source-1763709079438-target
+      source: '1763714090029'
+      sourceHandle: source
+      target: '1763709079438'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: tool
+      id: 1763714170254-true-1763714224415-target
+      source: '1763714170254'
+      sourceHandle: 'true'
+      target: '1763714224415'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: tool
+        targetType: code
+      id: 1763714224415-source-1763714268471-target
+      source: '1763714224415'
+      sourceHandle: source
+      target: '1763714268471'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: if-else
+      id: 1763714045216-false-1763714170254-target
+      source: '1763714045216'
+      sourceHandle: 'false'
+      target: '1763714170254'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: start
+        targetType: if-else
+      id: 1763707294052-source-1763715521971-target
+      source: '1763707294052'
+      sourceHandle: source
+      target: '1763715521971'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: knowledge-retrieval
+      id: 1763715521971-true-1763709024019-target
+      source: '1763715521971'
+      sourceHandle: 'true'
+      target: '1763709024019'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: code
+      id: 1763715521971-false-1763715598482-target
+      source: '1763715521971'
+      sourceHandle: 'false'
+      target: '1763715598482'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: knowledge-retrieval
+      id: 1763716164776-true-1763709024019-target
+      source: '1763716164776'
+      sourceHandle: 'true'
+      target: '1763709024019'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: if-else
+      id: 1763716164776-false-1763716215305-target
+      source: '1763716164776'
+      sourceHandle: 'false'
+      target: '1763716215305'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: tool
+        targetType: code
+      id: 1763716264394-source-1763716312802-target
+      source: '1763716264394'
+      sourceHandle: source
+      target: '1763716312802'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: tool
+      id: 1763716215305-false-1763716264394-target
+      source: '1763716215305'
+      sourceHandle: 'false'
+      target: '1763716264394'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: assigner
+      id: 1763715598482-source-1763718193958-target
+      source: '1763715598482'
+      sourceHandle: source
+      target: '1763718193958'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: assigner
+        targetType: if-else
+      id: 1763718193958-source-1763716164776-target
+      source: '1763718193958'
+      sourceHandle: source
+      target: '1763716164776'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: answer
+      id: 1763714170254-false-1763945576147-target
+      source: '1763714170254'
+      sourceHandle: 'false'
+      target: '1763945576147'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: answer
+      id: 1763714268471-source-1763945707085-target
+      source: '1763714268471'
+      sourceHandle: source
+      target: '1763945707085'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: answer
+      id: 1763716215305-true-1763946860879-target
+      source: '1763716215305'
+      sourceHandle: 'true'
+      target: '1763946860879'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: answer
+      id: 1763716312802-source-1763946990362-target
+      source: '1763716312802'
+      sourceHandle: source
+      target: '1763946990362'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        selected: false
+        title: 用户输入
+        type: start
+        variables: []
+      height: 73
+      id: '1763707294052'
+      position:
+        x: 0
+        y: 264
+      positionAbsolute:
+        x: 0
+        y: 264
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        dataset_ids:
+        - cHh5TQ1kXMref1XKYV9QsnzxSiT27ievcBiXgO0r5cURtVcePfs+6z6DoC0ru3xc
+        metadata_filtering_mode: disabled
+        metadata_model_config:
+          completion_params:
+            temperature: 0
+          mode: chat
+          name: qwen3:8b
+          provider: langgenius/ollama/ollama
+        multiple_retrieval_config:
+          reranking_enable: false
+          reranking_mode: weighted_score
+          score_threshold: 0.28
+          top_k: 10
+          weights:
+            keyword_setting:
+              keyword_weight: 0.3
+            vector_setting:
+              embedding_model_name: bge-m3:567m
+              embedding_provider_name: langgenius/ollama/ollama
+              vector_weight: 0.7
+            weight_type: customized
+        query_variable_selector:
+        - '1763707294052'
+        - sys.query
+        retrieval_mode: multiple
+        selected: false
+        title: 知识检索
+        type: knowledge-retrieval
+      height: 90
+      id: '1763709024019'
+      position:
+        x: 1750
+        y: 195
+      positionAbsolute:
+        x: 1750
+        y: 195
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        answer: '{{#1763709116753.answer#}}'
+        selected: false
+        title: 提供列表
+        type: answer
+        variables: []
+      height: 103
+      id: '1763709079438'
+      position:
+        x: 3520
+        y: 22
+      positionAbsolute:
+        x: 3520
+        y: 22
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        code: "\nfunction parseToObject(str) {\n  const obj = {};\n\n  // 只把出现在 行首、分号或换行\
+          \ 后的 \"key:\" 识别为字段名\n  const regex = /(^|;|\\n)\\s*([A-Za-z0-9_]+)\\s*:/g;\n\
+          \  let match;\n  const keys = [];\n\n  while ((match = regex.exec(str))\
+          \ !== null) {\n    // match.index 是整个 match 的起始（包含前缀），\n    // 找到 key 在\
+          \ match[0] 中的偏移以算出 key 的全局起始位置\n    const fullMatch = match[0];\n    const\
+          \ keyName = match[2];\n    const offsetInFull = fullMatch.indexOf(keyName);\n\
+          \    const keyIndex = match.index + offsetInFull;\n    keys.push({ key:\
+          \ keyName, index: keyIndex });\n  }\n\n  for (let i = 0; i < keys.length;\
+          \ i++) {\n    const current = keys[i];\n    const next = keys[i + 1];\n\n\
+          \    const start = current.index + current.key.length + 1; // skip `key:`\n\
+          \    const end = next ? next.index : str.length;\n\n    // 取片段并去掉收尾的分号与空白\n\
+          \    let value = str.slice(start, end).trim();\n    value = value.replace(/^\\\
+          s*;|;\\s*$/g, \"\").trim();\n\n    obj[current.key] = value;\n  }\n\n  return\
+          \ obj;\n}\nfunction main({result, query}) {\n  let answer = '检索到以下结果，请输入序号进行选择：\\\
+          n'\n  const store_id = {}\n  const list = Array.from(result).map(o => {\n\
+          \    const obj = parseToObject(o.content)\n    if (!obj['product_id']) {\n\
+          \      const obj_n = {}\n      Object.keys(obj).forEach(key => {\n     \
+          \   if (key !== 'store_id') {\n          obj_n[`store_${key}`] = obj[key]\n\
+          \        }\n      })\n      store_id[obj.store_id] = obj_n\n    }\n    return\
+          \ obj\n  })\n  const product = []\n  const store = []\n  let index = 1\n\
+          \  list.forEach(obj => {\n    if (!obj['product_id']) {\n      store.push({\n\
+          \        ...obj,\n        index,\n      })\n      answer += `${index}. ${obj.name}${!!obj.time\
+          \ ? `（营业时间：${obj.time}）` : ''}\\n`\n      index++\n    }\n  })\n  list.forEach(obj\
+          \ => {\n    if (!!obj['product_id']) {\n      product.push({\n        ...obj,\n\
+          \        ...(store_id[obj.store_id] || {}),\n        index,\n      })\n\
+          \      answer += `${index}. ${obj.name}${!!obj.price ? `（价格：${obj.price}元）`\
+          \ : ''}\\n`\n      index++\n    }\n  })\n  const history = {\n    answer,\n\
+          \    query,\n    product,\n    store,\n  }\n  const need_filter = list.length\
+          \ > 1\n  let res = ''\n  if (!list[0].product_id) {\n    res = `已为您找到门店：${list[0].name}。它的营业时间是：${list[0].time}。\\\
+          n门店简介：${list[0].description}`\n  }\n  if (!!list[0].product_id && !!list[0].store_name)\
+          \ {\n    res = `已为您找到产品：${list[0].name}（价格：${list[0].price}元），它来自门店：${list[0].store_name}（营业时间：${list[0].store_time}）。\\\
+          n产品简介：${list[0].description}\\n门店简介：${list[0].store_desciption}`\n  }\n\
+          \  const info = !list[0].product_id || !!list[0].store_name ? result[0].content\
+          \ : ''\n  const need_query = [list[0].store_id]\n  const sql = !list[0].product_id\
+          \ || !!list[0].store_name ? '' : `\n      SELECT *\n      FROM test_dify.store\n\
+          \      WHERE store_id IN (${need_query.join(', ')});\n    `\n  return {\n\
+          \    answer,\n    product,\n    store,\n    need_filter,\n    info,\n  \
+          \  sql,\n    history,\n    res,\n  }\n}\n"
+        code_language: javascript
+        outputs:
+          answer:
+            children: null
+            type: string
+          history:
+            children: null
+            type: object
+          info:
+            children: null
+            type: string
+          need_filter:
+            children: null
+            type: boolean
+          product:
+            children: null
+            type: array[object]
+          res:
+            children: null
+            type: string
+          sql:
+            children: null
+            type: string
+          store:
+            children: null
+            type: array[object]
+        selected: false
+        title: 处理检索结果
+        type: code
+        variables:
+        - value_selector:
+          - '1763709024019'
+          - result
+          value_type: array[object]
+          variable: result
+        - value_selector:
+          - sys
+          - query
+          value_type: string
+          variable: query
+      height: 52
+      id: '1763709116753'
+      position:
+        x: 2474
+        y: 36
+      positionAbsolute:
+        x: 2474
+        y: 36
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: not empty
+            id: 5bbc00b5-1988-458b-8a30-8919d61798c9
+            value: ''
+            varType: array[object]
+            variable_selector:
+            - '1763709024019'
+            - result
+          id: 'true'
+          logical_operator: and
+        selected: false
+        title: 判断是否存在检索结果
+        type: if-else
+      height: 124
+      id: '1763709241360'
+      position:
+        x: 2112
+        y: 157
+      positionAbsolute:
+        x: 2112
+        y: 157
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        model:
+          completion_params:
+            temperature: 0
+          mode: chat
+          name: qwen3:8b
+          provider: langgenius/ollama/ollama
+        prompt_template:
+        - id: a3c4e547-2ee5-4698-a043-2a59f81d87b1
+          role: system
+          text: '产品、门店检索为空，请回答用户提问。
+
+            回答须简洁明了。'
+        - id: 5ef0e635-6a2c-4923-98eb-0876b1aadd91
+          role: user
+          text: '{{#sys.query#}}'
+        selected: false
+        title: LLM 回答没有检索结果的问题
+        type: llm
+        vision:
+          enabled: false
+      height: 88
+      id: '1763709255999'
+      position:
+        x: 2474
+        y: 212
+      positionAbsolute:
+        x: 2474
+        y: 212
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        answer: '{{#1763709255999.text#}}'
+        selected: false
+        title: 直接回答
+        type: answer
+        variables: []
+      height: 103
+      id: '1763709260746'
+      position:
+        x: 2816
+        y: 202.91734530963538
+      positionAbsolute:
+        x: 2816
+        y: 202.91734530963538
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: is
+            id: 557df23d-c7f8-4b07-9f79-c8807c5d5da2
+            value: true
+            varType: boolean
+            variable_selector:
+            - '1763709116753'
+            - need_filter
+          id: 'true'
+          logical_operator: and
+        selected: false
+        title: 判断是否需要筛选
+        type: if-else
+      height: 124
+      id: '1763714045216'
+      position:
+        x: 2816
+        y: 0
+      positionAbsolute:
+        x: 2816
+        y: 0
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        items:
+        - input_type: variable
+          operation: over-write
+          value:
+          - '1763709116753'
+          - history
+          variable_selector:
+          - conversation
+          - history
+          write_mode: over-write
+        selected: false
+        title: 保存检索结果
+        type: assigner
+        version: '2'
+      height: 84
+      id: '1763714090029'
+      position:
+        x: 3178
+        y: 32
+      positionAbsolute:
+        x: 3178
+        y: 32
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: not empty
+            id: 240ce84a-01c4-4094-aa2b-e2c91c636d36
+            value: ''
+            varType: string
+            variable_selector:
+            - '1763709116753'
+            - sql
+          id: 'true'
+          logical_operator: and
+        selected: false
+        title: 判断是否需要门店信息
+        type: if-else
+      height: 124
+      id: '1763714170254'
+      position:
+        x: 3178
+        y: 212
+      positionAbsolute:
+        x: 3178
+        y: 212
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        is_team_authorization: true
+        paramSchemas:
+        - auto_generate: null
+          default: mysql
+          form: llm
+          human_description:
+            en_US: Used for selecting the database type, mysql, oracle, oracle11g,
+              postgresql or mssql.
+            ja_JP: Used for selecting the database type, mysql, oracle, oracle11g,
+              postgresql or mssql.
+            pt_BR: Used for selecting the database type, mysql, oracle, oracle11g,
+              postgresql or mssql.
+            zh_Hans: 用于选择数据库类型，mysql、oracle、oracle11g、postgresql或mssql。
+          label:
+            en_US: Database type
+            ja_JP: Database type
+            pt_BR: Database type
+            zh_Hans: 数据库类型
+          llm_description: ''
+          max: null
+          min: null
+          name: db_type
+          options:
+          - icon: ''
+            label:
+              en_US: MySQL
+              ja_JP: MySQL
+              pt_BR: MySQL
+              zh_Hans: MySQL
+            value: mysql
+          - icon: ''
+            label:
+              en_US: Oracle
+              ja_JP: Oracle
+              pt_BR: Oracle
+              zh_Hans: Oracle
+            value: oracle
+          - icon: ''
+            label:
+              en_US: Oracle11g
+              ja_JP: Oracle11g
+              pt_BR: Oracle11g
+              zh_Hans: Oracle11g
+            value: oracle11g
+          - icon: ''
+            label:
+              en_US: PostgreSQL
+              ja_JP: PostgreSQL
+              pt_BR: PostgreSQL
+              zh_Hans: PostgreSQL
+            value: postgresql
+          - icon: ''
+            label:
+              en_US: Microsoft SQL Server
+              ja_JP: Microsoft SQL Server
+              pt_BR: Microsoft SQL Server
+              zh_Hans: Microsoft SQL Server
+            value: mssql
+          placeholder: null
+          precision: null
+          required: true
+          scope: null
+          template: null
+          type: select
+        - auto_generate: null
+          default: localhost
+          form: llm
+          human_description:
+            en_US: Database hostname or IP address (Original string, not URL-encoded
+              string).
+            ja_JP: Database hostname or IP address (Original string, not URL-encoded
+              string).
+            pt_BR: Database hostname or IP address (Original string, not URL-encoded
+              string).
+            zh_Hans: 数据库的主机名或IP地址（原始字符串，非URL编码字符串）。
+          label:
+            en_US: Database Host
+            ja_JP: Database Host
+            pt_BR: Database Host
+            zh_Hans: 数据库地址
+          llm_description: ''
+          max: null
+          min: null
+          name: db_host
+          options: []
+          placeholder: null
+          precision: null
+          required: true
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: Database port.
+            ja_JP: Database port.
+            pt_BR: Database port.
+            zh_Hans: 数据库的端口。
+          label:
+            en_US: Port
+            ja_JP: Port
+            pt_BR: Port
+            zh_Hans: 端口
+          llm_description: ''
+          max: null
+          min: null
+          name: db_port
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: number
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: Database username (Original string, not URL-encoded string).
+            ja_JP: Database username (Original string, not URL-encoded string).
+            pt_BR: Database username (Original string, not URL-encoded string).
+            zh_Hans: 数据库的用户名（原始字符串，非URL编码字符串）。
+          label:
+            en_US: Username
+            ja_JP: Username
+            pt_BR: Username
+            zh_Hans: 用户名
+          llm_description: ''
+          max: null
+          min: null
+          name: db_username
+          options: []
+          placeholder: null
+          precision: null
+          required: true
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: Database password (Original string, not URL-encoded string).
+            ja_JP: Database password (Original string, not URL-encoded string).
+            pt_BR: Database password (Original string, not URL-encoded string).
+            zh_Hans: 数据库的密码（原始字符串，非URL编码字符串）。
+          label:
+            en_US: Password
+            ja_JP: Password
+            pt_BR: Password
+            zh_Hans: 密码
+          llm_description: ''
+          max: null
+          min: null
+          name: db_password
+          options: []
+          placeholder: null
+          precision: null
+          required: true
+          scope: null
+          template: null
+          type: secret-input
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: Database name (Original string, not URL-encoded string).
+            ja_JP: Database name (Original string, not URL-encoded string).
+            pt_BR: Database name (Original string, not URL-encoded string).
+            zh_Hans: 数据库的名称（原始字符串，非URL编码字符串）。
+          label:
+            en_US: Database name
+            ja_JP: Database name
+            pt_BR: Database name
+            zh_Hans: 库名
+          llm_description: ''
+          max: null
+          min: null
+          name: db_name
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: 'Database properties, for example: alt_host=host1&alt_host=host2&ssl_cipher=%2Fpath%2Fto%2Fcrt'
+            ja_JP: 'Database properties, for example: alt_host=host1&alt_host=host2&ssl_cipher=%2Fpath%2Fto%2Fcrt'
+            pt_BR: 'Database properties, for example: alt_host=host1&alt_host=host2&ssl_cipher=%2Fpath%2Fto%2Fcrt'
+            zh_Hans: 数据库属性，例如：alt_host=host1&alt_host=host2&ssl_cipher=%2Fpath%2Fto%2Fcrt
+          label:
+            en_US: Database properties
+            ja_JP: Database properties
+            pt_BR: Database properties
+            zh_Hans: 数据库属性
+          llm_description: ''
+          max: null
+          min: null
+          name: db_properties
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: 'SQL query statement, for example: select * from tbl_name'
+            ja_JP: 'SQL query statement, for example: select * from tbl_name'
+            pt_BR: 'SQL query statement, for example: select * from tbl_name'
+            zh_Hans: SQL查询语句，例如：select * from tbl_name
+          label:
+            en_US: Query SQL
+            ja_JP: Query SQL
+            pt_BR: Query SQL
+            zh_Hans: SQL查询语句
+          llm_description: 'SQL query statement, for example: select * from tbl_name'
+          max: null
+          min: null
+          name: query_sql
+          options: []
+          placeholder: null
+          precision: null
+          required: true
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: markdown
+          form: form
+          human_description:
+            en_US: Used for selecting the output format, markdown or json.
+            ja_JP: Used for selecting the output format, markdown or json.
+            pt_BR: Used for selecting the output format, markdown or json.
+            zh_Hans: 用于选择输出格式，markdown或json。
+          label:
+            en_US: Output format
+            ja_JP: Output format
+            pt_BR: Output format
+            zh_Hans: 输出格式
+          llm_description: ''
+          max: null
+          min: null
+          name: output_format
+          options:
+          - icon: ''
+            label:
+              en_US: MARKDOWN
+              ja_JP: MARKDOWN
+              pt_BR: MARKDOWN
+              zh_Hans: MARKDOWN
+            value: markdown
+          - icon: ''
+            label:
+              en_US: JSON
+              ja_JP: JSON
+              pt_BR: JSON
+              zh_Hans: JSON
+            value: json
+          placeholder: null
+          precision: null
+          required: true
+          scope: null
+          template: null
+          type: select
+        params:
+          db_host: ''
+          db_name: ''
+          db_password: ''
+          db_port: ''
+          db_properties: ''
+          db_type: ''
+          db_username: ''
+          output_format: ''
+          query_sql: ''
+        plugin_id: junjiem/db_query
+        plugin_unique_identifier: junjiem/db_query:0.0.9@1060683d13870d0cb77d47664e5100a16a2029dada24cf1193bc2ce312295764
+        provider_icon: http://172.22.132.124:8081/console/api/workspaces/current/plugin/icon?tenant_id=de79cda4-cae0-4be5-8bff-50ddcacf186f&filename=ce2ce5af47e39e9476fc06eea7fbd05446ad16043d4d16c671e69a3c650a976a.svg
+        provider_id: junjiem/db_query/db_query
+        provider_name: junjiem/db_query/db_query
+        provider_type: builtin
+        selected: false
+        title: SQL查询门店
+        tool_configurations:
+          output_format:
+            type: constant
+            value: markdown
+        tool_description: 数据库SQL查询工具。
+        tool_label: SQL查询
+        tool_name: sql_query
+        tool_node_version: '2'
+        tool_parameters:
+          db_host:
+            type: mixed
+            value: '{{#env.db_url#}}'
+          db_name:
+            type: mixed
+            value: '{{#env.db_dbname#}}'
+          db_password:
+            type: mixed
+            value: '{{#env.db_password#}}'
+          db_port:
+            type: variable
+            value:
+            - env
+            - db_port
+          db_properties:
+            type: mixed
+            value: null
+          db_type:
+            type: constant
+            value: postgresql
+          db_username:
+            type: mixed
+            value: '{{#env.db_user#}}'
+          query_sql:
+            type: mixed
+            value: '{{#1763709116753.sql#}}'
+        type: tool
+      height: 88
+      id: '1763714224415'
+      position:
+        x: 3540
+        y: 226
+      positionAbsolute:
+        x: 3540
+        y: 226
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        code: "\nfunction main({product, text}) {\n  const md = String(text).replace(/(?<!\\\
+          |)\\n(?!\\|)/g, ' ').replaceAll('\\r', ' ')\n  const lines = md.split('\\\
+          n')\n  const parseRow = (line) => line.trim().replace(/^\\|/, '').replace(/\\\
+          |$/, '').split('|').map(col => col.trim())\n  const head = parseRow(lines[0])\n\
+          \  const body = lines.slice(2)\n  const store_by_id = {}\n  const id = head.findIndex(o\
+          \ => o === 'store_id')\n  body.forEach(line => {\n    const cols = parseRow(line)\n\
+          \    store_by_id[cols[id]] = {}\n    head.forEach((h, i) => {\n      if\
+          \ (h !== 'store_id') {\n        store_by_id[cols[id]][`store_${h}`] = cols[i]\
+          \ || ''\n      }\n    })\n  })\n  const obj = {\n    ...product[0],\n  \
+          \  ...(store_by_id[product[0].store_id] || {}),\n  }\n  const res = Object.entries(obj)\n\
+          \    .map(([key, val]) => `${key}: ${val}`)\n    .join('; ')\n  const result\
+          \ = `已为您找到产品：${obj.name}（价格：${obj.price}元），它来自门店：${obj.store_name}（营业时间：${obj.store_time}）。\\\
+          n产品简介：${obj.description}\\n门店简介：${obj.store_desciption}`\n  return {\n \
+          \   product: res,\n    result,\n  }\n}\n"
+        code_language: javascript
+        outputs:
+          product:
+            children: null
+            type: string
+          result:
+            children: null
+            type: string
+        selected: false
+        title: 处理门店查询
+        type: code
+        variables:
+        - value_selector:
+          - '1763709116753'
+          - product
+          value_type: array[object]
+          variable: product
+        - value_selector:
+          - '1763714224415'
+          - text
+          value_type: string
+          variable: text
+      height: 52
+      id: '1763714268471'
+      position:
+        x: 3882
+        y: 244
+      positionAbsolute:
+        x: 3882
+        y: 244
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: empty
+            id: 1151cb70-5a26-4588-a0b1-79c3383bd464
+            value: ''
+            varType: object
+            variable_selector:
+            - conversation
+            - history
+          id: 'true'
+          logical_operator: and
+        selected: false
+        title: 判断是否存在历史
+        type: if-else
+      height: 124
+      id: '1763715521971'
+      position:
+        x: 342
+        y: 239
+      positionAbsolute:
+        x: 342
+        y: 239
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        code: "\nfunction main({query, history}) {\n  const index = Number(query)\n\
+          \  const old_query = history.query || ''\n  const old_answer = history.answer\
+          \ || ''\n  const product = Array.from(history.product).find(o => o.index\
+          \ === index)\n  const store = Array.from(history.store).find(o => o.index\
+          \ === index)\n  const new_question = Number.isNaN(index) || (!product &&\
+          \ !store)\n  let info = '', result = ''\n  if (!!store) {\n    info = Object.entries(Object(store))\n\
+          \      .map(([key, val]) => `${key}: ${val}`)\n      .join('; ')\n    result\
+          \ = `您选择了门店：${store.name}。它的营业时间是：${store.time}。\\n门店简介：${store.description}`\n\
+          \  }\n  if (!!product && !!product.store_name) {\n    info = Object.entries(Object(product))\n\
+          \      .map(([key, val]) => `${key}: ${val}`)\n      .join('; ')\n    result\
+          \ = `您选择了产品：${product.name}（价格：${product.price}元），它来自门店：${product.store_name}（营业时间：${product.store_time}）。\\\
+          n产品简介：${product.description}\\n门店简介：${product.store_desciption}`\n  }\n\
+          \  let sql = ''\n  if (!!product && !product.store_name) {\n    const need_query\
+          \ = [product.store_id]\n    sql = `\n      SELECT *\n      FROM test_dify.store\n\
+          \      WHERE store_id IN (${need_query.join(', ')});\n    `\n  }\n  return\
+          \ {\n    new_question,\n    info,\n    sql,\n    product: product || {},\n\
+          \    old_query,\n    old_answer,\n    result,\n  }\n}\n"
+        code_language: javascript
+        outputs:
+          info:
+            children: null
+            type: string
+          new_question:
+            children: null
+            type: boolean
+          old_answer:
+            children: null
+            type: string
+          old_query:
+            children: null
+            type: string
+          product:
+            children: null
+            type: object
+          result:
+            children: null
+            type: string
+          sql:
+            children: null
+            type: string
+        selected: false
+        title: 处理历史
+        type: code
+        variables:
+        - value_selector:
+          - sys
+          - query
+          value_type: string
+          variable: query
+        - value_selector:
+          - conversation
+          - history
+          value_type: object
+          variable: history
+      height: 52
+      id: '1763715598482'
+      position:
+        x: 704
+        y: 312
+      positionAbsolute:
+        x: 704
+        y: 312
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: is
+            id: a9b72767-9b72-47d2-849c-bb634754b34c
+            value: true
+            varType: boolean
+            variable_selector:
+            - '1763715598482'
+            - new_question
+          id: 'true'
+          logical_operator: and
+        selected: false
+        title: 判断是否新问题
+        type: if-else
+      height: 124
+      id: '1763716164776'
+      position:
+        x: 1388
+        y: 276
+      positionAbsolute:
+        x: 1388
+        y: 276
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: empty
+            id: 14d7d84d-440f-4001-970e-5479da832e6f
+            value: ''
+            varType: string
+            variable_selector:
+            - '1763715598482'
+            - sql
+          id: 'true'
+          logical_operator: and
+        selected: false
+        title: 判断是否需要查询门店
+        type: if-else
+      height: 124
+      id: '1763716215305'
+      position:
+        x: 1750
+        y: 365
+      positionAbsolute:
+        x: 1750
+        y: 365
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        is_team_authorization: true
+        paramSchemas:
+        - auto_generate: null
+          default: mysql
+          form: llm
+          human_description:
+            en_US: Used for selecting the database type, mysql, oracle, oracle11g,
+              postgresql or mssql.
+            ja_JP: Used for selecting the database type, mysql, oracle, oracle11g,
+              postgresql or mssql.
+            pt_BR: Used for selecting the database type, mysql, oracle, oracle11g,
+              postgresql or mssql.
+            zh_Hans: 用于选择数据库类型，mysql、oracle、oracle11g、postgresql或mssql。
+          label:
+            en_US: Database type
+            ja_JP: Database type
+            pt_BR: Database type
+            zh_Hans: 数据库类型
+          llm_description: ''
+          max: null
+          min: null
+          name: db_type
+          options:
+          - icon: ''
+            label:
+              en_US: MySQL
+              ja_JP: MySQL
+              pt_BR: MySQL
+              zh_Hans: MySQL
+            value: mysql
+          - icon: ''
+            label:
+              en_US: Oracle
+              ja_JP: Oracle
+              pt_BR: Oracle
+              zh_Hans: Oracle
+            value: oracle
+          - icon: ''
+            label:
+              en_US: Oracle11g
+              ja_JP: Oracle11g
+              pt_BR: Oracle11g
+              zh_Hans: Oracle11g
+            value: oracle11g
+          - icon: ''
+            label:
+              en_US: PostgreSQL
+              ja_JP: PostgreSQL
+              pt_BR: PostgreSQL
+              zh_Hans: PostgreSQL
+            value: postgresql
+          - icon: ''
+            label:
+              en_US: Microsoft SQL Server
+              ja_JP: Microsoft SQL Server
+              pt_BR: Microsoft SQL Server
+              zh_Hans: Microsoft SQL Server
+            value: mssql
+          placeholder: null
+          precision: null
+          required: true
+          scope: null
+          template: null
+          type: select
+        - auto_generate: null
+          default: localhost
+          form: llm
+          human_description:
+            en_US: Database hostname or IP address (Original string, not URL-encoded
+              string).
+            ja_JP: Database hostname or IP address (Original string, not URL-encoded
+              string).
+            pt_BR: Database hostname or IP address (Original string, not URL-encoded
+              string).
+            zh_Hans: 数据库的主机名或IP地址（原始字符串，非URL编码字符串）。
+          label:
+            en_US: Database Host
+            ja_JP: Database Host
+            pt_BR: Database Host
+            zh_Hans: 数据库地址
+          llm_description: ''
+          max: null
+          min: null
+          name: db_host
+          options: []
+          placeholder: null
+          precision: null
+          required: true
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: Database port.
+            ja_JP: Database port.
+            pt_BR: Database port.
+            zh_Hans: 数据库的端口。
+          label:
+            en_US: Port
+            ja_JP: Port
+            pt_BR: Port
+            zh_Hans: 端口
+          llm_description: ''
+          max: null
+          min: null
+          name: db_port
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: number
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: Database username (Original string, not URL-encoded string).
+            ja_JP: Database username (Original string, not URL-encoded string).
+            pt_BR: Database username (Original string, not URL-encoded string).
+            zh_Hans: 数据库的用户名（原始字符串，非URL编码字符串）。
+          label:
+            en_US: Username
+            ja_JP: Username
+            pt_BR: Username
+            zh_Hans: 用户名
+          llm_description: ''
+          max: null
+          min: null
+          name: db_username
+          options: []
+          placeholder: null
+          precision: null
+          required: true
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: Database password (Original string, not URL-encoded string).
+            ja_JP: Database password (Original string, not URL-encoded string).
+            pt_BR: Database password (Original string, not URL-encoded string).
+            zh_Hans: 数据库的密码（原始字符串，非URL编码字符串）。
+          label:
+            en_US: Password
+            ja_JP: Password
+            pt_BR: Password
+            zh_Hans: 密码
+          llm_description: ''
+          max: null
+          min: null
+          name: db_password
+          options: []
+          placeholder: null
+          precision: null
+          required: true
+          scope: null
+          template: null
+          type: secret-input
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: Database name (Original string, not URL-encoded string).
+            ja_JP: Database name (Original string, not URL-encoded string).
+            pt_BR: Database name (Original string, not URL-encoded string).
+            zh_Hans: 数据库的名称（原始字符串，非URL编码字符串）。
+          label:
+            en_US: Database name
+            ja_JP: Database name
+            pt_BR: Database name
+            zh_Hans: 库名
+          llm_description: ''
+          max: null
+          min: null
+          name: db_name
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: 'Database properties, for example: alt_host=host1&alt_host=host2&ssl_cipher=%2Fpath%2Fto%2Fcrt'
+            ja_JP: 'Database properties, for example: alt_host=host1&alt_host=host2&ssl_cipher=%2Fpath%2Fto%2Fcrt'
+            pt_BR: 'Database properties, for example: alt_host=host1&alt_host=host2&ssl_cipher=%2Fpath%2Fto%2Fcrt'
+            zh_Hans: 数据库属性，例如：alt_host=host1&alt_host=host2&ssl_cipher=%2Fpath%2Fto%2Fcrt
+          label:
+            en_US: Database properties
+            ja_JP: Database properties
+            pt_BR: Database properties
+            zh_Hans: 数据库属性
+          llm_description: ''
+          max: null
+          min: null
+          name: db_properties
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: 'SQL query statement, for example: select * from tbl_name'
+            ja_JP: 'SQL query statement, for example: select * from tbl_name'
+            pt_BR: 'SQL query statement, for example: select * from tbl_name'
+            zh_Hans: SQL查询语句，例如：select * from tbl_name
+          label:
+            en_US: Query SQL
+            ja_JP: Query SQL
+            pt_BR: Query SQL
+            zh_Hans: SQL查询语句
+          llm_description: 'SQL query statement, for example: select * from tbl_name'
+          max: null
+          min: null
+          name: query_sql
+          options: []
+          placeholder: null
+          precision: null
+          required: true
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: markdown
+          form: form
+          human_description:
+            en_US: Used for selecting the output format, markdown or json.
+            ja_JP: Used for selecting the output format, markdown or json.
+            pt_BR: Used for selecting the output format, markdown or json.
+            zh_Hans: 用于选择输出格式，markdown或json。
+          label:
+            en_US: Output format
+            ja_JP: Output format
+            pt_BR: Output format
+            zh_Hans: 输出格式
+          llm_description: ''
+          max: null
+          min: null
+          name: output_format
+          options:
+          - icon: ''
+            label:
+              en_US: MARKDOWN
+              ja_JP: MARKDOWN
+              pt_BR: MARKDOWN
+              zh_Hans: MARKDOWN
+            value: markdown
+          - icon: ''
+            label:
+              en_US: JSON
+              ja_JP: JSON
+              pt_BR: JSON
+              zh_Hans: JSON
+            value: json
+          placeholder: null
+          precision: null
+          required: true
+          scope: null
+          template: null
+          type: select
+        params:
+          db_host: ''
+          db_name: ''
+          db_password: ''
+          db_port: ''
+          db_properties: ''
+          db_type: ''
+          db_username: ''
+          output_format: ''
+          query_sql: ''
+        plugin_id: junjiem/db_query
+        plugin_unique_identifier: junjiem/db_query:0.0.9@1060683d13870d0cb77d47664e5100a16a2029dada24cf1193bc2ce312295764
+        provider_icon: http://172.22.132.124:8081/console/api/workspaces/current/plugin/icon?tenant_id=de79cda4-cae0-4be5-8bff-50ddcacf186f&filename=ce2ce5af47e39e9476fc06eea7fbd05446ad16043d4d16c671e69a3c650a976a.svg
+        provider_id: junjiem/db_query/db_query
+        provider_name: junjiem/db_query/db_query
+        provider_type: builtin
+        selected: false
+        title: SQL查询
+        tool_configurations:
+          output_format:
+            type: constant
+            value: markdown
+        tool_description: 数据库SQL查询工具。
+        tool_label: SQL查询
+        tool_name: sql_query
+        tool_node_version: '2'
+        tool_parameters:
+          db_host:
+            type: mixed
+            value: '{{#env.db_url#}}'
+          db_name:
+            type: mixed
+            value: '{{#env.db_dbname#}}'
+          db_password:
+            type: mixed
+            value: '{{#env.db_password#}}'
+          db_port:
+            type: variable
+            value:
+            - env
+            - db_port
+          db_properties:
+            type: mixed
+            value: /
+          db_type:
+            type: constant
+            value: postgresql
+          db_username:
+            type: mixed
+            value: '{{#env.db_user#}}'
+          query_sql:
+            type: mixed
+            value: '{{#1763715598482.sql#}}'
+        type: tool
+      height: 88
+      id: '1763716264394'
+      position:
+        x: 2112
+        y: 395
+      positionAbsolute:
+        x: 2112
+        y: 395
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        code: "\nfunction main({product, text}) {\n  const md = String(text).replace(/(?<!\\\
+          |)\\n(?!\\|)/g, ' ').replaceAll('\\r', ' ')\n  const lines = md.split('\\\
+          n')\n  const parseRow = (line) => line.trim().replace(/^\\|/, '').replace(/\\\
+          |$/, '').split('|').map(col => col.trim())\n  const head = parseRow(lines[0])\n\
+          \  const body = lines.slice(2)\n  const store_by_id = {}\n  const id = head.findIndex(o\
+          \ => o === 'store_id')\n  body.forEach(line => {\n    const cols = parseRow(line)\n\
+          \    store_by_id[cols[id]] = {}\n    head.forEach((h, i) => {\n      if\
+          \ (h !== 'store_id') {\n        store_by_id[cols[id]][`store_${h}`] = cols[i]\
+          \ || ''\n      }\n    })\n  })\n  const obj = {\n    ...product,\n    ...(store_by_id[product.store_id]\
+          \ || {})\n  }\n  const res = Object.entries(obj)\n    .map(([key, val])\
+          \ => `${key}: ${val}`)\n    .join('; ')\n  const result = `您选择了产品：${obj.name}（价格：${obj.price}元），它来自门店：${obj.store_name}（营业时间：${obj.store_time}）。\\\
+          n产品简介：${obj.description}\\n门店简介：${obj.store_desciption}`\n  return {\n \
+          \   product: res,\n    result,\n  }\n}\n"
+        code_language: javascript
+        outputs:
+          product:
+            children: null
+            type: string
+          result:
+            children: null
+            type: string
+        selected: false
+        title: 处理门店查询
+        type: code
+        variables:
+        - value_selector:
+          - '1763715598482'
+          - product
+          value_type: object
+          variable: product
+        - value_selector:
+          - '1763716264394'
+          - text
+          value_type: string
+          variable: text
+      height: 52
+      id: '1763716312802'
+      position:
+        x: 2454
+        y: 413
+      positionAbsolute:
+        x: 2454
+        y: 413
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        items:
+        - input_type: variable
+          operation: clear
+          value: ''
+          variable_selector:
+          - conversation
+          - history
+          write_mode: over-write
+        selected: false
+        title: 清空历史
+        type: assigner
+        version: '2'
+      height: 84
+      id: '1763718193958'
+      position:
+        x: 1046
+        y: 296
+      positionAbsolute:
+        x: 1046
+        y: 296
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        answer: '{{#1763709116753.res#}}'
+        selected: false
+        title: 直接回答查询结果
+        type: answer
+        variables: []
+      height: 103
+      id: '1763945576147'
+      position:
+        x: 3540
+        y: 394
+      positionAbsolute:
+        x: 3540
+        y: 394
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        answer: '{{#1763714268471.result#}}'
+        selected: false
+        title: 直接回答查询结果
+        type: answer
+        variables: []
+      height: 103
+      id: '1763945707085'
+      position:
+        x: 4224
+        y: 218
+      positionAbsolute:
+        x: 4224
+        y: 218
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        answer: '{{#1763715598482.result#}}'
+        selected: false
+        title: 直接回答选择结果
+        type: answer
+        variables: []
+      height: 103
+      id: '1763946860879'
+      position:
+        x: 2112
+        y: 563
+      positionAbsolute:
+        x: 2112
+        y: 563
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        answer: '{{#1763716312802.result#}}'
+        selected: false
+        title: 直接回答选择结果
+        type: answer
+        variables: []
+      height: 103
+      id: '1763946990362'
+      position:
+        x: 2796
+        y: 387
+      positionAbsolute:
+        x: 2796
+        y: 387
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    viewport:
+      x: 511.9191554556335
+      y: 184.781395217306
+      zoom: 0.5305007982786403
+  rag_pipeline_variables: []

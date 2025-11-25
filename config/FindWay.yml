@@ -1,0 +1,1539 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: advanced-chat
+  name: FindWay
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/ollama:0.0.8@22213ae036605d41ea73bdd16908e03de1b9d5ab4656a49b8fb0343723f4cb4a
+    version: null
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: junjiem/db_query:0.0.9@1060683d13870d0cb77d47664e5100a16a2029dada24cf1193bc2ce312295764
+    version: null
+kind: app
+version: 0.5.0
+workflow:
+  conversation_variables:
+  - description: ''
+    id: ec6d3c4f-84ef-4dd5-b903-694dfcfa4e72
+    name: history
+    selector:
+    - conversation
+    - history
+    value: {}
+    value_type: object
+  environment_variables:
+  - description: 数据库库名
+    id: 56ac13b3-1a9a-44b0-849b-35f41ace4df0
+    name: db_dbname
+    selector:
+    - env
+    - db_dbname
+    value: advantech
+    value_type: string
+  - description: 数据库密码
+    id: 85d9d836-44e9-488c-942d-f10e85604882
+    name: db_password
+    selector:
+    - env
+    - db_password
+    value: $t@k@Pp$
+    value_type: secret
+  - description: 数据库用户名
+    id: c2e75a02-0572-41cf-b838-4c56f6758e35
+    name: db_user
+    selector:
+    - env
+    - db_user
+    value: advantech
+    value_type: string
+  - description: 数据库端口
+    id: 636ea467-3d4a-4abc-a450-4656078c6955
+    name: db_port
+    selector:
+    - env
+    - db_port
+    value: 65432
+    value_type: integer
+  - description: 数据库地址
+    id: fc885452-9c1d-4644-9956-5f948cf275c0
+    name: db_url
+    selector:
+    - env
+    - db_url
+    value: 172.22.132.124
+    value_type: string
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        image_file_size_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: knowledge-retrieval
+        targetType: code
+      id: 1763455017267-source-1763456330302-target
+      source: '1763455017267'
+      sourceHandle: source
+      target: '1763456330302'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: if-else
+      id: 1763456330302-source-1763537072150-target
+      source: '1763456330302'
+      sourceHandle: source
+      target: '1763537072150'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: tool
+      id: 1763537072150-true-1763537100131-target
+      source: '1763537072150'
+      sourceHandle: 'true'
+      target: '1763537100131'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: tool
+        targetType: code
+      id: 1763537100131-source-1763537122273-target
+      source: '1763537100131'
+      sourceHandle: source
+      target: '1763537122273'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: code
+      id: 1763537072150-false-1763537122273-target
+      source: '1763537072150'
+      sourceHandle: 'false'
+      target: '1763537122273'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: llm
+      id: 1763537122273-source-1763541974403-target
+      source: '1763537122273'
+      sourceHandle: source
+      target: '1763541974403'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: code
+      id: 1763541974403-source-1763542717099-target
+      source: '1763541974403'
+      sourceHandle: source
+      target: '1763542717099'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: assigner
+        targetType: answer
+      id: 1763543535398-source-answer-target
+      source: '1763543535398'
+      sourceHandle: source
+      target: answer
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: start
+        targetType: if-else
+      id: 1763454997438-source-1763543585810-target
+      source: '1763454997438'
+      sourceHandle: source
+      target: '1763543585810'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: knowledge-retrieval
+      id: 1763543585810-true-1763455017267-target
+      source: '1763543585810'
+      sourceHandle: 'true'
+      target: '1763455017267'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: code
+      id: 1763543585810-false-1763543663363-target
+      source: '1763543585810'
+      sourceHandle: 'false'
+      target: '1763543663363'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: llm
+      id: 1763543663363-source-1763543636361-target
+      source: '1763543663363'
+      sourceHandle: source
+      target: '1763543636361'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: code
+      id: 1763543636361-source-1763544545262-target
+      source: '1763543636361'
+      sourceHandle: source
+      target: '1763544545262'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: if-else
+      id: 1763542717099-source-1763599040454-target
+      source: '1763542717099'
+      sourceHandle: source
+      target: '1763599040454'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: assigner
+      id: 1763599040454-true-1763543535398-target
+      source: '1763599040454'
+      sourceHandle: 'true'
+      target: '1763543535398'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: assigner
+      id: 1763599040454-false-1763599061830-target
+      source: '1763599040454'
+      sourceHandle: 'false'
+      target: '1763599061830'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: assigner
+        targetType: answer
+      id: 1763599061830-source-answer-target
+      source: '1763599061830'
+      sourceHandle: source
+      target: answer
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: if-else
+      id: 1763544545262-source-1763599680152-target
+      source: '1763544545262'
+      sourceHandle: source
+      target: '1763599680152'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: assigner
+      id: 1763599680152-true-1763599691633-target
+      source: '1763599680152'
+      sourceHandle: 'true'
+      target: '1763599691633'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: assigner
+      id: 1763599680152-false-1763599705501-target
+      source: '1763599680152'
+      sourceHandle: 'false'
+      target: '1763599705501'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: assigner
+        targetType: if-else
+      id: 1763599705501-source-1763544683634-target
+      source: '1763599705501'
+      sourceHandle: source
+      target: '1763544683634'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: assigner
+        targetType: if-else
+      id: 1763599691633-source-1763544683634-target
+      source: '1763599691633'
+      sourceHandle: source
+      target: '1763544683634'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: knowledge-retrieval
+      id: 1763544683634-true-1763455017267-target
+      source: '1763544683634'
+      sourceHandle: 'true'
+      target: '1763455017267'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: answer
+      id: 1763544683634-false-1763545082926-target
+      source: '1763544683634'
+      sourceHandle: 'false'
+      target: '1763545082926'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        selected: false
+        title: 用户输入
+        type: start
+        variables: []
+      height: 73
+      id: '1763454997438'
+      position:
+        x: 0
+        y: 125
+      positionAbsolute:
+        x: 0
+        y: 125
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        answer: '{{#1763542717099.answer#}}'
+        selected: false
+        title: 直接回复
+        type: answer
+        variables: []
+      height: 103
+      id: answer
+      position:
+        x: 5974
+        y: 107
+      positionAbsolute:
+        x: 5974
+        y: 107
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        dataset_ids:
+        - cHh5TQ1kXMref1XKYV9QsnzxSiT27ievcBiXgO0r5cURtVcePfs+6z6DoC0ru3xc
+        multiple_retrieval_config:
+          reranking_enable: false
+          reranking_mode: weighted_score
+          score_threshold: null
+          top_k: 10
+          weights:
+            keyword_setting:
+              keyword_weight: 0
+            vector_setting:
+              embedding_model_name: bge-m3:567m
+              embedding_provider_name: langgenius/ollama/ollama
+              vector_weight: 1
+            weight_type: customized
+        query_variable_selector:
+        - '1763454997438'
+        - sys.query
+        retrieval_mode: multiple
+        selected: false
+        title: 检索产品和门店
+        type: knowledge-retrieval
+      height: 90
+      id: '1763455017267'
+      position:
+        x: 2816
+        y: 56
+      positionAbsolute:
+        x: 2816
+        y: 56
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        code: "\nfunction parseToObject(str) {\n  const obj = {};\n\n  // 只把出现在 行首、分号或换行\
+          \ 后的 \"key:\" 识别为字段名\n  const regex = /(^|;|\\n)\\s*([A-Za-z0-9_]+)\\s*:/g;\n\
+          \  let match;\n  const keys = [];\n\n  while ((match = regex.exec(str))\
+          \ !== null) {\n    // match.index 是整个 match 的起始（包含前缀），\n    // 找到 key 在\
+          \ match[0] 中的偏移以算出 key 的全局起始位置\n    const fullMatch = match[0];\n    const\
+          \ keyName = match[2];\n    const offsetInFull = fullMatch.indexOf(keyName);\n\
+          \    const keyIndex = match.index + offsetInFull;\n    keys.push({ key:\
+          \ keyName, index: keyIndex });\n  }\n\n  for (let i = 0; i < keys.length;\
+          \ i++) {\n    const current = keys[i];\n    const next = keys[i + 1];\n\n\
+          \    const start = current.index + current.key.length + 1; // skip `key:`\n\
+          \    const end = next ? next.index : str.length;\n\n    // 取片段并去掉收尾的分号与空白\n\
+          \    let value = str.slice(start, end).trim();\n    value = value.replace(/^\\\
+          s*;|;\\s*$/g, \"\").trim();\n\n    obj[current.key] = value;\n  }\n\n  return\
+          \ obj;\n}\nfunction main({result}) {\n  const list = Array.from(result).map(o\
+          \ => o.content)\n  const arr = list.map(o => parseToObject(o))\n  const\
+          \ store = arr.filter(o => !Object.keys(o).includes('product_id'))\n  const\
+          \ store_by_id = {}\n  store.forEach(o => {\n    store_by_id[String(o.store_id)]\
+          \ = o\n  })\n  const product = arr.filter(o => Object.keys(o).includes('product_id'))\n\
+          \  const product_store = product.map(o => String(o.store_id))\n  const unique\
+          \ = [...new Set(product_store)]\n  const need_query = unique.filter(n =>\
+          \ !store_by_id[n])\n  let sql = ''\n  if (need_query.length > 0) {\n   \
+          \ sql = `\n      SELECT *\n      FROM test_dify.store\n      WHERE store_id\
+          \ IN (${need_query.join(', ')});\n    `\n  }\n  return {\n    sql,\n  }\n\
+          }"
+        code_language: javascript
+        outputs:
+          sql:
+            children: null
+            type: string
+        selected: false
+        title: 处理检索结果
+        type: code
+        variables:
+        - value_selector:
+          - '1763455017267'
+          - result
+          value_type: array[object]
+          variable: result
+      height: 52
+      id: '1763456330302'
+      position:
+        x: 3156.5714285714284
+        y: 75
+      positionAbsolute:
+        x: 3156.5714285714284
+        y: 75
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: not empty
+            id: f1d9c918-bc18-4733-9328-76658a0f482d
+            value: ''
+            varType: string
+            variable_selector:
+            - '1763456330302'
+            - sql
+          id: 'true'
+          logical_operator: and
+        selected: false
+        title: 是否需要额外查询门店
+        type: if-else
+      height: 124
+      id: '1763537072150'
+      position:
+        x: 3500
+        y: 39
+      positionAbsolute:
+        x: 3500
+        y: 39
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        is_team_authorization: true
+        paramSchemas:
+        - auto_generate: null
+          default: mysql
+          form: llm
+          human_description:
+            en_US: Used for selecting the database type, mysql, oracle, oracle11g,
+              postgresql or mssql.
+            ja_JP: Used for selecting the database type, mysql, oracle, oracle11g,
+              postgresql or mssql.
+            pt_BR: Used for selecting the database type, mysql, oracle, oracle11g,
+              postgresql or mssql.
+            zh_Hans: 用于选择数据库类型，mysql、oracle、oracle11g、postgresql或mssql。
+          label:
+            en_US: Database type
+            ja_JP: Database type
+            pt_BR: Database type
+            zh_Hans: 数据库类型
+          llm_description: ''
+          max: null
+          min: null
+          name: db_type
+          options:
+          - icon: ''
+            label:
+              en_US: MySQL
+              ja_JP: MySQL
+              pt_BR: MySQL
+              zh_Hans: MySQL
+            value: mysql
+          - icon: ''
+            label:
+              en_US: Oracle
+              ja_JP: Oracle
+              pt_BR: Oracle
+              zh_Hans: Oracle
+            value: oracle
+          - icon: ''
+            label:
+              en_US: Oracle11g
+              ja_JP: Oracle11g
+              pt_BR: Oracle11g
+              zh_Hans: Oracle11g
+            value: oracle11g
+          - icon: ''
+            label:
+              en_US: PostgreSQL
+              ja_JP: PostgreSQL
+              pt_BR: PostgreSQL
+              zh_Hans: PostgreSQL
+            value: postgresql
+          - icon: ''
+            label:
+              en_US: Microsoft SQL Server
+              ja_JP: Microsoft SQL Server
+              pt_BR: Microsoft SQL Server
+              zh_Hans: Microsoft SQL Server
+            value: mssql
+          placeholder: null
+          precision: null
+          required: true
+          scope: null
+          template: null
+          type: select
+        - auto_generate: null
+          default: localhost
+          form: llm
+          human_description:
+            en_US: Database hostname or IP address (Original string, not URL-encoded
+              string).
+            ja_JP: Database hostname or IP address (Original string, not URL-encoded
+              string).
+            pt_BR: Database hostname or IP address (Original string, not URL-encoded
+              string).
+            zh_Hans: 数据库的主机名或IP地址（原始字符串，非URL编码字符串）。
+          label:
+            en_US: Database Host
+            ja_JP: Database Host
+            pt_BR: Database Host
+            zh_Hans: 数据库地址
+          llm_description: ''
+          max: null
+          min: null
+          name: db_host
+          options: []
+          placeholder: null
+          precision: null
+          required: true
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: Database port.
+            ja_JP: Database port.
+            pt_BR: Database port.
+            zh_Hans: 数据库的端口。
+          label:
+            en_US: Port
+            ja_JP: Port
+            pt_BR: Port
+            zh_Hans: 端口
+          llm_description: ''
+          max: null
+          min: null
+          name: db_port
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: number
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: Database username (Original string, not URL-encoded string).
+            ja_JP: Database username (Original string, not URL-encoded string).
+            pt_BR: Database username (Original string, not URL-encoded string).
+            zh_Hans: 数据库的用户名（原始字符串，非URL编码字符串）。
+          label:
+            en_US: Username
+            ja_JP: Username
+            pt_BR: Username
+            zh_Hans: 用户名
+          llm_description: ''
+          max: null
+          min: null
+          name: db_username
+          options: []
+          placeholder: null
+          precision: null
+          required: true
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: Database password (Original string, not URL-encoded string).
+            ja_JP: Database password (Original string, not URL-encoded string).
+            pt_BR: Database password (Original string, not URL-encoded string).
+            zh_Hans: 数据库的密码（原始字符串，非URL编码字符串）。
+          label:
+            en_US: Password
+            ja_JP: Password
+            pt_BR: Password
+            zh_Hans: 密码
+          llm_description: ''
+          max: null
+          min: null
+          name: db_password
+          options: []
+          placeholder: null
+          precision: null
+          required: true
+          scope: null
+          template: null
+          type: secret-input
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: Database name (Original string, not URL-encoded string).
+            ja_JP: Database name (Original string, not URL-encoded string).
+            pt_BR: Database name (Original string, not URL-encoded string).
+            zh_Hans: 数据库的名称（原始字符串，非URL编码字符串）。
+          label:
+            en_US: Database name
+            ja_JP: Database name
+            pt_BR: Database name
+            zh_Hans: 库名
+          llm_description: ''
+          max: null
+          min: null
+          name: db_name
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: 'Database properties, for example: alt_host=host1&alt_host=host2&ssl_cipher=%2Fpath%2Fto%2Fcrt'
+            ja_JP: 'Database properties, for example: alt_host=host1&alt_host=host2&ssl_cipher=%2Fpath%2Fto%2Fcrt'
+            pt_BR: 'Database properties, for example: alt_host=host1&alt_host=host2&ssl_cipher=%2Fpath%2Fto%2Fcrt'
+            zh_Hans: 数据库属性，例如：alt_host=host1&alt_host=host2&ssl_cipher=%2Fpath%2Fto%2Fcrt
+          label:
+            en_US: Database properties
+            ja_JP: Database properties
+            pt_BR: Database properties
+            zh_Hans: 数据库属性
+          llm_description: ''
+          max: null
+          min: null
+          name: db_properties
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: 'SQL query statement, for example: select * from tbl_name'
+            ja_JP: 'SQL query statement, for example: select * from tbl_name'
+            pt_BR: 'SQL query statement, for example: select * from tbl_name'
+            zh_Hans: SQL查询语句，例如：select * from tbl_name
+          label:
+            en_US: Query SQL
+            ja_JP: Query SQL
+            pt_BR: Query SQL
+            zh_Hans: SQL查询语句
+          llm_description: 'SQL query statement, for example: select * from tbl_name'
+          max: null
+          min: null
+          name: query_sql
+          options: []
+          placeholder: null
+          precision: null
+          required: true
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: markdown
+          form: form
+          human_description:
+            en_US: Used for selecting the output format, markdown or json.
+            ja_JP: Used for selecting the output format, markdown or json.
+            pt_BR: Used for selecting the output format, markdown or json.
+            zh_Hans: 用于选择输出格式，markdown或json。
+          label:
+            en_US: Output format
+            ja_JP: Output format
+            pt_BR: Output format
+            zh_Hans: 输出格式
+          llm_description: ''
+          max: null
+          min: null
+          name: output_format
+          options:
+          - icon: ''
+            label:
+              en_US: MARKDOWN
+              ja_JP: MARKDOWN
+              pt_BR: MARKDOWN
+              zh_Hans: MARKDOWN
+            value: markdown
+          - icon: ''
+            label:
+              en_US: JSON
+              ja_JP: JSON
+              pt_BR: JSON
+              zh_Hans: JSON
+            value: json
+          placeholder: null
+          precision: null
+          required: true
+          scope: null
+          template: null
+          type: select
+        params:
+          db_host: ''
+          db_name: ''
+          db_password: ''
+          db_port: ''
+          db_properties: ''
+          db_type: ''
+          db_username: ''
+          output_format: ''
+          query_sql: ''
+        plugin_id: junjiem/db_query
+        plugin_unique_identifier: junjiem/db_query:0.0.9@1060683d13870d0cb77d47664e5100a16a2029dada24cf1193bc2ce312295764
+        provider_icon: http://172.22.132.124:8081/console/api/workspaces/current/plugin/icon?tenant_id=de79cda4-cae0-4be5-8bff-50ddcacf186f&filename=ce2ce5af47e39e9476fc06eea7fbd05446ad16043d4d16c671e69a3c650a976a.svg
+        provider_id: junjiem/db_query/db_query
+        provider_name: junjiem/db_query/db_query
+        provider_type: builtin
+        selected: false
+        title: SQL查询门店
+        tool_configurations:
+          output_format:
+            type: constant
+            value: markdown
+        tool_description: 数据库SQL查询工具。
+        tool_label: SQL查询
+        tool_name: sql_query
+        tool_node_version: '2'
+        tool_parameters:
+          db_host:
+            type: mixed
+            value: '{{#env.db_url#}}'
+          db_name:
+            type: mixed
+            value: '{{#env.db_dbname#}}'
+          db_password:
+            type: mixed
+            value: '{{#env.db_password#}}'
+          db_port:
+            type: variable
+            value:
+            - env
+            - db_port
+          db_properties:
+            type: mixed
+            value: null
+          db_type:
+            type: constant
+            value: postgresql
+          db_username:
+            type: mixed
+            value: '{{#env.db_user#}}'
+          query_sql:
+            type: mixed
+            value: '{{#1763456330302.sql#}}'
+        type: tool
+      height: 88
+      id: '1763537100131'
+      position:
+        x: 3875.0582584494414
+        y: -191.521123925147
+      positionAbsolute:
+        x: 3875.0582584494414
+        y: -191.521123925147
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        code: "\nfunction parseToObject(str) {\n  const obj = {};\n\n  // 只把出现在 行首、分号或换行\
+          \ 后的 \"key:\" 识别为字段名\n  const regex = /(^|;|\\n)\\s*([A-Za-z0-9_]+)\\s*:/g;\n\
+          \  let match;\n  const keys = [];\n\n  while ((match = regex.exec(str))\
+          \ !== null) {\n    // match.index 是整个 match 的起始（包含前缀），\n    // 找到 key 在\
+          \ match[0] 中的偏移以算出 key 的全局起始位置\n    const fullMatch = match[0];\n    const\
+          \ keyName = match[2];\n    const offsetInFull = fullMatch.indexOf(keyName);\n\
+          \    const keyIndex = match.index + offsetInFull;\n    keys.push({ key:\
+          \ keyName, index: keyIndex });\n  }\n\n  for (let i = 0; i < keys.length;\
+          \ i++) {\n    const current = keys[i];\n    const next = keys[i + 1];\n\n\
+          \    const start = current.index + current.key.length + 1; // skip `key:`\n\
+          \    const end = next ? next.index : str.length;\n\n    // 取片段并去掉收尾的分号与空白\n\
+          \    let value = str.slice(start, end).trim();\n    value = value.replace(/^\\\
+          s*;|;\\s*$/g, \"\").trim();\n\n    obj[current.key] = value;\n  }\n\n  return\
+          \ obj;\n}\nfunction main({result, text}) {\n  let stores = []\n  if (!!text)\
+          \ {\n    const md = String(text).replace(/(?<!\\|)\\n(?!\\|)/g, ' ').replaceAll('\\\
+          r', ' ')\n    const lines = md.split('\\n')\n    const parseRow = (line)\
+          \ => line.trim().replace(/^\\|/, '').replace(/\\|$/, '').split('|').map(col\
+          \ => col.trim())\n    const head = parseRow(lines[0])\n    const body =\
+          \ lines.slice(2)\n    stores = body.map(line => {\n      const cols = parseRow(line)\n\
+          \      const obj = {}\n      head.forEach((h, i) => {\n        obj[h] =\
+          \ cols[i] ?? \"\";\n      })\n      return obj\n    })\n  }\n  const list\
+          \ = Array.from(result).map(o => o.content)\n  const arr = list.map(o =>\
+          \ parseToObject(o))\n  const store = arr.filter(o => !Object.keys(o).includes('product_id'))\n\
+          \  const store_by_id = {}\n  store.forEach(o => {\n    const obj = {}\n\
+          \    obj.store_id = o.store_id\n    Object.keys(o).forEach(key => {\n  \
+          \    if (key !== 'store_id') {\n        obj[`store_${key}`] = o[key]\n \
+          \     }\n    })\n    store_by_id[String(o.store_id)] = obj\n  })\n  stores.forEach(o\
+          \ => {\n    const obj = {}\n    obj.store_id = o.store_id\n    Object.keys(o).forEach(key\
+          \ => {\n      if (key !== 'store_id') {\n        obj[`store_${key}`] = o[key]\n\
+          \      }\n    })\n    store_by_id[String(o.store_id)] = obj\n  })\n  const\
+          \ product = arr.filter(o => Object.keys(o).includes('product_id')).map(o\
+          \ => {\n    return {\n      ...o,\n      ...(store_by_id[o.store_id] ||\
+          \ {})\n    }\n  })\n  const str_s = store.map(obj => {\n    return Object.entries(obj)\n\
+          \      .map(([key, val]) => `${key}: ${val}`)\n      .join('; ')\n  })\n\
+          \  const str_p = product.map(obj => {\n    return Object.entries(obj)\n\
+          \      .map(([key, val]) => `${key}: ${val}`)\n      .join('; ')\n  })\n\
+          \  return {\n    store: str_s,\n    product: str_p,\n    store_obj: store,\n\
+          \    product_obj: product,\n  }\n}"
+        code_language: javascript
+        outputs:
+          product:
+            children: null
+            type: array[string]
+          product_obj:
+            children: null
+            type: array[object]
+          store:
+            children: null
+            type: array[string]
+          store_obj:
+            children: null
+            type: array[object]
+        selected: false
+        title: 整合结果
+        type: code
+        variables:
+        - value_selector:
+          - '1763537100131'
+          - text
+          value_type: string
+          variable: text
+        - value_selector:
+          - '1763455017267'
+          - result
+          value_type: array[object]
+          variable: result
+      height: 52
+      id: '1763537122273'
+      position:
+        x: 4224
+        y: 103
+      positionAbsolute:
+        x: 4224
+        y: 103
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        model:
+          completion_params:
+            num_ctx: 20480
+            temperature: 0
+          mode: chat
+          name: qwen3:8b
+          provider: langgenius/ollama/ollama
+        prompt_template:
+        - id: f88d6267-561b-42de-a5bf-352f9ebd9a70
+          role: system
+          text: "你是一个智能产品与门店筛选助手，请在 **一次处理** 中完成以下任务，并严格遵守所有规则。\n\n---\n\n## 1️⃣ 严格筛选相关结果\n\
+            \n* **仅根据用户问题进行筛选，不得更改、补充、推测或修正任何产品或门店数据。**\n* 输出必须是严格 JSON，结构如下：\n\n\
+            ```json\n{\n  \"product\": [product_id...],\n  \"store\": [store_id...],\n\
+            \  \"need_confirm\": true,\n  \"answer\": \"\"\n}\n```\n\n字段说明：\n\n* `product`：筛选后的\
+            \ **product_id 数组**（只返回 product_id，不返回其他字段）\n* `store`：筛选后的 **store_id\
+            \ 数组**（只返回 store_id，不返回其他字段）\n* `need_confirm`：是否需要用户进一步确认\n* `answer`：最终给用户的自然语言回答文本\n\
+            \n要求：\n\n* 保留与所有用户问题明确相关的产品与门店 ID，不要遗漏。\n* 不得修改数据内容，只能保留或剔除。\n* 如果无任何匹配：\n\
+            \  `product = []`, `store = []`, `need_confirm = false`，并在 `answer` 中提示用户需要进一步说明。\n\
+            \n---\n\n## 2️⃣ 回答生成逻辑（基于筛选结果，不可修改数据）\n\n### （1）用户询问门店\n\n* **单一结果**：请结合门店具体信息回答，`need_confirm\
+            \ = false`\n* **多个结果**：列出候选门店信息清单，请用户选择，`need_confirm = true`\n\n### （2）用户询问产品\n\
+            \n* **单一结果**：请结合产品具体信息和所在门店的具体信息回答，务必带上门店信息，`need_confirm = false`\n*\
+            \ **多个结果**：列出候选产品信息清单，请用户选择，`need_confirm = true`\n\n### （3）混合场景\n\n*\
+            \ 用户找产品 → 优先筛选产品，并根据需要筛选相关门店\n* 用户找门店 → 优先筛选门店，并根据需要筛选相关产品\n* 全程禁止修改任何产品或门店字段内容\n\
+            \n---\n\n## ⚠️ 必须遵守的规则\n\n* **禁止修改产品或门店数据。只允许筛选或排除。**\n* **product 与 store\
+            \ 字段只允许返回对应 ID，不得返回完整对象。**\n* JSON 只能包含：`product`、`store`、`need_confirm`、`answer`\
+            \ 四个字段。\n* 外层必须使用 ```json 包裹。\n* JSON 中不得包含注释或额外文本。必须严格可解析。"
+        - id: aa62c6dc-fee9-4143-af13-156087fdfe24
+          role: user
+          text: '用户问题：
+
+            {{#sys.query#}}
+
+
+            产品检索结果：
+
+            {{#1763537122273.product#}}
+
+
+            门店检索结果：
+
+            {{#1763537122273.store#}}'
+        selected: false
+        title: LLM 筛选
+        type: llm
+        vision:
+          enabled: false
+      height: 88
+      id: '1763541974403'
+      position:
+        x: 4566
+        y: 83.57142857142858
+      positionAbsolute:
+        x: 4566
+        y: 83.57142857142858
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        code: "\nfunction handleLLM(text) {\n  const regex = /```json([\\s\\S]*?)```/\n\
+          \  const _res = text.replaceAll(/<think>[\\s\\S]*?<\\/think>/g, '')\n  const\
+          \ match = _res.match(regex);\n  const res = !!match ? match[1].trim() :\
+          \ _res\n  const str = res.replaceAll(/\\/\\/.*$/gm, '').replaceAll(/\\/\\\
+          *[\\s\\S]*?\\*\\//g, '')\n  let obj\n  try {\n    obj = JSON.parse(str)\n\
+          \  } catch (e) {\n    obj = {}\n  }\n  return obj\n}\nfunction main({text,\
+          \ query, store_obj, product_obj}) {\n  const obj = handleLLM(text)\n  const\
+          \ product_id = {}\n  Array.from(product_obj).forEach(o => {\n    product_id[o.product_id]\
+          \ = o\n  })\n  const store_id = {}\n  Array.from(store_obj).forEach(o =>\
+          \ {\n    store_id[o.store_id] = o\n  })\n  const product = Array.isArray(obj.product)\
+          \ ? Array.from(obj.product) : []\n  const store = Array.isArray(obj.store)\
+          \ ? Array.from(obj.store) : []\n  const answer = obj.answer\n  const need\
+          \ = !!obj.need_confirm\n  const str_s = store.map(id => {\n    const obj\
+          \ = store_id[id] || {}\n    return Object.entries(obj)\n      .map(([key,\
+          \ val]) => `${key}: ${val}`)\n      .join('; ')\n  })\n  const str_p = product.map(id\
+          \ => {\n    const obj = product_id[id] || {}\n    return Object.entries(obj)\n\
+          \      .map(([key, val]) => `${key}: ${val}`)\n      .join('; ')\n  })\n\
+          \  const history = {\n    question: query,\n    answer,\n    product: str_p,\n\
+          \    store: str_s,\n  }\n  return {\n    history,\n    answer,\n    need,\n\
+          \  }\n}\n"
+        code_language: javascript
+        outputs:
+          answer:
+            children: null
+            type: string
+          history:
+            children: null
+            type: object
+          need:
+            children: null
+            type: boolean
+        selected: false
+        title: 处理筛选结果
+        type: code
+        variables:
+        - value_selector:
+          - '1763541974403'
+          - text
+          value_type: string
+          variable: text
+        - value_selector:
+          - sys
+          - query
+          value_type: string
+          variable: query
+        - value_selector:
+          - '1763537122273'
+          - product_obj
+          value_type: array[object]
+          variable: product_obj
+        - value_selector:
+          - '1763537122273'
+          - store_obj
+          value_type: array[object]
+          variable: store_obj
+      height: 52
+      id: '1763542717099'
+      position:
+        x: 4908
+        y: 103
+      positionAbsolute:
+        x: 4908
+        y: 103
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        items:
+        - input_type: variable
+          operation: over-write
+          value:
+          - '1763542717099'
+          - history
+          variable_selector:
+          - conversation
+          - history
+          write_mode: over-write
+        selected: false
+        title: 缓存
+        type: assigner
+        version: '2'
+      height: 84
+      id: '1763543535398'
+      position:
+        x: 5612
+        y: 99
+      positionAbsolute:
+        x: 5612
+        y: 99
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: empty
+            id: ddefa884-a114-42eb-b2d8-f2aee29deb3c
+            value: ''
+            varType: object
+            variable_selector:
+            - conversation
+            - history
+          id: 'true'
+          logical_operator: and
+        selected: false
+        title: 判断是否存在历史
+        type: if-else
+      height: 124
+      id: '1763543585810'
+      position:
+        x: 342
+        y: 100
+      positionAbsolute:
+        x: 342
+        y: 100
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        model:
+          completion_params:
+            num_ctx: 20480
+            temperature: 0
+          mode: chat
+          name: qwen3:8b
+          provider: langgenius/ollama/ollama
+        prompt_template:
+        - id: 2a6ef545-d78e-4a7e-b8c5-109e8b0ad200
+          role: system
+          text: "你是一个智能产品和门店助手，请在一次处理里完成以下任务：\n\n已知：\n上一轮对话问题：{{#1763543663363.question#}}\n\
+            上一轮对话回答：{{#1763543663363.answer#}}\n上一轮产品检索结果：\n{{#1763543663363.product#}}\n\
+            上一轮门店检索结果：\n{{#1763543663363.store#}}\n\n本轮用户输入：{{#sys.query#}}\n\n---\n\
+            \n## \U0001F3AF 任务说明\n\n请基于以上信息进行判断，并输出 **严格 JSON**（只允许 JSON，不要输出任何额外文字）。\n\
+            最外层需由 ```json ```包裹，确保可解析。\n\n---\n\n## \U0001F9E9 JSON 字段要求\n\n### 1.\
+            \ `action` —— 判断类型\n\n可取值：\n\n* `\"direct_answer\"` → 满足条件的产品/门店只剩一个，可直接回答\n\
+            * `\"further_filter\"` →  满足条件的产品/门店不止一个，需要根据用户进一步筛选产品/门店\n* `\"unrelated\"\
+            ` → 本轮问题与上一轮无关，需要重新开始\n\n---\n\n### 2. `product` / `store` —— 进一步筛选的结果\n\
+            \n* `product`:\n  本轮筛选到的 **product_id 数组**（仅返回 product_id，不返回其他字段，不得修改内容）\n\
+            \n* `store`:\n  本轮筛选到的 **store_id 数组**（仅返回 store_id，不返回其他字段，不得修改内容）\n\n\
+            对于 `action = \"unrelated\"` 时，这两个字段可以返回空数组。\n\n---\n\n### 3. `answer`\
+            \ —— 最终给用户的自然语言回答文本\n\n请根据 `action` 类型自动生成对应内容：\n\n* 若 `action = \"direct_answer\"\
+            `\n  → 如果用户问门店：请结合门店具体信息回答\n  → 如果用户问产品：请结合产品具体信息和所在门店的具体信息回答，务必带上门店信息\n\
+            \  → 正确理解产品和门店信息，不要误解、编造信息\n\n* 若 `action = \"further_filter\"`\n  → 在\
+            \ `answer` 中说明：\n\n    * 用户当前意图\n    * 为什么需要进一步筛选\n    * 如果问门店：列出筛选到门店信息清单供用户选择\n\
+            \    * 如果问产品：列出筛选到产品信息清单供用户选择\n\n* 若 `action = \"unrelated\"`\n  → 在 `answer`\
+            \ 中说明流程已重置，请用户重新描述需求\n\n---\n\n## ⚠️ 注意事项（必须遵守）\n\n* **整段输出必须是严格 JSON，且只有\
+            \ JSON，没有任何额外文字。**\n* JSON 外层必须使用 ```json ``` 包裹。\n* JSON 必须可解析，不允许出现注释或多余符号。\n\
+            * **product 只返回 product_id 数组，store 只返回 store_id 数组**。\n* **禁止修改产品或门店原始数据，只能筛选或排除。**"
+        selected: false
+        title: LLM 处理缓存
+        type: llm
+        vision:
+          enabled: false
+      height: 88
+      id: '1763543636361'
+      position:
+        x: 1058.857142857143
+        y: 294.42857142857144
+      positionAbsolute:
+        x: 1058.857142857143
+        y: 294.42857142857144
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        code: "\nfunction parseToObject(str) {\n  const obj = {};\n\n  // 只把出现在 行首、分号或换行\
+          \ 后的 \"key:\" 识别为字段名\n  const regex = /(^|;|\\n)\\s*([A-Za-z0-9_]+)\\s*:/g;\n\
+          \  let match;\n  const keys = [];\n\n  while ((match = regex.exec(str))\
+          \ !== null) {\n    // match.index 是整个 match 的起始（包含前缀），\n    // 找到 key 在\
+          \ match[0] 中的偏移以算出 key 的全局起始位置\n    const fullMatch = match[0];\n    const\
+          \ keyName = match[2];\n    const offsetInFull = fullMatch.indexOf(keyName);\n\
+          \    const keyIndex = match.index + offsetInFull;\n    keys.push({ key:\
+          \ keyName, index: keyIndex });\n  }\n\n  for (let i = 0; i < keys.length;\
+          \ i++) {\n    const current = keys[i];\n    const next = keys[i + 1];\n\n\
+          \    const start = current.index + current.key.length + 1; // skip `key:`\n\
+          \    const end = next ? next.index : str.length;\n\n    // 取片段并去掉收尾的分号与空白\n\
+          \    let value = str.slice(start, end).trim();\n    value = value.replace(/^\\\
+          s*;|;\\s*$/g, \"\").trim();\n\n    obj[current.key] = value;\n  }\n\n  return\
+          \ obj;\n}\nfunction main({history}) {\n  const product = Array.from(history.product).map(o\
+          \ => typeof o === 'string' ? o : JSON.stringify(o))\n  const store = Array.from(history.store).map(o\
+          \ => typeof o === 'string' ? o : JSON.stringify(o))\n  const product_obj\
+          \ = product.map(o => parseToObject(o))\n  const store_obj = store.map(o\
+          \ => parseToObject(o))\n  return {\n    question: history.question,\n  \
+          \  answer: history.answer,\n    product,\n    store,\n    product_obj,\n\
+          \    store_obj,\n  }\n}\n"
+        code_language: javascript
+        outputs:
+          answer:
+            children: null
+            type: string
+          product:
+            children: null
+            type: array[string]
+          product_obj:
+            children: null
+            type: array[object]
+          question:
+            children: null
+            type: string
+          store:
+            children: null
+            type: array[string]
+          store_obj:
+            children: null
+            type: array[object]
+        selected: false
+        title: 解析缓存
+        type: code
+        variables:
+        - value_selector:
+          - conversation
+          - history
+          value_type: object
+          variable: history
+      height: 52
+      id: '1763543663363'
+      position:
+        x: 708.2857142857142
+        y: 294.42857142857144
+      positionAbsolute:
+        x: 708.2857142857142
+        y: 294.42857142857144
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        code: "\nfunction handleLLM(text) {\n  const regex = /```json([\\s\\S]*?)```/\n\
+          \  const _res = text.replaceAll(/<think>[\\s\\S]*?<\\/think>/g, '')\n  const\
+          \ match = _res.match(regex);\n  const res = !!match ? match[1].trim() :\
+          \ _res\n  const str = res.replaceAll(/\\/\\/.*$/gm, '').replaceAll(/\\/\\\
+          *[\\s\\S]*?\\*\\//g, '')\n  let obj\n  try {\n    obj = JSON.parse(str)\n\
+          \  } catch (e) {\n    obj = {}\n  }\n  return obj\n}\nfunction main({text,\
+          \ query, store_obj, product_obj}) {\n  const obj = handleLLM(text)\n  const\
+          \ action = obj.action\n  const product_id = {}\n  Array.from(product_obj).forEach(o\
+          \ => {\n    product_id[o.product_id] = o\n  })\n  const store_id = {}\n\
+          \  Array.from(store_obj).forEach(o => {\n    store_id[o.store_id] = o\n\
+          \  })\n  const product = Array.isArray(obj.product) ? Array.from(obj.product)\
+          \ : []\n  const store = Array.isArray(obj.store) ? Array.from(obj.store)\
+          \ : []\n  const answer = obj.answer\n  const need = action === 'further_filter'\n\
+          \  const str_s = store.map(id => {\n    const obj = store_id[id] || {}\n\
+          \    return Object.entries(obj)\n      .map(([key, val]) => `${key}: ${val}`)\n\
+          \      .join('; ')\n  })\n  const str_p = product.map(id => {\n    const\
+          \ obj = product_id[id] || {}\n    return Object.entries(obj)\n      .map(([key,\
+          \ val]) => `${key}: ${val}`)\n      .join('; ')\n  })\n  const history =\
+          \ {\n    question: query,\n    answer,\n    product: str_p,\n    store:\
+          \ str_s,\n  }\n  return {\n    action,\n    need,\n    history,\n    answer,\n\
+          \  }\n}\n"
+        code_language: javascript
+        outputs:
+          action:
+            children: null
+            type: string
+          answer:
+            children: null
+            type: string
+          history:
+            children: null
+            type: object
+          need:
+            children: null
+            type: boolean
+        selected: false
+        title: 处理结果
+        type: code
+        variables:
+        - value_selector:
+          - '1763543636361'
+          - text
+          value_type: string
+          variable: text
+        - value_selector:
+          - sys
+          - query
+          value_type: string
+          variable: query
+        - value_selector:
+          - '1763543663363'
+          - product_obj
+          value_type: array[object]
+          variable: product_obj
+        - value_selector:
+          - '1763543663363'
+          - store_obj
+          value_type: array[object]
+          variable: store_obj
+      height: 52
+      id: '1763544545262'
+      position:
+        x: 1400.857142857143
+        y: 294.42857142857144
+      positionAbsolute:
+        x: 1400.857142857143
+        y: 294.42857142857144
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: is
+            id: e33b8c07-358c-48dd-9ce1-ef4ea870004f
+            value: unrelated
+            varType: string
+            variable_selector:
+            - '1763544545262'
+            - action
+          id: 'true'
+          logical_operator: and
+        selected: false
+        title: 判断是否直接回答
+        type: if-else
+      height: 124
+      id: '1763544683634'
+      position:
+        x: 2446.8571428571427
+        y: 238.4285714285714
+      positionAbsolute:
+        x: 2446.8571428571427
+        y: 238.4285714285714
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        answer: '{{#1763544545262.answer#}}'
+        selected: false
+        title: 直接回复 3
+        type: answer
+        variables: []
+      height: 103
+      id: '1763545082926'
+      position:
+        x: 2816
+        y: 379.5714285714286
+      positionAbsolute:
+        x: 2816
+        y: 379.5714285714286
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: is
+            id: b649b90f-b6d7-4ec4-b8fe-571477d21ebc
+            value: true
+            varType: boolean
+            variable_selector:
+            - '1763542717099'
+            - need
+          id: 'true'
+          logical_operator: and
+        selected: false
+        title: 判断是否清空缓存
+        type: if-else
+      height: 124
+      id: '1763599040454'
+      position:
+        x: 5250
+        y: 67
+      positionAbsolute:
+        x: 5250
+        y: 67
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        items:
+        - input_type: variable
+          operation: clear
+          value: ''
+          variable_selector:
+          - conversation
+          - history
+          write_mode: over-write
+        selected: false
+        title: 清空缓存
+        type: assigner
+        version: '2'
+      height: 84
+      id: '1763599061830'
+      position:
+        x: 5612
+        y: 263
+      positionAbsolute:
+        x: 5612
+        y: 263
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: is
+            id: 4abbe569-d014-4eda-a99c-673e9e9601f1
+            value: true
+            varType: boolean
+            variable_selector:
+            - '1763544545262'
+            - need
+          id: 'true'
+          logical_operator: and
+        selected: false
+        title: 判断是否清空缓存
+        type: if-else
+      height: 124
+      id: '1763599680152'
+      position:
+        x: 1738.5714285714284
+        y: 294.42857142857144
+      positionAbsolute:
+        x: 1738.5714285714284
+        y: 294.42857142857144
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        items:
+        - input_type: variable
+          operation: over-write
+          value:
+          - '1763544545262'
+          - history
+          variable_selector:
+          - conversation
+          - history
+          write_mode: over-write
+        selected: false
+        title: 缓存
+        type: assigner
+        version: '2'
+      height: 84
+      id: '1763599691633'
+      position:
+        x: 2072
+        y: 238.4285714285714
+      positionAbsolute:
+        x: 2072
+        y: 238.4285714285714
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        items:
+        - input_type: variable
+          operation: clear
+          value: ''
+          variable_selector:
+          - conversation
+          - history
+          write_mode: over-write
+        selected: false
+        title: 清空缓存
+        type: assigner
+        version: '2'
+      height: 84
+      id: '1763599705501'
+      position:
+        x: 2076.2857142857147
+        y: 379.5714285714286
+      positionAbsolute:
+        x: 2076.2857142857147
+        y: 379.5714285714286
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    viewport:
+      x: -72.71229676863459
+      y: 275.51043893699295
+      zoom: 0.25
+  rag_pipeline_variables: []
