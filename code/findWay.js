@@ -18,8 +18,11 @@ function handleLLM(text) {
 function main({text, query}) {
   const obj = handleLLM(text)
   const find = obj.find || ''
-  const answer = obj.text || ''
+  const description = obj.text || ''
   const tran = obj.tran || query
+  const answer = {
+    description
+  }
   return {
     find,
     answer,
@@ -97,7 +100,9 @@ function main({result, find}) {
   const need_query = Array.from(new Set(filter.map(o => o.store_name))).map(o => `'${o}'`)
   const sql = `SELECT * FROM test_dify.space WHERE child_space_name IN (${need_query.join(', ')});`
   return {
-    answer,
+    answer: {
+      description: answer
+    },
     filter,
     need_filter,
     sql,
@@ -133,8 +138,10 @@ function main({text, filter, find}) {
   const result = Array.from(filter).map(o => {
     return {
       ...o,
-      map: space_by_name[o.store_name].space_property || '',
-      space: space_by_name[o.store_name].child_space_property || '',
+      space_id: space_by_name[o.store_name].space_id || '',
+      space_name: space_by_name[o.store_name].space_name || '',
+      child_space_id: space_by_name[o.store_name].child_space_id || '',
+      child_space_name: space_by_name[o.store_name].child_space_name || '',
     }
   })
   const history = {
@@ -143,14 +150,21 @@ function main({text, filter, find}) {
   }
   let res = ''
   if (find === 'store') {
-    res = `已为您找到门店：${filter[0].store_name}。它的营业时间是：${filter[0].store_time}。\n门店简介：${filter[0].store_desciption}\n地图信息：${result[0].map}\n门店位置：${result[0].space}`
+    res = `已为您找到门店：${filter[0].store_name}。它的营业时间是：${filter[0].store_time}。\n门店简介：${filter[0].store_desciption}`
   }
   if (find === 'product') {
-    res = `已为您找到产品：${filter[0].name}（价格：${filter[0].price}元），它来自门店：${filter[0].store_name}（营业时间：${filter[0].store_time}）。\n产品简介：${filter[0].description}\n门店简介：${filter[0].store_desciption}\n地图信息：${result[0].map}\n门店位置：${result[0].space}`
+    res = `已为您找到产品：${filter[0].name}（价格：${filter[0].price}元），它来自门店：${filter[0].store_name}（营业时间：${filter[0].store_time}）。\n产品简介：${filter[0].description}\n门店简介：${filter[0].store_desciption}`
+  }
+  const answer = {
+    space_id: result[0].space_id,
+    space_name: result[0].space_name,
+    child_space_id: result[0].child_space_id,
+    child_space_name: result[0].child_space_name,
+    description: res
   }
   return {
     history,
-    res,
+    answer,
   }
 }
 
@@ -164,14 +178,48 @@ function main({query, history}) {
   const new_question = Number.isNaN(index) || !filter
   let result = ''
   if (!!filter && find === 'store') {
-    result = `您选择了门店：${filter.store_name}。它的营业时间是：${filter.store_time}。\n门店简介：${filter.store_desciption}\n地图信息：${filter.map}\n门店位置：${filter.space}`
+    result = `您选择了门店：${filter.store_name}。它的营业时间是：${filter.store_time}。\n门店简介：${filter.store_desciption}`
   }
   if (!!filter && find === 'product') {
-    result = `您选择了产品：${filter.name}（价格：${filter.price}元），它来自门店：${filter.store_name}（营业时间：${filter.store_time}）。\n产品简介：${filter.description}\n门店简介：${filter.store_desciption}\n地图信息：${filter.map}\n门店位置：${filter.space}`
+    result = `您选择了产品：${filter.name}（价格：${filter.price}元），它来自门店：${filter.store_name}（营业时间：${filter.store_time}）。\n产品简介：${filter.description}\n门店简介：${filter.store_desciption}`
+  }
+  const answer = {
+    space_id: filter?.space_id ?? '',
+    space_name: filter?.space_name ?? '',
+    child_space_id: filter?.child_space_id ?? '',
+    child_space_name: filter?.child_space_name ?? '',
+    description: result
   }
   return {
     new_question,
-    result,
+    answer,
+  }
+}
+
+//#endregion
+//#region 处理检索
+
+function main({result}) {
+  let content = ''
+  let chunk = ''
+  if (Array.from(result).length > 0) {
+    content = result[0].content
+    chunk = result[0]?.metadata?.child_chunks?.[0]?.content ?? ''
+  }
+  return {
+    content,
+    chunk,
+  }
+}
+//#endregion
+//#region 处理回答
+
+function main({text}) {
+  const answer = {
+    description: text
+  }
+  return {
+    answer
   }
 }
 
