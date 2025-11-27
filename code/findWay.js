@@ -62,6 +62,9 @@ function parseToObject(str) {
     let value = str.slice(start, end).trim();
     value = value.replace(/^\s*;|;\s*$/g, "").trim();
 
+    // 清除 value 末尾的 (数字)
+    value = value.replace(/\(\d+\)\s*$/, "").trim();
+
     obj[current.key] = value;
   }
 

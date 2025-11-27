@@ -32,7 +32,7 @@ function main({body, body_i}) {
         parent_mode: 'paragraph',
         subchunk_segmentation: {
           separator: ';',
-          max_tokens: 100,
+          max_tokens: 1000,
           chunk_overlap: 0
         }
       },
@@ -77,23 +77,23 @@ function parseMd(text) {
     const obj = {}
     const arr = parseRow(line)
     head.forEach((key, index) => {
-      obj[key] = arr[index]
+      obj[key] = String(arr[index]).replaceAll(';', '：')
     })
     return obj
   })
 }
 function toMarkdownTable(arr) {
-  if (!arr.length) return '';
+  if (!arr.length) return ''
 
-  const headers = Object.keys(arr[0]);
-  const headerRow = `| ${headers.join(' | ')} |`;
-  const separator = `| ${headers.map(() => '---').join(' | ')} |`;
+  const headers = Object.keys(arr[0])
+  const headerRow = `| ${headers.join(' | ')} |`
+  const separator = `| ${headers.map(() => '---').join(' | ')} |`
 
   const rows = arr.map(obj =>
     `| ${headers.map(h => obj[h] ?? '').join(' | ')} |`
-  );
+  )
 
-  return [headerRow, separator, ...rows].join('\n');
+  return [headerRow, separator, ...rows].join('\n')
 }
 function main({text, text_p}) {
   const list_s = parseMd(text)
@@ -107,11 +107,33 @@ function main({text, text_p}) {
       }
     })
   })
+  const check = {}
   const product = list_p.map(o => {
-    return {
+    const obj = {
       ...o,
       ...(store_by_id[o.store_id] || {})
     }
+    const new_obj = {}
+    Object.keys(Object(obj)).forEach(key => {
+      let new_key = key
+      let new_value = obj[key]
+      if (!['product_id', 'store_id'].includes(key)) {
+        if (!key.startsWith('store_')) {
+          new_key = `product_${key}`
+        }
+        const key_value = `${key}:${obj[key]}`
+        if (!check[key_value]) {
+          check[key_value] = 1
+        } else {
+          check[key_value] += 1
+        }
+        if (check[key_value] > 1) {
+          new_value += `(${check[key_value] - 1})`
+        }
+      }
+      new_obj[new_key] = new_value
+    })
+    return new_obj
   })
   const table = toMarkdownTable(product)
   const name = 'product'
