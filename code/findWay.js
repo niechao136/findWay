@@ -73,10 +73,24 @@ function main({result}) {
   if (Array.from(result).length > 0) {
     chunk = result[0]?.metadata?.child_chunks?.[0]?.content ?? ''
   }
+  const store = []
+  const check = {}
+  list.forEach(obj => {
+    if (check[obj.store_id] === undefined) {
+      check[obj.store_id] = store.length
+      store.push({
+        store_id: obj.store_id,
+        description: obj.store_desciption,
+        product: [],
+      })
+    }
+    store[check[obj.store_id]].product.push(obj.product_name)
+  })
   return {
     list,
     sql,
     chunk,
+    store,
   }
 }
 
@@ -100,11 +114,15 @@ function parseMd(text) {
     return obj
   })
 }
-function main({text, list, intent}) {
+function main({text, list, intent, output, store}) {
   const space = parseMd(text)
   const space_by_name = {}
   space.forEach(obj => {
     space_by_name[obj.child_space_name] = obj
+  })
+  const dear_by_id = {}
+  Array.from(store).forEach((obj, index) => {
+    dear_by_id[obj.store_id] = output[index]
   })
   const result = Array.from(list).map(o => {
     return {
@@ -117,6 +135,8 @@ function main({text, list, intent}) {
   })
   const filter = []
   const check = {}
+  const list_answer = '根據你的提問，以下商店可能符合你的需求'
+  const target_answer = '根據你的提問，已找到相關資訊'
   result.forEach(obj => {
     if (check[obj.store_id] === undefined) {
       check[obj.store_id] = filter.length
@@ -126,7 +146,7 @@ function main({text, list, intent}) {
         child_space_id: obj.child_space_id,
         child_space_name: obj.child_space_name,
         time: obj.store_time,
-        description: obj.store_desciption,
+        description: dear_by_id[obj.store_id] ?? obj.store_desciption,
         product: []
       })
     }
@@ -144,7 +164,7 @@ function main({text, list, intent}) {
   }
   const need_filter = filter.length > 1
   const answer = {
-    AI_reply: '',
+    AI_reply: need_filter ? list_answer : target_answer,
     info: filter,
   }
   return {
@@ -162,7 +182,7 @@ function main({query, history}) {
   const filter = history.result?.[index] ?? null
   const new_question = Number.isNaN(index) || !filter
   const answer = {
-    AI_reply: '',
+    AI_reply: '根據你的提問，已找到相關資訊',
     info: [filter],
   }
   return {
@@ -195,6 +215,18 @@ function main({text}) {
   }
   return {
     answer
+  }
+}
+
+//#endregion
+//#region 处理门店信息
+
+function main({item}) {
+  const description = String(item?.description ?? '')
+  const product = Array.isArray(item?.product) ? Array.from(item.product) : []
+  return {
+    description,
+    product,
   }
 }
 
