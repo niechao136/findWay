@@ -15,18 +15,11 @@ function handleLLM(text) {
   }
   return obj
 }
-function main({text, query}) {
+function main({text}) {
   const obj = handleLLM(text)
-  const find = obj.find || ''
-  const description = obj.text || ''
-  const tran = obj.tran || query
-  const answer = {
-    description
-  }
+  const intent = obj.intent || ''
   return {
-    find,
-    answer,
-    tran,
+    intent,
   }
 }
 
@@ -70,45 +63,20 @@ function parseToObject(str) {
 
   return obj;
 }
-function main({result, find}) {
-  let answer = '检索到以下结果，请输入序号进行选择：\n'
+function main({result}) {
   const list = Array.from(result).map(o => {
     return parseToObject(o.content)
   })
-  const filter = []
-  const check = {}
-  let index = 1
-  list.forEach(obj => {
-    if (find === 'store') {
-      if (!check[obj.store_id]) {
-        check[obj.store_id] = true
-        filter.push({
-          ...obj,
-          index,
-        })
-        answer += `${index}. ${obj.store_name}${!!obj.store_time ? `（营业时间：${obj.store_time}）` : ''}\n`
-        index++
-      }
-    }
-    if (find === 'product') {
-      filter.push({
-        ...obj,
-        index,
-      })
-      answer += `${index}. ${obj.name}${!!obj.price ? `（价格：${obj.price}元）` : ''}\n`
-      index++
-    }
-  })
-  const need_filter = filter.length > 1
-  const need_query = Array.from(new Set(filter.map(o => o.store_name))).map(o => `'${o}'`)
+  const need_query = Array.from(new Set(list.map(o => o.store_name))).map(o => `'${o}'`)
   const sql = `SELECT * FROM test_dify.space WHERE child_space_name IN (${need_query.join(', ')});`
+  let chunk = ''
+  if (Array.from(result).length > 0) {
+    chunk = result[0]?.metadata?.child_chunks?.[0]?.content ?? ''
+  }
   return {
-    answer: {
-      description: answer
-    },
-    filter,
-    need_filter,
+    list,
     sql,
+    chunk,
   }
 }
 
@@ -132,13 +100,13 @@ function parseMd(text) {
     return obj
   })
 }
-function main({text, filter, find}) {
+function main({text, list, intent}) {
   const space = parseMd(text)
   const space_by_name = {}
   space.forEach(obj => {
     space_by_name[obj.child_space_name] = obj
   })
-  const result = Array.from(filter).map(o => {
+  const result = Array.from(list).map(o => {
     return {
       ...o,
       space_id: space_by_name[o.store_name].space_id || '',
@@ -147,27 +115,57 @@ function main({text, filter, find}) {
       child_space_name: space_by_name[o.store_name].child_space_name || '',
     }
   })
+  const filter = []
+  const check = {}
+  let index = 1
+  let list_text = '检索到以下结果，请输入序号进行选择：\n'
+  result.forEach(obj => {
+    if (intent === 'store') {
+      if (!check[obj.store_id]) {
+        check[obj.store_id] = true
+        filter.push({
+          ...obj,
+          index,
+        })
+        list_text += `${index}. ${obj.store_name}${!!obj.store_time ? `（营业时间：${obj.store_time}）` : ''}\n`
+        index++
+      }
+    }
+    if (intent === 'product') {
+      filter.push({
+        ...obj,
+        index,
+      })
+      list_text += `${index}. ${obj.product_name}${!!obj.product_price ? `（价格：${obj.product_price}元）` : ''}\n`
+      index++
+    }
+  })
   const history = {
-    find,
-    result,
+    intent,
+    result: filter,
   }
+  const need_filter = filter.length > 1
   let res = ''
-  if (find === 'store') {
+  if (intent === 'store') {
     res = `已为您找到门店：${filter[0].store_name}。它的营业时间是：${filter[0].store_time}。\n门店简介：${filter[0].store_desciption}`
   }
-  if (find === 'product') {
-    res = `已为您找到产品：${filter[0].name}（价格：${filter[0].price}元），它来自门店：${filter[0].store_name}（营业时间：${filter[0].store_time}）。\n产品简介：${filter[0].description}\n门店简介：${filter[0].store_desciption}`
+  if (intent === 'product') {
+    res = `已为您找到产品：${filter[0].product_name}（价格：${filter[0].product_price}元），它来自门店：${filter[0].store_name}（营业时间：${filter[0].store_time}）。\n产品简介：${filter[0].product_description}\n门店简介：${filter[0].store_desciption}`
   }
   const answer = {
-    space_id: result[0].space_id,
-    space_name: result[0].space_name,
-    child_space_id: result[0].child_space_id,
-    child_space_name: result[0].child_space_name,
+    space_id: filter[0].space_id,
+    space_name: filter[0].space_name,
+    child_space_id: filter[0].child_space_id,
+    child_space_name: filter[0].child_space_name,
     description: res
   }
   return {
+    list_answer: {
+      description: list_text
+    },
     history,
     answer,
+    need_filter,
   }
 }
 
@@ -176,15 +174,15 @@ function main({text, filter, find}) {
 
 function main({query, history}) {
   const index = Number(query)
-  const find = history.find || ''
+  const intent = history.intent || ''
   const filter = Array.from(history.result).find(o => o.index === index)
   const new_question = Number.isNaN(index) || !filter
   let result = ''
-  if (!!filter && find === 'store') {
+  if (!!filter && intent === 'store') {
     result = `您选择了门店：${filter.store_name}。它的营业时间是：${filter.store_time}。\n门店简介：${filter.store_desciption}`
   }
-  if (!!filter && find === 'product') {
-    result = `您选择了产品：${filter.name}（价格：${filter.price}元），它来自门店：${filter.store_name}（营业时间：${filter.store_time}）。\n产品简介：${filter.description}\n门店简介：${filter.store_desciption}`
+  if (!!filter && intent === 'product') {
+    result = `您选择了产品：${filter.product_name}（价格：${filter.product_price}元），它来自门店：${filter.store_name}（营业时间：${filter.store_time}）。\n产品简介：${filter.product_description}\n门店简介：${filter.store_desciption}`
   }
   const answer = {
     space_id: filter?.space_id ?? '',
