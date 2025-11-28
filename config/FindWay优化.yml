@@ -117,47 +117,12 @@ workflow:
     - data:
         isInIteration: false
         isInLoop: false
-        sourceType: knowledge-retrieval
-        targetType: if-else
-      id: 1763709024019-source-1763709241360-target
-      source: '1763709024019'
-      sourceHandle: source
-      target: '1763709241360'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInLoop: false
-        sourceType: if-else
-        targetType: code
-      id: 1763709241360-true-1763709116753-target
-      source: '1763709241360'
-      sourceHandle: 'true'
-      target: '1763709116753'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInIteration: false
-        isInLoop: false
         sourceType: if-else
         targetType: llm
       id: 1763709241360-false-1763709255999-target
       source: '1763709241360'
       sourceHandle: 'false'
       target: '1763709255999'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInIteration: false
-        isInLoop: false
-        sourceType: llm
-        targetType: answer
-      id: 1763709255999-source-1763709260746-target
-      source: '1763709255999'
-      sourceHandle: source
-      target: '1763709260746'
       targetHandle: target
       type: custom
       zIndex: 0
@@ -235,29 +200,6 @@ workflow:
     - data:
         isInIteration: false
         isInLoop: false
-        sourceType: if-else
-        targetType: llm
-      id: 1763715521971-true-1764039554614-target
-      source: '1763715521971'
-      sourceHandle: 'true'
-      target: '1764039554614'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInLoop: false
-        sourceType: if-else
-        targetType: llm
-      id: 1763716164776-true-1764039554614-target
-      source: '1763716164776'
-      sourceHandle: 'true'
-      target: '1764039554614'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInIteration: false
-        isInLoop: false
         sourceType: llm
         targetType: code
       id: 1764039554614-source-1764039841850-target
@@ -276,41 +218,6 @@ workflow:
       source: '1764039841850'
       sourceHandle: source
       target: '1764039986891'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInLoop: false
-        sourceType: if-else
-        targetType: knowledge-retrieval
-      id: 1764039986891-false-1763709024019-target
-      source: '1764039986891'
-      sourceHandle: 'false'
-      target: '1763709024019'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInIteration: false
-        isInLoop: false
-        sourceType: if-else
-        targetType: answer
-      id: 1764039986891-true-1764040028060-target
-      source: '1764039986891'
-      sourceHandle: 'true'
-      target: '1764040028060'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInIteration: false
-        isInLoop: false
-        sourceType: code
-        targetType: tool
-      id: 1763709116753-source-1764041570402-target
-      source: '1763709116753'
-      sourceHandle: source
-      target: '1764041570402'
       targetHandle: target
       type: custom
       zIndex: 0
@@ -360,6 +267,135 @@ workflow:
       targetHandle: target
       type: custom
       zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: code
+      id: 1763709255999-source-1764212651402-target
+      source: '1763709255999'
+      sourceHandle: source
+      target: '1764212651402'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: answer
+      id: 1764212651402-source-1763709260746-target
+      source: '1764212651402'
+      sourceHandle: source
+      target: '1763709260746'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: knowledge-retrieval
+      id: 1763715521971-true-1764235028349-target
+      source: '1763715521971'
+      sourceHandle: 'true'
+      target: '1764235028349'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: knowledge-retrieval
+      id: 1763716164776-true-1764235028349-target
+      source: '1763716164776'
+      sourceHandle: 'true'
+      target: '1764235028349'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: knowledge-retrieval
+        targetType: code
+      id: 1764235028349-source-1764235048636-target
+      source: '1764235028349'
+      sourceHandle: source
+      target: '1764235048636'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: llm
+      id: 1764235048636-source-1764039554614-target
+      source: '1764235048636'
+      sourceHandle: source
+      target: '1764039554614'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: llm
+      id: 1764039986891-true-1764235675830-target
+      source: '1764039986891'
+      sourceHandle: 'true'
+      target: '1764235675830'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: code
+      id: 1764235675830-source-1764235765959-target
+      source: '1764235675830'
+      sourceHandle: source
+      target: '1764235765959'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: answer
+      id: 1764235765959-source-1764040028060-target
+      source: '1764235765959'
+      sourceHandle: source
+      target: '1764040028060'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: if-else
+      id: 1764039986891-false-1763709241360-target
+      source: '1764039986891'
+      sourceHandle: 'false'
+      target: '1763709241360'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: tool
+      id: 1763709241360-true-1764041570402-target
+      source: '1763709241360'
+      sourceHandle: 'true'
+      target: '1764041570402'
+      targetHandle: target
+      type: custom
+      zIndex: 0
     nodes:
     - data:
         selected: false
@@ -380,50 +416,7 @@ workflow:
       type: custom
       width: 242
     - data:
-        dataset_ids:
-        - JGo5ZzTSLRPloMAQtD7mqp14CnzJoh7ewu3PwIIFNzG8Dq8EKTYiYuno3IZoA07S
-        metadata_filtering_mode: disabled
-        metadata_model_config:
-          completion_params:
-            temperature: 0
-          mode: chat
-          name: qwen3:8b
-          provider: langgenius/ollama/ollama
-        multiple_retrieval_config:
-          reranking_enable: false
-          reranking_mode: weighted_score
-          score_threshold: 0.3
-          top_k: 10
-          weights:
-            keyword_setting:
-              keyword_weight: 0.3
-            vector_setting:
-              embedding_model_name: quentinz/bge-large-zh-v1.5:latest
-              embedding_provider_name: langgenius/ollama/ollama
-              vector_weight: 0.7
-            weight_type: customized
-        query_variable_selector:
-        - '1764039841850'
-        - tran
-        retrieval_mode: multiple
-        selected: false
-        title: 知识检索
-        type: knowledge-retrieval
-      height: 90
-      id: '1763709024019'
-      position:
-        x: 2804.4825508549684
-        y: 51
-      positionAbsolute:
-        x: 2804.4825508549684
-        y: 51
-      selected: true
-      sourcePosition: right
-      targetPosition: left
-      type: custom
-      width: 242
-    - data:
-        answer: '{{#1763709116753.answer#}}'
+        answer: '{{#1764041661411.answer#}}'
         selected: false
         title: 提供列表
         type: answer
@@ -431,79 +424,10 @@ workflow:
       height: 103
       id: '1763709079438'
       position:
-        x: 5241.310067806625
-        y: 113.85011301104134
-      positionAbsolute:
-        x: 5241.310067806625
-        y: 113.85011301104134
-      selected: false
-      sourcePosition: right
-      targetPosition: left
-      type: custom
-      width: 242
-    - data:
-        code: "\nfunction parseToObject(str) {\n  const obj = {};\n\n  // 只把出现在 行首、分号或换行\
-          \ 后的 \"key:\" 识别为字段名\n  const regex = /(^|;|\\n)\\s*([A-Za-z0-9_]+)\\s*:/g;\n\
-          \  let match;\n  const keys = [];\n\n  while ((match = regex.exec(str))\
-          \ !== null) {\n    // match.index 是整个 match 的起始（包含前缀），\n    // 找到 key 在\
-          \ match[0] 中的偏移以算出 key 的全局起始位置\n    const fullMatch = match[0];\n    const\
-          \ keyName = match[2];\n    const offsetInFull = fullMatch.indexOf(keyName);\n\
-          \    const keyIndex = match.index + offsetInFull;\n    keys.push({ key:\
-          \ keyName, index: keyIndex });\n  }\n\n  for (let i = 0; i < keys.length;\
-          \ i++) {\n    const current = keys[i];\n    const next = keys[i + 1];\n\n\
-          \    const start = current.index + current.key.length + 1; // skip `key:`\n\
-          \    const end = next ? next.index : str.length;\n\n    // 取片段并去掉收尾的分号与空白\n\
-          \    let value = str.slice(start, end).trim();\n    value = value.replace(/^\\\
-          s*;|;\\s*$/g, \"\").trim();\n\n    obj[current.key] = value;\n  }\n\n  return\
-          \ obj;\n}\nfunction main({result, find}) {\n  let answer = '检索到以下结果，请输入序号进行选择：\\\
-          n'\n  const list = Array.from(result).map(o => {\n    return parseToObject(o.content)\n\
-          \  })\n  const filter = []\n  const check = {}\n  let index = 1\n  list.forEach(obj\
-          \ => {\n    if (find === 'store') {\n      if (!check[obj.store_id]) {\n\
-          \        check[obj.store_id] = true\n        filter.push({\n          ...obj,\n\
-          \          index,\n        })\n        answer += `${index}. ${obj.store_name}${!!obj.store_time\
-          \ ? `（营业时间：${obj.store_time}）` : ''}\\n`\n        index++\n      }\n   \
-          \ }\n    if (find === 'product') {\n      filter.push({\n        ...obj,\n\
-          \        index,\n      })\n      answer += `${index}. ${obj.name}${!!obj.price\
-          \ ? `（价格：${obj.price}元）` : ''}\\n`\n      index++\n    }\n  })\n  const\
-          \ need_filter = filter.length > 1\n  const need_query = Array.from(new Set(filter.map(o\
-          \ => o.store_name))).map(o => `'${o}'`)\n  const sql = `SELECT * FROM test_dify.space\
-          \ WHERE child_space_name IN (${need_query.join(', ')});`\n  return {\n \
-          \   answer,\n    filter,\n    need_filter,\n    sql,\n  }\n}\n"
-        code_language: javascript
-        outputs:
-          answer:
-            children: null
-            type: string
-          filter:
-            children: null
-            type: array[object]
-          need_filter:
-            children: null
-            type: boolean
-          sql:
-            children: null
-            type: string
-        selected: false
-        title: 处理检索结果
-        type: code
-        variables:
-        - value_selector:
-          - '1763709024019'
-          - result
-          value_type: array[object]
-          variable: result
-        - value_selector:
-          - '1764039841850'
-          - find
-          value_type: string
-          variable: find
-      height: 52
-      id: '1763709116753'
-      position:
-        x: 3500
+        x: 5352.355437027126
         y: 81
       positionAbsolute:
-        x: 3500
+        x: 5352.355437027126
         y: 81
       selected: false
       sourcePosition: right
@@ -519,7 +443,7 @@ workflow:
             value: ''
             varType: array[object]
             variable_selector:
-            - '1763709024019'
+            - '1764235028349'
             - result
           id: 'true'
           logical_operator: and
@@ -529,11 +453,11 @@ workflow:
       height: 124
       id: '1763709241360'
       position:
-        x: 3138
-        y: 51
+        x: 3404.4825508549684
+        y: 81
       positionAbsolute:
-        x: 3138
-        y: 51
+        x: 3404.4825508549684
+        y: 81
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -547,14 +471,24 @@ workflow:
           completion_params:
             temperature: 0
           mode: chat
-          name: qwen3:8b
+          name: qwen3:0.6b
           provider: langgenius/ollama/ollama
         prompt_template:
         - id: a3c4e547-2ee5-4698-a043-2a59f81d87b1
           role: system
-          text: '产品与门店皆无匹配结果，请直接以简洁明了的方式回答用户的问题。
+          text: '你是一个智能助手。
 
-            '
+
+            目前没有检索到匹配结果，请直接以简洁明了的方式回答用户的问题。
+
+
+            规则：
+
+            - 回答中应该明确说明没有检索到匹配结果。
+
+            - **禁止生成无关信息**。
+
+            - 回答要简洁、明确、友好。'
         - id: 5ef0e635-6a2c-4923-98eb-0876b1aadd91
           role: user
           text: '{{#sys.query#}}'
@@ -566,18 +500,18 @@ workflow:
       height: 88
       id: '1763709255999'
       position:
-        x: 3500
-        y: 257
+        x: 3769.440541668748
+        y: 251.57921695366412
       positionAbsolute:
-        x: 3500
-        y: 257
+        x: 3769.440541668748
+        y: 251.57921695366412
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
       width: 242
     - data:
-        answer: '{{#1763709255999.text#}}'
+        answer: '{{#1764212651402.answer#}}'
         selected: false
         title: 直接回答
         type: answer
@@ -585,11 +519,11 @@ workflow:
       height: 103
       id: '1763709260746'
       position:
-        x: 3842
-        y: 257
+        x: 4511.310087239077
+        y: 251.57921695366412
       positionAbsolute:
-        x: 3842
-        y: 257
+        x: 4511.310087239077
+        y: 251.57921695366412
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -604,7 +538,7 @@ workflow:
             value: true
             varType: boolean
             variable_selector:
-            - '1763709116753'
+            - '1764041661411'
             - need_filter
           id: 'true'
           logical_operator: and
@@ -614,10 +548,10 @@ workflow:
       height: 124
       id: '1763714045216'
       position:
-        x: 4530.71252825276
+        x: 4511.310087239077
         y: 81
       positionAbsolute:
-        x: 4530.71252825276
+        x: 4511.310087239077
         y: 81
       selected: false
       sourcePosition: right
@@ -642,11 +576,11 @@ workflow:
       height: 84
       id: '1763714090029'
       position:
-        x: 4888
-        y: 113.85011301104134
+        x: 4969.773140770287
+        y: 81
       positionAbsolute:
-        x: 4888
-        y: 113.85011301104134
+        x: 4969.773140770287
+        y: 81
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -683,23 +617,18 @@ workflow:
       width: 242
     - data:
         code: "\nfunction main({query, history}) {\n  const index = Number(query)\n\
-          \  const find = history.find || ''\n  const filter = Array.from(history.result).find(o\
-          \ => o.index === index)\n  const new_question = Number.isNaN(index) || !filter\n\
-          \  let result = ''\n  if (!!filter && find === 'store') {\n    result =\
-          \ `您选择了门店：${filter.store_name}。它的营业时间是：${filter.store_time}。\\n门店简介：${filter.store_desciption}\\\
-          n地图信息：${filter.map}\\n门店位置：${filter.space}`\n  }\n  if (!!filter && find\
-          \ === 'product') {\n    result = `您选择了产品：${filter.name}（价格：${filter.price}元），它来自门店：${filter.store_name}（营业时间：${filter.store_time}）。\\\
-          n产品简介：${filter.description}\\n门店简介：${filter.store_desciption}\\n地图信息：${filter.map}\\\
-          n门店位置：${filter.space}`\n  }\n  return {\n    new_question,\n    result,\n\
+          \  const filter = history.result?.[index] ?? null\n  const new_question\
+          \ = Number.isNaN(index) || !filter\n  const answer = {\n    AI_reply: '',\n\
+          \    info: [filter],\n  }\n  return {\n    new_question,\n    answer,\n\
           \  }\n}\n"
         code_language: javascript
         outputs:
+          answer:
+            children: null
+            type: object
           new_question:
             children: null
             type: boolean
-          result:
-            children: null
-            type: string
         selected: false
         title: 处理历史
         type: code
@@ -783,7 +712,7 @@ workflow:
       type: custom
       width: 242
     - data:
-        answer: '{{#1764041661411.res#}}'
+        answer: '{{#1764041661411.answer#}}'
         selected: false
         title: 直接回答查询结果
         type: answer
@@ -791,18 +720,18 @@ workflow:
       height: 103
       id: '1763945576147'
       position:
-        x: 4888
-        y: 259
+        x: 4969.773140770287
+        y: 251.57921695366412
       positionAbsolute:
-        x: 4888
-        y: 259
+        x: 4969.773140770287
+        y: 251.57921695366412
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
       width: 242
     - data:
-        answer: '{{#1763715598482.result#}}'
+        answer: '{{#1763715598482.answer#}}'
         selected: false
         title: 直接回答选择结果
         type: answer
@@ -826,19 +755,52 @@ workflow:
           variable_selector: []
         model:
           completion_params:
+            format: json
             temperature: 0
           mode: chat
-          name: qwen3:8b
+          name: qwen3:0.6b
           provider: langgenius/ollama/ollama
         prompt_template:
         - id: e3e20c31-8ba8-42df-829e-3a8ed19b46d3
           role: system
-          text: "请完成以下任务，最终输出 JSON：\n1. 将用户输入转化为繁体中文，保存在 `tran` 中\n2. 分析用户意图\n   -\
-            \ 如果找商品，`find` 为 `product`\n   - 如果找门店，`find` 为 `store`\n   - 如果是闲聊，`find`\
-            \ 为 `answer`，直接回答，答案保存在 `text` 中"
+          text: '你是一个严格模式的高级智能意图识别助手。
+
+
+            任务：
+
+            根据检索结果和用户输入判断唯一意图类别，输出格式：
+
+            {
+
+            "intent": ""
+
+            }
+
+
+            判定规则：
+
+            1. 只要检索结果指向具体的门店 → intent = "store"
+
+            2. 只要用户输入涉及在哪里/哪里有/哪里买等寻找购买地点的描述 → intent = "store"
+
+            3. 只要用户输入涉及想要/想吃/想喝/想买某个商品或者服务的意图 → intent = "product"
+
+            4. 如果检索结果或用户输入涉及商店、品牌、地点、位置等 → intent = "store"
+
+            5. 如果检索结果或用户输入涉及商品、产品、服务 → intent = "product"
+
+            6. 否则 → intent = "other"
+
+
+            禁止：
+
+            - 仅输出 "intent"，不允许任何其他内容或解释。'
         - id: a063b819-2984-404c-b17c-6f095fa18608
           role: user
-          text: '{{#sys.query#}}'
+          text: '检索结果：{{#1764235048636.chunk#}}
+
+
+            用户输入：{{#sys.query#}}'
         selected: false
         title: LLM 判断用户意图
         type: llm
@@ -847,12 +809,12 @@ workflow:
       height: 88
       id: '1764039554614'
       position:
-        x: 1750
+        x: 2365.1781925297405
         y: 57
       positionAbsolute:
-        x: 1750
+        x: 2365.1781925297405
         y: 57
-      selected: false
+      selected: true
       sourcePosition: right
       targetPosition: left
       type: custom
@@ -863,19 +825,12 @@ workflow:
           \ match = _res.match(regex);\n  const res = !!match ? match[1].trim() :\
           \ _res\n  const str = res.replaceAll(/\\/\\/.*$/gm, '').replaceAll(/\\/\\\
           *[\\s\\S]*?\\*\\//g, '')\n  let obj\n  try {\n    obj = JSON.parse(str)\n\
-          \  } catch (e) {\n    obj = {}\n  }\n  return obj\n}\nfunction main({text,\
-          \ query}) {\n  const obj = handleLLM(text)\n  const find = obj.find || ''\n\
-          \  const answer = obj.text || ''\n  const tran = obj.tran || query\n  return\
-          \ {\n    find,\n    answer,\n    tran,\n  }\n}\n"
+          \  } catch (e) {\n    obj = {}\n  }\n  return obj\n}\nfunction main({text})\
+          \ {\n  const obj = handleLLM(text)\n  const intent = obj.intent || ''\n\
+          \  return {\n    intent,\n  }\n}\n"
         code_language: javascript
         outputs:
-          answer:
-            children: null
-            type: string
-          find:
-            children: null
-            type: string
-          tran:
+          intent:
             children: null
             type: string
         selected: false
@@ -890,10 +845,10 @@ workflow:
       height: 52
       id: '1764039841850'
       position:
-        x: 2091.057494349448
+        x: 2691.057494349448
         y: 57
       positionAbsolute:
-        x: 2091.057494349448
+        x: 2691.057494349448
         y: 57
       selected: false
       sourcePosition: right
@@ -906,11 +861,11 @@ workflow:
           conditions:
           - comparison_operator: is
             id: 785b487d-a142-4574-b9df-c00b31128ee4
-            value: answer
+            value: other
             varType: string
             variable_selector:
             - '1764039841850'
-            - find
+            - intent
           id: 'true'
           logical_operator: and
         selected: false
@@ -919,10 +874,10 @@ workflow:
       height: 124
       id: '1764039986891'
       position:
-        x: 2446.252573457177
+        x: 3046.252573457177
         y: 15.43735873619832
       positionAbsolute:
-        x: 2446.252573457177
+        x: 3046.252573457177
         y: 15.43735873619832
       selected: false
       sourcePosition: right
@@ -930,7 +885,7 @@ workflow:
       type: custom
       width: 242
     - data:
-        answer: '{{#1764039841850.answer#}}'
+        answer: '{{#1764235765959.answer#}}'
         selected: false
         title: 回答闲聊
         type: answer
@@ -938,10 +893,10 @@ workflow:
       height: 103
       id: '1764040028060'
       position:
-        x: 2804.4825508549684
+        x: 4124.935602013145
         y: -118.2671359086814
       positionAbsolute:
-        x: 2804.4825508549684
+        x: 4124.935602013145
         y: -118.2671359086814
       selected: false
       sourcePosition: right
@@ -1274,15 +1229,15 @@ workflow:
             value: '{{#env.db_user#}}'
           query_sql:
             type: mixed
-            value: '{{#1763709116753.sql#}}'
+            value: '{{#1764235048636.sql#}}'
         type: tool
       height: 88
       id: '1764041570402'
       position:
-        x: 3842
+        x: 3769.440541668748
         y: 81
       positionAbsolute:
-        x: 3842
+        x: 3769.440541668748
         y: 81
       selected: false
       sourcePosition: right
@@ -1297,26 +1252,36 @@ workflow:
           \  const head = parseRow(lines[0])\n  const body = lines.slice(2)\n  return\
           \ body.map(line => {\n    const obj = {}\n    const arr = parseRow(line)\n\
           \    head.forEach((key, index) => {\n      obj[key] = arr[index]\n    })\n\
-          \    return obj\n  })\n}\nfunction main({text, filter, find}) {\n  const\
+          \    return obj\n  })\n}\nfunction main({text, list, intent}) {\n  const\
           \ space = parseMd(text)\n  const space_by_name = {}\n  space.forEach(obj\
           \ => {\n    space_by_name[obj.child_space_name] = obj\n  })\n  const result\
-          \ = Array.from(filter).map(o => {\n    return {\n      ...o,\n      map:\
-          \ space_by_name[o.store_name].space_property || '',\n      space: space_by_name[o.store_name].child_space_property\
-          \ || '',\n    }\n  })\n  const history = {\n    find,\n    result,\n  }\n\
-          \  let res = ''\n  if (find === 'store') {\n    res = `已为您找到门店：${filter[0].store_name}。它的营业时间是：${filter[0].store_time}。\\\
-          n门店简介：${filter[0].store_desciption}\\n地图信息：${result[0].map}\\n门店位置：${result[0].space}`\n\
-          \  }\n  if (find === 'product') {\n    res = `已为您找到产品：${filter[0].name}（价格：${filter[0].price}元），它来自门店：${filter[0].store_name}（营业时间：${filter[0].store_time}）。\\\
-          n产品简介：${filter[0].description}\\n门店简介：${filter[0].store_desciption}\\n地图信息：${result[0].map}\\\
-          n门店位置：${result[0].space}`\n  }\n  return {\n    history,\n    res,\n  }\n\
-          }\n"
+          \ = Array.from(list).map(o => {\n    return {\n      ...o,\n      space_id:\
+          \ space_by_name[o.store_name].space_id || '',\n      space_name: space_by_name[o.store_name].space_name\
+          \ || '',\n      child_space_id: space_by_name[o.store_name].child_space_id\
+          \ || '',\n      child_space_name: space_by_name[o.store_name].child_space_name\
+          \ || '',\n    }\n  })\n  const filter = []\n  const check = {}\n  result.forEach(obj\
+          \ => {\n    if (check[obj.store_id] === undefined) {\n      check[obj.store_id]\
+          \ = filter.length\n      filter.push({\n        space_id: obj.space_id,\n\
+          \        space_name: obj.space_name,\n        child_space_id: obj.child_space_id,\n\
+          \        child_space_name: obj.child_space_name,\n        time: obj.store_time,\n\
+          \        description: obj.store_desciption,\n        product: []\n     \
+          \ })\n    }\n    if (intent === 'product') {\n      filter[check[obj.store_id]].product.push({\n\
+          \        product_id: obj.product_id,\n        product_name: obj.product_name,\n\
+          \        price: obj.product_price,\n      })\n    }\n  })\n  const history\
+          \ = {\n    intent,\n    result: filter,\n  }\n  const need_filter = filter.length\
+          \ > 1\n  const answer = {\n    AI_reply: '',\n    info: filter,\n  }\n \
+          \ return {\n    history,\n    answer,\n    need_filter,\n  }\n}\n"
         code_language: javascript
         outputs:
+          answer:
+            children: null
+            type: object
           history:
             children: null
             type: object
-          res:
+          need_filter:
             children: null
-            type: string
+            type: boolean
         selected: false
         title: 处理位置信息
         type: code
@@ -1327,30 +1292,226 @@ workflow:
           value_type: string
           variable: text
         - value_selector:
-          - '1763709116753'
-          - filter
-          value_type: array[object]
-          variable: filter
-        - value_selector:
           - '1764039841850'
-          - find
+          - intent
           value_type: string
-          variable: find
+          variable: intent
+        - value_selector:
+          - '1764235048636'
+          - list
+          value_type: array[object]
+          variable: list
       height: 52
       id: '1764041661411'
       position:
-        x: 4187.770022602208
+        x: 4124.935602013145
         y: 81
       positionAbsolute:
-        x: 4187.770022602208
+        x: 4124.935602013145
         y: 81
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
       width: 242
+    - data:
+        code: "\nfunction main({text}) {\n  const answer = {\n    description: text\n\
+          \  }\n  return {\n    answer\n  }\n}\n"
+        code_language: javascript
+        outputs:
+          answer:
+            children: null
+            type: object
+        selected: false
+        title: 处理回答
+        type: code
+        variables:
+        - value_selector:
+          - '1763709255999'
+          - text
+          value_type: string
+          variable: text
+      height: 52
+      id: '1764212651402'
+      position:
+        x: 4124.935602013145
+        y: 251.57921695366412
+      positionAbsolute:
+        x: 4124.935602013145
+        y: 251.57921695366412
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        dataset_ids:
+        - JGo5ZzTSLRPloMAQtD7mqp14CnzJoh7ewu3PwIIFNzG8Dq8EKTYiYuno3IZoA07S
+        multiple_retrieval_config:
+          reranking_enable: false
+          reranking_mode: weighted_score
+          score_threshold: 0.3
+          top_k: 10
+          weights:
+            keyword_setting:
+              keyword_weight: 0.3
+            vector_setting:
+              embedding_model_name: quentinz/bge-large-zh-v1.5:latest
+              embedding_provider_name: langgenius/ollama/ollama
+              vector_weight: 0.7
+            weight_type: customized
+        query_variable_selector:
+        - '1763707294052'
+        - sys.query
+        retrieval_mode: multiple
+        selected: false
+        title: 知识检索
+        type: knowledge-retrieval
+      height: 90
+      id: '1764235028349'
+      position:
+        x: 1750
+        y: 57
+      positionAbsolute:
+        x: 1750
+        y: 57
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        code: "\nfunction parseToObject(str) {\n  const obj = {};\n\n  // 只把出现在 行首、分号或换行\
+          \ 后的 \"key:\" 识别为字段名\n  const regex = /(^|;|\\n)\\s*([A-Za-z0-9_]+)\\s*:/g;\n\
+          \  let match;\n  const keys = [];\n\n  while ((match = regex.exec(str))\
+          \ !== null) {\n    // match.index 是整个 match 的起始（包含前缀），\n    // 找到 key 在\
+          \ match[0] 中的偏移以算出 key 的全局起始位置\n    const fullMatch = match[0];\n    const\
+          \ keyName = match[2];\n    const offsetInFull = fullMatch.indexOf(keyName);\n\
+          \    const keyIndex = match.index + offsetInFull;\n    keys.push({ key:\
+          \ keyName, index: keyIndex });\n  }\n\n  for (let i = 0; i < keys.length;\
+          \ i++) {\n    const current = keys[i];\n    const next = keys[i + 1];\n\n\
+          \    const start = current.index + current.key.length + 1; // skip `key:`\n\
+          \    const end = next ? next.index : str.length;\n\n    // 取片段并去掉收尾的分号与空白\n\
+          \    let value = str.slice(start, end).trim();\n    value = value.replace(/^\\\
+          s*;|;\\s*$/g, \"\").trim();\n\n    // 清除 value 末尾的 (数字)\n    value = value.replace(/\\\
+          (\\d+\\)\\s*$/, \"\").trim();\n\n    obj[current.key] = value;\n  }\n\n\
+          \  return obj;\n}\nfunction main({result}) {\n  const list = Array.from(result).map(o\
+          \ => {\n    return parseToObject(o.content)\n  })\n  const need_query =\
+          \ Array.from(new Set(list.map(o => o.store_name))).map(o => `'${o}'`)\n\
+          \  const sql = `SELECT * FROM test_dify.space WHERE child_space_name IN\
+          \ (${need_query.join(', ')});`\n  let chunk = ''\n  if (Array.from(result).length\
+          \ > 0) {\n    chunk = result[0]?.metadata?.child_chunks?.[0]?.content ??\
+          \ ''\n  }\n  return {\n    list,\n    sql,\n    chunk,\n  }\n}\n"
+        code_language: javascript
+        outputs:
+          chunk:
+            children: null
+            type: string
+          list:
+            children: null
+            type: array[object]
+          sql:
+            children: null
+            type: string
+        selected: false
+        title: 处理检索结果
+        type: code
+        variables:
+        - value_selector:
+          - '1764235028349'
+          - result
+          value_type: array[object]
+          variable: result
+      height: 52
+      id: '1764235048636'
+      position:
+        x: 2054.336626437069
+        y: 57
+      positionAbsolute:
+        x: 2054.336626437069
+        y: 57
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        model:
+          completion_params:
+            temperature: 0
+          mode: chat
+          name: qwen3:0.6b
+          provider: langgenius/ollama/ollama
+        prompt_template:
+        - id: 823e14b9-cf73-4c18-ae72-8419922a22bc
+          role: system
+          text: '你是一个智能助手。
+
+
+            任务：
+
+            请回答用户问题。
+
+
+            要求：
+
+            - 回答要简洁、明确、友好。'
+        - id: cca34b78-a737-4f46-af22-a478196b557c
+          role: user
+          text: '{{#sys.query#}}'
+        selected: false
+        title: LLM 回答用户闲聊
+        type: llm
+        vision:
+          enabled: false
+      height: 88
+      id: '1764235675830'
+      position:
+        x: 3404.4825508549684
+        y: -118.2671359086814
+      positionAbsolute:
+        x: 3404.4825508549684
+        y: -118.2671359086814
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        code: "\nfunction main({text}) {\n  const answer = {\n    description: text\n\
+          \  }\n  return {\n    answer\n  }\n}\n"
+        code_language: javascript
+        outputs:
+          answer:
+            children: null
+            type: object
+        selected: false
+        title: 处理闲聊结果
+        type: code
+        variables:
+        - value_selector:
+          - '1764235675830'
+          - text
+          value_type: string
+          variable: text
+      height: 52
+      id: '1764235765959'
+      position:
+        x: 3769.440541668748
+        y: -118.2671359086814
+      positionAbsolute:
+        x: 3769.440541668748
+        y: -118.2671359086814
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
     viewport:
-      x: -5883.426870136551
-      y: 228.9761123680242
-      zoom: 1.2187707886145742
+      x: -3029.084592905853
+      y: 338.80890494916565
+      zoom: 0.7578582832551999
   rag_pipeline_variables: []

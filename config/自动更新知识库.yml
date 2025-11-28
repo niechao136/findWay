@@ -189,18 +189,6 @@ workflow:
     - data:
         isInIteration: false
         isInLoop: false
-        sourceType: tool
-        targetType: code
-      id: 17640351179410-source-1764035128403-target
-      source: '17640351179410'
-      sourceHandle: source
-      target: '1764035128403'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInIteration: false
-        isInLoop: false
         sourceType: code
         targetType: tool
       id: 1764035128403-source-1764035141964-target
@@ -233,6 +221,17 @@ workflow:
       targetHandle: target
       type: custom
       zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: tool
+        targetType: code
+      id: 17640351179410-source-1764035128403-target
+      source: '17640351179410'
+      sourceHandle: source
+      target: '1764035128403'
+      targetHandle: target
+      type: custom
+      zIndex: 0
     nodes:
     - data:
         async_mode: true
@@ -258,10 +257,10 @@ workflow:
       id: '1763446068016'
       position:
         x: 0
-        y: 8
+        y: 18
       positionAbsolute:
         x: 0
-        y: 8
+        y: 18
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -599,10 +598,10 @@ workflow:
       id: '1763446093533'
       position:
         x: 1368
-        y: 29
+        y: 39
       positionAbsolute:
         x: 1368
-        y: 29
+        y: 39
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -622,10 +621,10 @@ workflow:
       id: '1763446930390'
       position:
         x: 3078
-        y: 28
+        y: 39
       positionAbsolute:
         x: 3078
-        y: 28
+        y: 39
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -659,10 +658,10 @@ workflow:
       id: '1763447953443'
       position:
         x: 684
-        y: 0
+        y: 10
       positionAbsolute:
         x: 684
-        y: 0
+        y: 10
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -683,8 +682,8 @@ workflow:
           \   ],\n        segmentation: {\n          separator: '\\n',\n         \
           \ max_tokens: 4000,\n          chunk_overlap: 0\n        },\n        parent_mode:\
           \ 'paragraph',\n        subchunk_segmentation: {\n          separator: ';',\n\
-          \          max_tokens: 100,\n          chunk_overlap: 0\n        }\n   \
-          \   },\n      limits: {\n        indexing_max_segmentation_tokens_length:\
+          \          max_tokens: 1000,\n          chunk_overlap: 0\n        }\n  \
+          \    },\n      limits: {\n        indexing_max_segmentation_tokens_length:\
           \ 4000\n      }\n    },\n    retrieval_model: res_i.retrieval_model_dict\
           \ || {\n      search_method: 'semantic_search',\n      reranking_enable:\
           \ false,\n      reranking_mode: null,\n      reranking_model: {\n      \
@@ -702,7 +701,7 @@ workflow:
           url:
             children: null
             type: string
-        selected: true
+        selected: false
         title: 处理知识库信息
         type: code
         variables:
@@ -720,11 +719,11 @@ workflow:
       id: '1763448178150'
       position:
         x: 1026
-        y: 47
+        y: 57
       positionAbsolute:
         x: 1026
-        y: 47
-      selected: true
+        y: 57
+      selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
@@ -757,10 +756,10 @@ workflow:
       id: '1763449193034'
       position:
         x: 342
-        y: 0
+        y: 10
       positionAbsolute:
         x: 342
-        y: 0
+        y: 10
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -1098,10 +1097,10 @@ workflow:
       id: '17640351179410'
       position:
         x: 1710
-        y: 29
+        y: 39
       positionAbsolute:
         x: 1710
-        y: 29
+        y: 39
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -1114,20 +1113,29 @@ workflow:
           n(?!\\|)/g, ' ').replaceAll('\\r', ' ')\n  const lines = md.split('\\n')\n\
           \  const head = parseRow(lines[0])\n  const body = lines.slice(2)\n  return\
           \ body.map(line => {\n    const obj = {}\n    const arr = parseRow(line)\n\
-          \    head.forEach((key, index) => {\n      obj[key] = arr[index]\n    })\n\
-          \    return obj\n  })\n}\nfunction toMarkdownTable(arr) {\n  if (!arr.length)\
-          \ return '';\n\n  const headers = Object.keys(arr[0]);\n  const headerRow\
-          \ = `| ${headers.join(' | ')} |`;\n  const separator = `| ${headers.map(()\
-          \ => '---').join(' | ')} |`;\n\n  const rows = arr.map(obj =>\n    `| ${headers.map(h\
-          \ => obj[h] ?? '').join(' | ')} |`\n  );\n\n  return [headerRow, separator,\
-          \ ...rows].join('\\n');\n}\nfunction main({text, text_p}) {\n  const list_s\
-          \ = parseMd(text)\n  const list_p = parseMd(text_p)\n  const store_by_id\
-          \ = {}\n  list_s.forEach(o => {\n    store_by_id[o.store_id] = {}\n    Object.keys(o).forEach(key\
-          \ => {\n      if (key !== 'store_id') {\n        store_by_id[o.store_id][`store_${key}`]\
-          \ = o[key]\n      }\n    })\n  })\n  const product = list_p.map(o => {\n\
-          \    return {\n      ...o,\n      ...(store_by_id[o.store_id] || {})\n \
-          \   }\n  })\n  const table = toMarkdownTable(product)\n  const name = 'product'\n\
-          \  return {\n    table,\n    name,\n  }\n}\n"
+          \    head.forEach((key, index) => {\n      obj[key] = String(arr[index]).replaceAll(';',\
+          \ '：')\n    })\n    return obj\n  })\n}\nfunction toMarkdownTable(arr) {\n\
+          \  if (!arr.length) return ''\n\n  const headers = Object.keys(arr[0])\n\
+          \  const headerRow = `| ${headers.join(' | ')} |`\n  const separator = `|\
+          \ ${headers.map(() => '---').join(' | ')} |`\n\n  const rows = arr.map(obj\
+          \ =>\n    `| ${headers.map(h => obj[h] ?? '').join(' | ')} |`\n  )\n\n \
+          \ return [headerRow, separator, ...rows].join('\\n')\n}\nfunction main({text,\
+          \ text_p}) {\n  const list_s = parseMd(text)\n  const list_p = parseMd(text_p)\n\
+          \  const store_by_id = {}\n  list_s.forEach(o => {\n    store_by_id[o.store_id]\
+          \ = {}\n    Object.keys(o).forEach(key => {\n      if (key !== 'store_id')\
+          \ {\n        store_by_id[o.store_id][`store_${key}`] = o[key]\n      }\n\
+          \    })\n  })\n  const check = {}\n  const product = list_p.map(o => {\n\
+          \    const obj = {\n      ...o,\n      ...(store_by_id[o.store_id] || {})\n\
+          \    }\n    const new_obj = {}\n    Object.keys(Object(obj)).forEach(key\
+          \ => {\n      let new_key = key\n      let new_value = obj[key]\n      if\
+          \ (!['product_id', 'store_id'].includes(key)) {\n        if (!key.startsWith('store_'))\
+          \ {\n          new_key = `product_${key}`\n        }\n        const key_value\
+          \ = `${key}:${obj[key]}`\n        if (!check[key_value]) {\n          check[key_value]\
+          \ = 1\n        } else {\n          check[key_value] += 1\n        }\n  \
+          \      if (check[key_value] > 1) {\n          new_value += `(${check[key_value]\
+          \ - 1})`\n        }\n      }\n      new_obj[new_key] = new_value\n    })\n\
+          \    return new_obj\n  })\n  const table = toMarkdownTable(product)\n  const\
+          \ name = 'product'\n  return {\n    table,\n    name,\n  }\n}\n"
         code_language: javascript
         outputs:
           name:
@@ -1154,11 +1162,11 @@ workflow:
       id: '1764035128403'
       position:
         x: 2052
-        y: 47
+        y: 57
       positionAbsolute:
         x: 2052
-        y: 47
-      selected: false
+        y: 57
+      selected: true
       sourcePosition: right
       targetPosition: left
       type: custom
@@ -1202,10 +1210,10 @@ workflow:
       id: '1764035134073'
       position:
         x: 2736
-        y: 29
+        y: 0
       positionAbsolute:
         x: 2736
-        y: 29
+        y: 0
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -1292,18 +1300,18 @@ workflow:
       height: 52
       id: '1764035141964'
       position:
-        x: 2392.5714285714284
-        y: 47
+        x: 2394
+        y: 57
       positionAbsolute:
-        x: 2392.5714285714284
-        y: 47
+        x: 2394
+        y: 57
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
       width: 242
     viewport:
-      x: -85.30000000000018
-      y: 358.1
+      x: -403
+      y: 277
       zoom: 0.7
   rag_pipeline_variables: []
