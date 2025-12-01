@@ -224,18 +224,6 @@ workflow:
     - data:
         isInIteration: false
         isInLoop: false
-        sourceType: tool
-        targetType: code
-      id: 1764041570402-source-1764041661411-target
-      source: '1764041570402'
-      sourceHandle: source
-      target: '1764041661411'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInIteration: false
-        isInLoop: false
         sourceType: code
         targetType: if-else
       id: 1764041661411-source-1763714045216-target
@@ -396,6 +384,56 @@ workflow:
       targetHandle: target
       type: custom
       zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: tool
+        targetType: iteration
+      id: 1764041570402-source-1764310450696-target
+      source: '1764041570402'
+      sourceHandle: source
+      target: '1764310450696'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: iteration
+        targetType: code
+      id: 1764310450696-source-1764041661411-target
+      source: '1764310450696'
+      sourceHandle: source
+      target: '1764041661411'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '1764310450696'
+        sourceType: iteration-start
+        targetType: code
+      id: 1764310450696start-source-1764310743265-target
+      source: 1764310450696start
+      sourceHandle: source
+      target: '1764310743265'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '1764310450696'
+        sourceType: code
+        targetType: llm
+      id: 1764310743265-source-1764310531204-target
+      source: '1764310743265'
+      sourceHandle: source
+      target: '1764310531204'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
     nodes:
     - data:
         selected: false
@@ -424,10 +462,10 @@ workflow:
       height: 103
       id: '1763709079438'
       position:
-        x: 5352.355437027126
+        x: 6003.344541292715
         y: 81
       positionAbsolute:
-        x: 5352.355437027126
+        x: 6003.344541292715
         y: 81
       selected: false
       sourcePosition: right
@@ -501,10 +539,10 @@ workflow:
       id: '1763709255999'
       position:
         x: 3769.440541668748
-        y: 251.57921695366412
+        y: 376.93246847708895
       positionAbsolute:
         x: 3769.440541668748
-        y: 251.57921695366412
+        y: 376.93246847708895
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -519,11 +557,11 @@ workflow:
       height: 103
       id: '1763709260746'
       position:
-        x: 4511.310087239077
-        y: 251.57921695366412
+        x: 4502.073531863667
+        y: 376.93246847708895
       positionAbsolute:
-        x: 4511.310087239077
-        y: 251.57921695366412
+        x: 4502.073531863667
+        y: 376.93246847708895
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -548,10 +586,10 @@ workflow:
       height: 124
       id: '1763714045216'
       position:
-        x: 4511.310087239077
+        x: 5274.457363920363
         y: 81
       positionAbsolute:
-        x: 4511.310087239077
+        x: 5274.457363920363
         y: 81
       selected: false
       sourcePosition: right
@@ -576,10 +614,10 @@ workflow:
       height: 84
       id: '1763714090029'
       position:
-        x: 4969.773140770287
+        x: 5614.164705482012
         y: 81
       positionAbsolute:
-        x: 4969.773140770287
+        x: 5614.164705482012
         y: 81
       selected: false
       sourcePosition: right
@@ -618,7 +656,7 @@ workflow:
     - data:
         code: "\nfunction main({query, history}) {\n  const index = Number(query)\n\
           \  const filter = history.result?.[index] ?? null\n  const new_question\
-          \ = Number.isNaN(index) || !filter\n  const answer = {\n    AI_reply: '',\n\
+          \ = Number.isNaN(index) || !filter\n  const answer = {\n    AI_reply: '根據你的提問，已找到相關資訊',\n\
           \    info: [filter],\n  }\n  return {\n    new_question,\n    answer,\n\
           \  }\n}\n"
         code_language: javascript
@@ -720,11 +758,11 @@ workflow:
       height: 103
       id: '1763945576147'
       position:
-        x: 4969.773140770287
-        y: 251.57921695366412
+        x: 5614.164705482012
+        y: 269.2857142857143
       positionAbsolute:
-        x: 4969.773140770287
-        y: 251.57921695366412
+        x: 5614.164705482012
+        y: 269.2857142857143
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -814,7 +852,7 @@ workflow:
       positionAbsolute:
         x: 2365.1781925297405
         y: 57
-      selected: true
+      selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
@@ -1252,24 +1290,28 @@ workflow:
           \  const head = parseRow(lines[0])\n  const body = lines.slice(2)\n  return\
           \ body.map(line => {\n    const obj = {}\n    const arr = parseRow(line)\n\
           \    head.forEach((key, index) => {\n      obj[key] = arr[index]\n    })\n\
-          \    return obj\n  })\n}\nfunction main({text, list, intent}) {\n  const\
-          \ space = parseMd(text)\n  const space_by_name = {}\n  space.forEach(obj\
-          \ => {\n    space_by_name[obj.child_space_name] = obj\n  })\n  const result\
-          \ = Array.from(list).map(o => {\n    return {\n      ...o,\n      space_id:\
-          \ space_by_name[o.store_name].space_id || '',\n      space_name: space_by_name[o.store_name].space_name\
-          \ || '',\n      child_space_id: space_by_name[o.store_name].child_space_id\
-          \ || '',\n      child_space_name: space_by_name[o.store_name].child_space_name\
-          \ || '',\n    }\n  })\n  const filter = []\n  const check = {}\n  result.forEach(obj\
+          \    return obj\n  })\n}\nfunction main({text, list, intent, output, store})\
+          \ {\n  const space = parseMd(text)\n  const space_by_name = {}\n  space.forEach(obj\
+          \ => {\n    space_by_name[obj.child_space_name] = obj\n  })\n  const dear_by_id\
+          \ = {}\n  Array.from(store).forEach((obj, index) => {\n    dear_by_id[obj.store_id]\
+          \ = output[index]\n  })\n  const result = Array.from(list).map(o => {\n\
+          \    return {\n      ...o,\n      space_id: space_by_name[o.store_name].space_id\
+          \ || '',\n      space_name: space_by_name[o.store_name].space_name || '',\n\
+          \      child_space_id: space_by_name[o.store_name].child_space_id || '',\n\
+          \      child_space_name: space_by_name[o.store_name].child_space_name ||\
+          \ '',\n    }\n  })\n  const filter = []\n  const check = {}\n  const list_answer\
+          \ = '根據你的提問，以下商店可能符合你的需求'\n  const target_answer = '根據你的提問，已找到相關資訊'\n  result.forEach(obj\
           \ => {\n    if (check[obj.store_id] === undefined) {\n      check[obj.store_id]\
           \ = filter.length\n      filter.push({\n        space_id: obj.space_id,\n\
           \        space_name: obj.space_name,\n        child_space_id: obj.child_space_id,\n\
           \        child_space_name: obj.child_space_name,\n        time: obj.store_time,\n\
-          \        description: obj.store_desciption,\n        product: []\n     \
-          \ })\n    }\n    if (intent === 'product') {\n      filter[check[obj.store_id]].product.push({\n\
-          \        product_id: obj.product_id,\n        product_name: obj.product_name,\n\
-          \        price: obj.product_price,\n      })\n    }\n  })\n  const history\
-          \ = {\n    intent,\n    result: filter,\n  }\n  const need_filter = filter.length\
-          \ > 1\n  const answer = {\n    AI_reply: '',\n    info: filter,\n  }\n \
+          \        description: dear_by_id[obj.store_id] ?? obj.store_desciption,\n\
+          \        product: []\n      })\n    }\n    if (intent === 'product') {\n\
+          \      filter[check[obj.store_id]].product.push({\n        product_id: obj.product_id,\n\
+          \        product_name: obj.product_name,\n        price: obj.product_price,\n\
+          \      })\n    }\n  })\n  const history = {\n    intent,\n    result: filter,\n\
+          \  }\n  const need_filter = filter.length > 1\n  const answer = {\n    AI_reply:\
+          \ need_filter ? list_answer : target_answer,\n    info: filter,\n  }\n \
           \ return {\n    history,\n    answer,\n    need_filter,\n  }\n}\n"
         code_language: javascript
         outputs:
@@ -1301,13 +1343,23 @@ workflow:
           - list
           value_type: array[object]
           variable: list
+        - value_selector:
+          - '1764310450696'
+          - output
+          value_type: array[string]
+          variable: output
+        - value_selector:
+          - '1764235048636'
+          - store
+          value_type: array[object]
+          variable: store
       height: 52
       id: '1764041661411'
       position:
-        x: 4124.935602013145
+        x: 4928.98762392839
         y: 81
       positionAbsolute:
-        x: 4124.935602013145
+        x: 4928.98762392839
         y: 81
       selected: false
       sourcePosition: right
@@ -1335,10 +1387,10 @@ workflow:
       id: '1764212651402'
       position:
         x: 4124.935602013145
-        y: 251.57921695366412
+        y: 376.93246847708895
       positionAbsolute:
         x: 4124.935602013145
-        y: 251.57921695366412
+        y: 376.93246847708895
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -1350,7 +1402,7 @@ workflow:
         multiple_retrieval_config:
           reranking_enable: false
           reranking_mode: weighted_score
-          score_threshold: 0.3
+          score_threshold: 0.36
           top_k: 10
           weights:
             keyword_setting:
@@ -1401,7 +1453,12 @@ workflow:
           \  const sql = `SELECT * FROM test_dify.space WHERE child_space_name IN\
           \ (${need_query.join(', ')});`\n  let chunk = ''\n  if (Array.from(result).length\
           \ > 0) {\n    chunk = result[0]?.metadata?.child_chunks?.[0]?.content ??\
-          \ ''\n  }\n  return {\n    list,\n    sql,\n    chunk,\n  }\n}\n"
+          \ ''\n  }\n  const store = []\n  const check = {}\n  list.forEach(obj =>\
+          \ {\n    if (check[obj.store_id] === undefined) {\n      check[obj.store_id]\
+          \ = store.length\n      store.push({\n        store_id: obj.store_id,\n\
+          \        description: obj.store_desciption,\n        product: [],\n    \
+          \  })\n    }\n    store[check[obj.store_id]].product.push(obj.product_name)\n\
+          \  })\n  return {\n    list,\n    sql,\n    chunk,\n    store,\n  }\n}\n"
         code_language: javascript
         outputs:
           chunk:
@@ -1413,6 +1470,9 @@ workflow:
           sql:
             children: null
             type: string
+          store:
+            children: null
+            type: array[object]
         selected: false
         title: 处理检索结果
         type: code
@@ -1510,8 +1570,170 @@ workflow:
       targetPosition: left
       type: custom
       width: 242
+    - data:
+        error_handle_mode: terminated
+        flatten_output: true
+        height: 211
+        is_parallel: false
+        iterator_input_type: array[object]
+        iterator_selector:
+        - '1764235048636'
+        - store
+        output_selector:
+        - '1764310531204'
+        - text
+        output_type: array[string]
+        parallel_nums: 10
+        selected: false
+        start_node_id: 1764310450696start
+        title: 循环生成门店简介
+        type: iteration
+        width: 718.987697769322
+      height: 211
+      id: '1764310450696'
+      position:
+        x: 4124.935602013145
+        y: 81
+      positionAbsolute:
+        x: 4124.935602013145
+        y: 81
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 719
+      zIndex: 1
+    - data:
+        desc: ''
+        isInIteration: true
+        selected: false
+        title: ''
+        type: iteration-start
+      draggable: false
+      height: 48
+      id: 1764310450696start
+      parentId: '1764310450696'
+      position:
+        x: 24
+        y: 68
+      positionAbsolute:
+        x: 4148.935602013145
+        y: 149
+      selectable: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom-iteration-start
+      width: 44
+      zIndex: 1002
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '1764310450696'
+        model:
+          completion_params:
+            temperature: 0
+          mode: chat
+          name: qwen3:0.6b
+          provider: langgenius/ollama/ollama
+        prompt_template:
+        - id: 61615243-f0d4-4593-aa2c-acf35c9eaf23
+          role: system
+          text: '你是一名专业的门店简介生成助手。
+
+
+            任务：
+
+            根据以下输入内容，生成一个 **简洁、自然且与用户当前问题强相关** 的门店动态简介。
+
+
+            你将获得：
+
+            1. 门店原始简介：{{#1764310743265.description#}}
+
+            2. 用户问题：{{#sys.query#}}
+
+            3. 相关产品检索结果（可能为空）：{{#1764310743265.product#}}
+
+
+            生成规则（必须遵守）：
+
+            - 你的目标是对门店进行简介，但要 **结合用户问题的上下文**，让简介显得更贴切当前场景。
+
+            - 必须保留原始简介中的核心信息，但可以压缩、改写、重组。
+
+            - 如果检索到相关产品，需 **自然融入** 简介描述中，但不得堆砌关键词。
+
+            - 简介必须是 **一段自然语言**（禁止条列式、禁止项目符号）。
+
+            - 简介长度：**40～120 字**（若英文则 2–4 句），精炼但完整。
+
+            - 如果相关产品检索结果为空，不要强行补充商品信息。
+
+            - 禁止回答与简介无关的内容。'
+        selected: false
+        title: LLM 生成门店简介
+        type: llm
+        vision:
+          enabled: false
+      height: 88
+      id: '1764310531204'
+      parentId: '1764310450696'
+      position:
+        x: 437.2365553754098
+        y: 66.66112702232459
+      positionAbsolute:
+        x: 4562.172157388555
+        y: 147.6611270223246
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 1002
+    - data:
+        code: "\nfunction main({item}) {\n  const description = String(item?.description\
+          \ ?? '')\n  const product = Array.isArray(item?.product) ? Array.from(item.product)\
+          \ : []\n  return {\n    description,\n    product,\n  }\n}\n"
+        code_language: javascript
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '1764310450696'
+        outputs:
+          description:
+            children: null
+            type: string
+          product:
+            children: null
+            type: array[string]
+        selected: false
+        title: 处理门店信息
+        type: code
+        variables:
+        - value_selector:
+          - '1764310450696'
+          - item
+          value_type: object
+          variable: item
+      height: 52
+      id: '1764310743265'
+      parentId: '1764310450696'
+      position:
+        x: 126.68049208922639
+        y: 68.9585237323187
+      positionAbsolute:
+        x: 4251.616094102372
+        y: 149.9585237323187
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 1002
     viewport:
-      x: -3029.084592905853
-      y: 338.80890494916565
-      zoom: 0.7578582832551999
+      x: -523.2259739330236
+      y: 515.0196520038864
+      zoom: 0.25
   rag_pipeline_variables: []
