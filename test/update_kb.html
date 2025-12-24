@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dify 修改知识库</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+            Roboto, "Helvetica Neue", Arial, "Noto Sans",
+            "PingFang SC", "Microsoft YaHei", sans-serif;
+            background-color: #f5f7fa;
+            margin: 0;
+            padding: 40px;
+            color: #333;
+        }
+
+        h1 {
+            margin-bottom: 24px;
+            font-size: 24px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 260px;
+            padding: 12px;
+            font-size: 14px;
+            line-height: 1.6;
+            border: 1px solid #dcdfe6;
+            border-radius: 6px;
+            resize: vertical;
+            box-sizing: border-box;
+            background-color: #fff;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #409eff;
+            box-shadow: 0 0 0 2px rgba(64, 158, 255, 0.15);
+        }
+
+        button {
+            margin-top: 16px;
+            padding: 10px 20px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #fff;
+            background-color: #409eff;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #337ecc;
+        }
+
+        h2 {
+            margin-top: 32px;
+            margin-bottom: 12px;
+            font-size: 18px;
+        }
+
+        pre {
+            background-color: #1e1e1e;
+            color: #dcdcdc;
+            padding: 16px;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        /* 页面宽度限制，避免超宽 */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Dify 修改知识库</h1>
+    <label for="textarea">知识库内容</label><textarea id="textarea"></textarea>
+    <button id="updateBtn">更新知识库</button>
+
+    <h2>返回结果：</h2>
+    <pre id="result"></pre>
+</div>
+<script>
+  const baseUrl = 'http://172.22.132.124:8081/v1'
+  const kbId = '31c1f2c7-6ace-46fb-9c8e-8c5c2b11e335'
+  const kbToken = 'dataset-Y4QLUTrJJLb1Lm57plIzTrQ8'
+  const docName = 'product.md'
+  const docId = '54d784f4-4eb7-49c6-9949-a0b2afe02659'
+  const updateBtn = document.getElementById('updateBtn');
+  const textarea = document.getElementById('textarea');
+  const resultEl = document.getElementById('result');
+
+  // 设置知识库内容默认值
+  textarea.value = `- 错误写法：早安美之城、早晚沒支持、早安美之前、早安美繼承、 早晚美之
+  正确写法：早安美芝城
+
+- 错误写法：可不可說成紅茶、可不可收成紅茶、可不可少成紅茶
+  正确写法：可不可熟成紅茶
+
+- 错误写法：東昇寵物、終身寵物
+  正确写法：東森寵物
+
+- 错误写法：好事多
+  正确写法：好市多
+
+- 错误写法：卡斯扣、CLASCO、COSCOW
+  正确写法：Costco`
+
+  updateBtn.addEventListener('click', () => {
+    const body = {
+      name: docName,
+      text: textarea.value,
+      doc_form: 'hierarchical_model',
+      process_rule: {
+        mode: 'hierarchical',
+        rules: {
+          pre_processing_rules: [
+            {
+              id: 'remove_extra_spaces',
+              enabled: false
+            },
+            {
+              id: 'remove_urls_emails',
+              enabled: false
+            }
+          ],
+          segmentation: {
+            separator: '\n\n',
+            max_tokens: 4000,
+          },
+          parent_mode: 'paragraph',
+          subchunk_segmentation: {
+            separator: '\n',
+            max_tokens: 1000,
+            chunk_overlap: 50,
+          }
+        }
+      }
+    }
+    fetch(`${baseUrl}/datasets/${kbId}/documents/${docId}/update-by-text`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${kbToken}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body),
+    }).then(response => response.json())
+      .then(data => {
+        resultEl.textContent = JSON.stringify(data, null, 2);
+      })
+      .catch(err => {
+        resultEl.textContent = '上传出错: ' + err;
+      });
+  });
+</script>
+</body>
+</html>
