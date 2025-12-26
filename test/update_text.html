@@ -87,7 +87,7 @@
 <div class="container">
     <h1>Dify 修改知识库</h1>
     <label for="textarea">知识库内容</label><textarea id="textarea"></textarea>
-    <button id="updateBtn">更新知识库</button>
+    <button id="updateBtn">更新知识库子块</button>
 
     <h2>返回结果：</h2>
     <pre id="result"></pre>
@@ -120,35 +120,13 @@
 
   updateBtn.addEventListener('click', () => {
     const body = {
-      name: docName,
-      text: textarea.value,
-      process_rule: {
-        mode: 'hierarchical',
-        rules: {
-          pre_processing_rules: [
-            {
-              id: 'remove_extra_spaces',
-              enabled: false
-            },
-            {
-              id: 'remove_urls_emails',
-              enabled: false
-            }
-          ],
-          segmentation: {
-            separator: '\n\n',
-            max_tokens: 4000,
-          },
-          parent_mode: 'paragraph',
-          subchunk_segmentation: {
-            separator: '\n',
-            max_tokens: 1000,
-            chunk_overlap: 50,
-          }
+      segments: [
+        {
+          content: textarea.value,
         }
-      }
+      ]
     }
-    fetch(`${baseUrl}/datasets/${kbId}/documents/${docId}/update-by-text`, {
+    fetch(`${baseUrl}/datasets/${kbId}/documents/${docId}/segments`, {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${kbToken}`,

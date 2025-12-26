@@ -53,15 +53,15 @@ function main({result, query}) {
   const store = []
   const check = {}
   list.forEach(obj => {
-    if (check[obj.store_id] === undefined) {
-      check[obj.store_id] = store.length
+    if (check[obj.child_space_id] === undefined) {
+      check[obj.child_space_id] = store.length
       store.push({
-        store_id: obj.store_id,
+        child_space_id: obj.child_space_id,
         description: obj.store_description,
         product: [],
       })
     }
-    store[check[obj.store_id]].product.push(obj.name)
+    store[check[obj.child_space_id]].product.push(obj.name)
   })
   const prompt = store.map(o => {
     return `
@@ -121,7 +121,7 @@ function main({text}) {
 function main({list, intent, output, store}) {
   const dear_by_id = {}
   Array.from(store).forEach((obj, index) => {
-    dear_by_id[obj.store_id] = output[index]
+    dear_by_id[obj.child_space_id] = output[index]
   })
   const filter = []
   const check = {}
@@ -129,20 +129,20 @@ function main({list, intent, output, store}) {
   const target = '根據你的提問，已找到相關資訊'
   const none = '抱歉，沒有檢索到相關信息，請重新提問。'
   Array.from(list).forEach(obj => {
-    if (check[obj.store_id] === undefined) {
-      check[obj.store_id] = filter.length
+    if (check[obj.child_space_id] === undefined) {
+      check[obj.child_space_id] = filter.length
       filter.push({
         space_id: obj.space_id,
         space_name: obj.space_name,
         child_space_id: obj.child_space_id,
         child_space_name: obj.store_name,
         time: obj.store_time,
-        description: dear_by_id[obj.store_id] ?? obj.store_description,
+        description: dear_by_id[obj.child_space_id] ?? obj.store_description,
         product: []
       })
     }
     if (intent === 'product') {
-      filter[check[obj.store_id]].product.push({
+      filter[check[obj.child_space_id]].product.push({
         product_id: obj.product_id,
         product_name: obj.name,
         price: obj.price,
