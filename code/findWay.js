@@ -3,10 +3,13 @@
 function main({query, history}) {
   const index = Number(query)
   const filter = history?.result?.[index] ?? null
-  const can_reply = !!filter
+  const find = Array.from(history?.result ?? []).find(o => {
+    return o?.child_space_name === query || !!o?.product?.find(v => v.product_name === query)
+  })
+  const can_reply = !!filter || !!find
   const answer = {
     AI_reply: '根據你的提問，已找到相關資訊',
-    info: [filter],
+    info: [filter ?? find],
   }
   return {
     can_reply,
@@ -32,10 +35,6 @@ function parseKeyValueText(input) {
     let value = line.slice(idx + 1).trim()
 
     if (!key) continue
-
-    // 去除 value 末尾的 (id)，例如 (34)、(abc123)
-    // 仅在“末尾”才移除，避免误伤正文中的括号
-    value = value.replace(/\s*\([^()]*\)\s*$/, '')
 
     result[key] = value
   }
@@ -116,7 +115,7 @@ function main({text}) {
 }
 
 //#endregion
-//#region 处理位置信息
+//#region 整合信息
 
 function main({list, intent, output, store}) {
   const dear_by_id = {}
@@ -149,11 +148,11 @@ function main({list, intent, output, store}) {
       })
     }
   })
-  const history = {
+  const need_filter = filter.length > 1
+  const history = !need_filter ? {} : {
     intent,
     result: filter,
   }
-  const need_filter = filter.length > 1
   const answer = {
     AI_reply: need_filter ? array : (filter.length === 0 ? none : target),
     info: filter,
@@ -161,7 +160,6 @@ function main({list, intent, output, store}) {
   return {
     history,
     answer,
-    need_filter,
   }
 }
 
