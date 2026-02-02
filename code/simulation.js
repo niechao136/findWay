@@ -172,7 +172,12 @@ function main({output, simulation_obj}) {
   Array.from(output).forEach((text, index) => {
     const obj = handleLLM(text)
     const item = list[index]
-    markdown += `|${item.question}|${item.answer}|${item.simulation}|${item.replay}|${obj.similarity_score}|\n`
+    const question = String(item.question).replaceAll('\n', ';').replaceAll('|', '¦')
+    const answer = String(item.answer).replaceAll('\n', ';').replaceAll('|', '¦')
+    const simulation = String(item.simulation).replaceAll('\n', ';').replaceAll('|', '¦')
+    const replay = String(item.replay).replaceAll('\n', ';').replaceAll('|', '¦')
+    const score = String(obj.similarity_score).replaceAll('\n', ';').replaceAll('|', '¦')
+    markdown += `|${question}|${answer}|${simulation}|${replay}|${score}|\n`
   })
   return {
     markdown,
