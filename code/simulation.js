@@ -58,5 +58,128 @@ function main({text}) {
 }
 
 //#endregion
+//#region 处理模拟问题
+
+function handleLLM(text = '') {
+  let str = text.replaceAll(/<think>[\s\S]*?<\/think>/g, '')
+  const blockMatch = str.match(/```json\s*([\s\S]*)/i)
+  let jsonPart = blockMatch ? blockMatch[1] : str
+  jsonPart = jsonPart.replace(/```[\s\S]*$/, '').trim()
+  const cleanJson = jsonPart
+    .replace(/\/\/(?!\s*http)[^\n]*/g, '') // 移除单行注释
+    .replace(/\/\*[\s\S]*?\*\//g, '')     // 移除多行注释
+    .replace(/\xA0/g, ' ')                 // 关键：修复 \xA0 空格
+    .replace(/,\s*([\]}])/g, '$1')         // 关键：修复 JSON 尾随逗号
+    .trim()
+  try {
+    return JSON.parse(cleanJson)
+  } catch (e) {
+    return {}
+  }
+}
+function main({output}) {
+  const simulation = []
+  const simulation_question = []
+  const simulation_index = {}
+  Array.from(output).forEach((text, index) => {
+    const obj = handleLLM(text)
+    const list = Array.isArray(obj?.paraphrases) ? Array.from(obj?.paraphrases) : []
+    list.forEach(item => {
+      const query = String(item?.text ?? '')
+      if (!!query) {
+        simulation_index[simulation.length] = index
+        const request = {
+          inputs: {},
+          query,
+          response_mode: 'blocking',
+          conversation_id: '',
+          user: 'simulation_test',
+          files: [],
+        }
+        simulation.push(JSON.stringify(request))
+        simulation_question.push(query)
+      }
+    })
+  })
+  return {
+    simulation,
+    simulation_index,
+    simulation_question,
+  }
+}
+
+//#endregion
+//#region 处理调用结果
+
+function main({output, simulation_index, question, answer, simulation_question}) {
+  const question_list = Array.from(question)
+  const answer_list = Array.from(answer)
+  const simulation_list = Array.from(simulation_question)
+  const prompt = []
+  const simulation_obj = []
+  Array.from(output).forEach((body, index) => {
+    const event = JSON.parse(String(body ?? '{}'))
+    const res = JSON.parse(String(event?.answer ?? '{}'))
+    const replay = String(res?.AI_reply ?? '')
+    const question = question_list[simulation_index[index]]
+    const answer = answer_list[simulation_index[index]]
+    const simulation = simulation_list[index]
+    prompt.push(`
+- 【标准问题】：${question}
+- 【标准答案】：${answer}
+- 【模拟问题】：${simulation}
+- 【模拟答案】：${replay}
+      `)
+    simulation_obj.push({
+      question,
+      answer,
+      simulation,
+      replay,
+    })
+  })
+  return {
+    prompt,
+    simulation_obj,
+  }
+}
+
+//#endregion
+//#region 处理相似度
+
+function handleLLM(text = '') {
+  let str = text.replaceAll(/<think>[\s\S]*?<\/think>/g, '')
+  const blockMatch = str.match(/```json\s*([\s\S]*)/i)
+  let jsonPart = blockMatch ? blockMatch[1] : str
+  jsonPart = jsonPart.replace(/```[\s\S]*$/, '').trim()
+  const cleanJson = jsonPart
+    .replace(/\/\/(?!\s*http)[^\n]*/g, '') // 移除单行注释
+    .replace(/\/\*[\s\S]*?\*\//g, '')     // 移除多行注释
+    .replace(/\xA0/g, ' ')                 // 关键：修复 \xA0 空格
+    .replace(/,\s*([\]}])/g, '$1')         // 关键：修复 JSON 尾随逗号
+    .trim()
+  try {
+    return JSON.parse(cleanJson)
+  } catch (e) {
+    return {}
+  }
+}
+function main({output, simulation_obj}) {
+  const head = '|標準問題|標準回答|模擬問題|模擬答案|相關係數|\n'
+  const split = '|---|---|---|---|---|\n'
+  const file = '評估報告'
+  const list = Array.from(simulation_obj)
+  let markdown = head + split
+  Array.from(output).forEach((text, index) => {
+    const obj = handleLLM(text)
+    const item = list[index]
+    markdown += `|${item.question}|${item.answer}|${item.simulation}|${item.replay}|${obj.similarity_score}|\n`
+  })
+  return {
+    markdown,
+    file,
+  }
+}
+
+//#endregion
 //#region Test
 //#endregion
