@@ -106,7 +106,7 @@ function main({text}) {
 
 function main({text}) {
   const answer = {
-    AI_reply: text,
+    AI_reply: text.replaceAll(/<think>[\s\S]*?<\/think>/g, ''),
     info: [],
   }
   return {
