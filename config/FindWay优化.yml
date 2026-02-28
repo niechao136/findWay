@@ -11,11 +11,6 @@ dependencies:
   value:
     marketplace_plugin_unique_identifier: langgenius/ollama:0.0.8@22213ae036605d41ea73bdd16908e03de1b9d5ab4656a49b8fb0343723f4cb4a
     version: null
-- current_identifier: null
-  type: marketplace
-  value:
-    marketplace_plugin_unique_identifier: junjiem/db_query:0.0.9@1060683d13870d0cb77d47664e5100a16a2029dada24cf1193bc2ce312295764
-    version: null
 kind: app
 version: 0.5.0
 workflow:
@@ -88,7 +83,9 @@ workflow:
         audio_file_size_limit: 50
         batch_count_limit: 5
         file_size_limit: 15
+        image_file_batch_limit: 10
         image_file_size_limit: 10
+        single_chunk_attachment_limit: 10
         video_file_size_limit: 100
         workflow_file_upload_limit: 10
       image:
@@ -115,30 +112,6 @@ workflow:
   graph:
     edges:
     - data:
-        isInIteration: false
-        isInLoop: false
-        sourceType: if-else
-        targetType: llm
-      id: 1763709241360-false-1763709255999-target
-      source: '1763709241360'
-      sourceHandle: 'false'
-      target: '1763709255999'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInIteration: false
-        isInLoop: false
-        sourceType: if-else
-        targetType: assigner
-      id: 1763714045216-true-1763714090029-target
-      source: '1763714045216'
-      sourceHandle: 'true'
-      target: '1763714090029'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
         isInLoop: false
         sourceType: assigner
         targetType: answer
@@ -146,54 +119,6 @@ workflow:
       source: '1763714090029'
       sourceHandle: source
       target: '1763709079438'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInIteration: false
-        isInLoop: false
-        sourceType: start
-        targetType: if-else
-      id: 1763707294052-source-1763715521971-target
-      source: '1763707294052'
-      sourceHandle: source
-      target: '1763715521971'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInIteration: false
-        isInLoop: false
-        sourceType: if-else
-        targetType: code
-      id: 1763715521971-false-1763715598482-target
-      source: '1763715521971'
-      sourceHandle: 'false'
-      target: '1763715598482'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInIteration: false
-        isInLoop: false
-        sourceType: code
-        targetType: assigner
-      id: 1763715598482-source-1763718193958-target
-      source: '1763715598482'
-      sourceHandle: source
-      target: '1763718193958'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInIteration: false
-        isInLoop: false
-        sourceType: assigner
-        targetType: if-else
-      id: 1763718193958-source-1763716164776-target
-      source: '1763718193958'
-      sourceHandle: source
-      target: '1763716164776'
       targetHandle: target
       type: custom
       zIndex: 0
@@ -218,87 +143,6 @@ workflow:
       source: '1764039841850'
       sourceHandle: source
       target: '1764039986891'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInIteration: false
-        isInLoop: false
-        sourceType: code
-        targetType: if-else
-      id: 1764041661411-source-1763714045216-target
-      source: '1764041661411'
-      sourceHandle: source
-      target: '1763714045216'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInLoop: false
-        sourceType: if-else
-        targetType: answer
-      id: 1763714045216-false-1763945576147-target
-      source: '1763714045216'
-      sourceHandle: 'false'
-      target: '1763945576147'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInLoop: false
-        sourceType: if-else
-        targetType: answer
-      id: 1763716164776-false-1763946860879-target
-      source: '1763716164776'
-      sourceHandle: 'false'
-      target: '1763946860879'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInIteration: false
-        isInLoop: false
-        sourceType: llm
-        targetType: code
-      id: 1763709255999-source-1764212651402-target
-      source: '1763709255999'
-      sourceHandle: source
-      target: '1764212651402'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInIteration: false
-        isInLoop: false
-        sourceType: code
-        targetType: answer
-      id: 1764212651402-source-1763709260746-target
-      source: '1764212651402'
-      sourceHandle: source
-      target: '1763709260746'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInIteration: false
-        isInLoop: false
-        sourceType: if-else
-        targetType: knowledge-retrieval
-      id: 1763715521971-true-1764235028349-target
-      source: '1763715521971'
-      sourceHandle: 'true'
-      target: '1764235028349'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInLoop: false
-        sourceType: if-else
-        targetType: knowledge-retrieval
-      id: 1763716164776-true-1764235028349-target
-      source: '1763716164776'
-      sourceHandle: 'true'
-      target: '1764235028349'
       targetHandle: target
       type: custom
       zIndex: 0
@@ -353,52 +197,6 @@ workflow:
     - data:
         isInIteration: false
         isInLoop: false
-        sourceType: code
-        targetType: answer
-      id: 1764235765959-source-1764040028060-target
-      source: '1764235765959'
-      sourceHandle: source
-      target: '1764040028060'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInLoop: false
-        sourceType: if-else
-        targetType: if-else
-      id: 1764039986891-false-1763709241360-target
-      source: '1764039986891'
-      sourceHandle: 'false'
-      target: '1763709241360'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInLoop: false
-        sourceType: if-else
-        targetType: tool
-      id: 1763709241360-true-1764041570402-target
-      source: '1763709241360'
-      sourceHandle: 'true'
-      target: '1764041570402'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInIteration: false
-        isInLoop: false
-        sourceType: tool
-        targetType: iteration
-      id: 1764041570402-source-1764310450696-target
-      source: '1764041570402'
-      sourceHandle: source
-      target: '1764310450696'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInIteration: false
-        isInLoop: false
         sourceType: iteration
         targetType: code
       id: 1764310450696-source-1764041661411-target
@@ -409,31 +207,144 @@ workflow:
       type: custom
       zIndex: 0
     - data:
-        isInIteration: true
         isInLoop: false
-        iteration_id: '1764310450696'
-        sourceType: iteration-start
-        targetType: code
-      id: 1764310450696start-source-1764310743265-target
-      source: 1764310450696start
-      sourceHandle: source
-      target: '1764310743265'
+        sourceType: if-else
+        targetType: knowledge-retrieval
+      id: 1763716164776-false-1764235028349-target
+      source: '1763716164776'
+      sourceHandle: 'false'
+      target: '1764235028349'
       targetHandle: target
       type: custom
-      zIndex: 1002
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: iteration
+      id: 1764039986891-false-1764310450696-target
+      source: '1764039986891'
+      sourceHandle: 'false'
+      target: '1764310450696'
+      targetHandle: target
+      type: custom
+      zIndex: 0
     - data:
         isInIteration: true
         isInLoop: false
         iteration_id: '1764310450696'
-        sourceType: code
+        sourceType: iteration-start
         targetType: llm
-      id: 1764310743265-source-1764310531204-target
-      source: '1764310743265'
+      id: 1764310450696start-source-1764310531204-target
+      source: 1764310450696start
       sourceHandle: source
       target: '1764310531204'
       targetHandle: target
       type: custom
       zIndex: 1002
+    - data:
+        isInLoop: false
+        sourceType: code
+        targetType: assigner
+      id: 1764041661411-source-1763714090029-target
+      source: '1764041661411'
+      sourceHandle: source
+      target: '1763714090029'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: assigner
+      id: 1763716164776-true-1766711706400-target
+      source: '1763716164776'
+      sourceHandle: 'true'
+      target: '1766711706400'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: assigner
+        targetType: answer
+      id: 1766711706400-source-1763946860879-target
+      source: '1766711706400'
+      sourceHandle: source
+      target: '1763946860879'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: code
+        targetType: if-else
+      id: 1763715598482-source-1763716164776-target
+      source: '1763715598482'
+      sourceHandle: source
+      target: '1763716164776'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: start
+        targetType: if-else
+      id: 1763707294052-source-1766712229458-target
+      source: '1763707294052'
+      sourceHandle: source
+      target: '1766712229458'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: knowledge-retrieval
+      id: 1766712229458-true-1764235028349-target
+      source: '1766712229458'
+      sourceHandle: 'true'
+      target: '1764235028349'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: code
+      id: 1766712229458-false-1763715598482-target
+      source: '1766712229458'
+      sourceHandle: 'false'
+      target: '1763715598482'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: assigner
+      id: 1764235765959-source-1766713018347-target
+      source: '1764235765959'
+      sourceHandle: source
+      target: '1766713018347'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: assigner
+        targetType: answer
+      id: 1766713018347-source-1764040028060-target
+      source: '1766713018347'
+      sourceHandle: source
+      target: '1764040028060'
+      targetHandle: target
+      type: custom
+      zIndex: 0
     nodes:
     - data:
         selected: false
@@ -444,10 +355,10 @@ workflow:
       id: '1763707294052'
       position:
         x: 0
-        y: 25
+        y: 24
       positionAbsolute:
         x: 0
-        y: 25
+        y: 24
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -456,141 +367,17 @@ workflow:
     - data:
         answer: '{{#1764041661411.answer#}}'
         selected: false
-        title: 提供列表
+        title: 回复查询结果
         type: answer
         variables: []
       height: 103
       id: '1763709079438'
       position:
-        x: 6003.344541292715
-        y: 81
+        x: 4408
+        y: 277
       positionAbsolute:
-        x: 6003.344541292715
-        y: 81
-      selected: false
-      sourcePosition: right
-      targetPosition: left
-      type: custom
-      width: 242
-    - data:
-        cases:
-        - case_id: 'true'
-          conditions:
-          - comparison_operator: not empty
-            id: 5bbc00b5-1988-458b-8a30-8919d61798c9
-            value: ''
-            varType: array[object]
-            variable_selector:
-            - '1764235028349'
-            - result
-          id: 'true'
-          logical_operator: and
-        selected: false
-        title: 判断是否存在检索结果
-        type: if-else
-      height: 124
-      id: '1763709241360'
-      position:
-        x: 3404.4825508549684
-        y: 81
-      positionAbsolute:
-        x: 3404.4825508549684
-        y: 81
-      selected: false
-      sourcePosition: right
-      targetPosition: left
-      type: custom
-      width: 242
-    - data:
-        context:
-          enabled: false
-          variable_selector: []
-        model:
-          completion_params:
-            temperature: 0
-          mode: chat
-          name: qwen3:0.6b
-          provider: langgenius/ollama/ollama
-        prompt_template:
-        - id: a3c4e547-2ee5-4698-a043-2a59f81d87b1
-          role: system
-          text: '你是一个智能助手。
-
-
-            目前没有检索到匹配结果，请直接以简洁明了的方式回答用户的问题。
-
-
-            规则：
-
-            - 回答中应该明确说明没有检索到匹配结果。
-
-            - **禁止生成无关信息**。
-
-            - 回答要简洁、明确、友好。'
-        - id: 5ef0e635-6a2c-4923-98eb-0876b1aadd91
-          role: user
-          text: '{{#sys.query#}}'
-        selected: false
-        title: LLM 回答没有检索结果的问题
-        type: llm
-        vision:
-          enabled: false
-      height: 88
-      id: '1763709255999'
-      position:
-        x: 3769.440541668748
-        y: 376.93246847708895
-      positionAbsolute:
-        x: 3769.440541668748
-        y: 376.93246847708895
-      selected: false
-      sourcePosition: right
-      targetPosition: left
-      type: custom
-      width: 242
-    - data:
-        answer: '{{#1764212651402.answer#}}'
-        selected: false
-        title: 直接回答
-        type: answer
-        variables: []
-      height: 103
-      id: '1763709260746'
-      position:
-        x: 4502.073531863667
-        y: 376.93246847708895
-      positionAbsolute:
-        x: 4502.073531863667
-        y: 376.93246847708895
-      selected: false
-      sourcePosition: right
-      targetPosition: left
-      type: custom
-      width: 242
-    - data:
-        cases:
-        - case_id: 'true'
-          conditions:
-          - comparison_operator: is
-            id: 557df23d-c7f8-4b07-9f79-c8807c5d5da2
-            value: true
-            varType: boolean
-            variable_selector:
-            - '1764041661411'
-            - need_filter
-          id: 'true'
-          logical_operator: and
-        selected: false
-        title: 判断是否需要筛选
-        type: if-else
-      height: 124
-      id: '1763714045216'
-      position:
-        x: 5274.457363920363
-        y: 81
-      positionAbsolute:
-        x: 5274.457363920363
-        y: 81
+        x: 4408
+        y: 277
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -608,46 +395,17 @@ workflow:
           - history
           write_mode: over-write
         selected: false
-        title: 保存检索结果
+        title: 保存历史
         type: assigner
         version: '2'
       height: 84
       id: '1763714090029'
       position:
-        x: 5614.164705482012
-        y: 81
+        x: 4066
+        y: 287
       positionAbsolute:
-        x: 5614.164705482012
-        y: 81
-      selected: false
-      sourcePosition: right
-      targetPosition: left
-      type: custom
-      width: 242
-    - data:
-        cases:
-        - case_id: 'true'
-          conditions:
-          - comparison_operator: empty
-            id: 1151cb70-5a26-4588-a0b1-79c3383bd464
-            value: ''
-            varType: object
-            variable_selector:
-            - conversation
-            - history
-          id: 'true'
-          logical_operator: and
-        selected: false
-        title: 判断是否存在历史
-        type: if-else
-      height: 124
-      id: '1763715521971'
-      position:
-        x: 342
-        y: 0
-      positionAbsolute:
-        x: 342
-        y: 0
+        x: 4066
+        y: 287
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -655,16 +413,17 @@ workflow:
       width: 242
     - data:
         code: "\nfunction main({query, history}) {\n  const index = Number(query)\n\
-          \  const filter = history.result?.[index] ?? null\n  const new_question\
-          \ = Number.isNaN(index) || !filter\n  const answer = {\n    AI_reply: '根據你的提問，已找到相關資訊',\n\
-          \    info: [filter],\n  }\n  return {\n    new_question,\n    answer,\n\
-          \  }\n}\n"
+          \  const filter = history?.result?.[index] ?? null\n  const find = Array.from(history?.result\
+          \ ?? []).find(o => {\n    return o?.child_space_name === query || !!o?.product?.find(v\
+          \ => v.product_name === query)\n  })\n  const can_reply = !!filter || !!find\n\
+          \  const answer = {\n    AI_reply: '根據你的提問，已找到相關資訊',\n    info: [filter\
+          \ ?? find],\n  }\n  return {\n    can_reply,\n    answer,\n  }\n}\n"
         code_language: javascript
         outputs:
           answer:
             children: null
             type: object
-          new_question:
+          can_reply:
             children: null
             type: boolean
         selected: false
@@ -684,11 +443,11 @@ workflow:
       height: 52
       id: '1763715598482'
       position:
-        x: 688.2857142857142
-        y: 136.28571428571425
+        x: 704
+        y: 161
       positionAbsolute:
-        x: 688.2857142857142
-        y: 136.28571428571425
+        x: 704
+        y: 161
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -704,65 +463,20 @@ workflow:
             varType: boolean
             variable_selector:
             - '1763715598482'
-            - new_question
+            - can_reply
           id: 'true'
           logical_operator: and
         selected: false
-        title: 判断是否新问题
+        title: 判断是否可以回复
         type: if-else
       height: 124
       id: '1763716164776'
       position:
-        x: 1369.4285714285716
-        y: 136.28571428571425
+        x: 1046
+        y: 125
       positionAbsolute:
-        x: 1369.4285714285716
-        y: 136.28571428571425
-      selected: false
-      sourcePosition: right
-      targetPosition: left
-      type: custom
-      width: 242
-    - data:
-        items:
-        - input_type: variable
-          operation: clear
-          value: ''
-          variable_selector:
-          - conversation
-          - history
-          write_mode: over-write
-        selected: false
-        title: 清空历史
-        type: assigner
-        version: '2'
-      height: 84
-      id: '1763718193958'
-      position:
-        x: 1041.7142857142858
-        y: 136.28571428571425
-      positionAbsolute:
-        x: 1041.7142857142858
-        y: 136.28571428571425
-      selected: false
-      sourcePosition: right
-      targetPosition: left
-      type: custom
-      width: 242
-    - data:
-        answer: '{{#1764041661411.answer#}}'
-        selected: false
-        title: 直接回答查询结果
-        type: answer
-        variables: []
-      height: 103
-      id: '1763945576147'
-      position:
-        x: 5614.164705482012
-        y: 269.2857142857143
-      positionAbsolute:
-        x: 5614.164705482012
-        y: 269.2857142857143
+        x: 1046
+        y: 125
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -778,10 +492,10 @@ workflow:
       id: '1763946860879'
       position:
         x: 1750
-        y: 269.2857142857143
+        y: 204
       positionAbsolute:
         x: 1750
-        y: 269.2857142857143
+        y: 204
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -847,12 +561,12 @@ workflow:
       height: 88
       id: '1764039554614'
       position:
-        x: 2365.1781925297405
-        y: 57
+        x: 2092
+        y: 45
       positionAbsolute:
-        x: 2365.1781925297405
-        y: 57
-      selected: false
+        x: 2092
+        y: 45
+      selected: true
       sourcePosition: right
       targetPosition: left
       type: custom
@@ -883,11 +597,11 @@ workflow:
       height: 52
       id: '1764039841850'
       position:
-        x: 2691.057494349448
-        y: 57
+        x: 2434
+        y: 63
       positionAbsolute:
-        x: 2691.057494349448
-        y: 57
+        x: 2434
+        y: 63
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -907,16 +621,16 @@ workflow:
           id: 'true'
           logical_operator: and
         selected: false
-        title: 判断是否是闲聊
+        title: 根据意图处理
         type: if-else
       height: 124
       id: '1764039986891'
       position:
-        x: 3046.252573457177
-        y: 15.43735873619832
+        x: 2776
+        y: 27
       positionAbsolute:
-        x: 3046.252573457177
-        y: 15.43735873619832
+        x: 2776
+        y: 27
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -931,388 +645,35 @@ workflow:
       height: 103
       id: '1764040028060'
       position:
-        x: 4124.935602013145
-        y: -118.2671359086814
+        x: 4122
+        y: 49
       positionAbsolute:
-        x: 4124.935602013145
-        y: -118.2671359086814
+        x: 4122
+        y: 49
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
       width: 242
     - data:
-        is_team_authorization: true
-        paramSchemas:
-        - auto_generate: null
-          default: mysql
-          form: llm
-          human_description:
-            en_US: Used for selecting the database type, mysql, oracle, oracle11g,
-              postgresql or mssql.
-            ja_JP: Used for selecting the database type, mysql, oracle, oracle11g,
-              postgresql or mssql.
-            pt_BR: Used for selecting the database type, mysql, oracle, oracle11g,
-              postgresql or mssql.
-            zh_Hans: 用于选择数据库类型，mysql、oracle、oracle11g、postgresql或mssql。
-          label:
-            en_US: Database type
-            ja_JP: Database type
-            pt_BR: Database type
-            zh_Hans: 数据库类型
-          llm_description: ''
-          max: null
-          min: null
-          name: db_type
-          options:
-          - icon: ''
-            label:
-              en_US: MySQL
-              ja_JP: MySQL
-              pt_BR: MySQL
-              zh_Hans: MySQL
-            value: mysql
-          - icon: ''
-            label:
-              en_US: Oracle
-              ja_JP: Oracle
-              pt_BR: Oracle
-              zh_Hans: Oracle
-            value: oracle
-          - icon: ''
-            label:
-              en_US: Oracle11g
-              ja_JP: Oracle11g
-              pt_BR: Oracle11g
-              zh_Hans: Oracle11g
-            value: oracle11g
-          - icon: ''
-            label:
-              en_US: PostgreSQL
-              ja_JP: PostgreSQL
-              pt_BR: PostgreSQL
-              zh_Hans: PostgreSQL
-            value: postgresql
-          - icon: ''
-            label:
-              en_US: Microsoft SQL Server
-              ja_JP: Microsoft SQL Server
-              pt_BR: Microsoft SQL Server
-              zh_Hans: Microsoft SQL Server
-            value: mssql
-          placeholder: null
-          precision: null
-          required: true
-          scope: null
-          template: null
-          type: select
-        - auto_generate: null
-          default: localhost
-          form: llm
-          human_description:
-            en_US: Database hostname or IP address (Original string, not URL-encoded
-              string).
-            ja_JP: Database hostname or IP address (Original string, not URL-encoded
-              string).
-            pt_BR: Database hostname or IP address (Original string, not URL-encoded
-              string).
-            zh_Hans: 数据库的主机名或IP地址（原始字符串，非URL编码字符串）。
-          label:
-            en_US: Database Host
-            ja_JP: Database Host
-            pt_BR: Database Host
-            zh_Hans: 数据库地址
-          llm_description: ''
-          max: null
-          min: null
-          name: db_host
-          options: []
-          placeholder: null
-          precision: null
-          required: true
-          scope: null
-          template: null
-          type: string
-        - auto_generate: null
-          default: null
-          form: llm
-          human_description:
-            en_US: Database port.
-            ja_JP: Database port.
-            pt_BR: Database port.
-            zh_Hans: 数据库的端口。
-          label:
-            en_US: Port
-            ja_JP: Port
-            pt_BR: Port
-            zh_Hans: 端口
-          llm_description: ''
-          max: null
-          min: null
-          name: db_port
-          options: []
-          placeholder: null
-          precision: null
-          required: false
-          scope: null
-          template: null
-          type: number
-        - auto_generate: null
-          default: null
-          form: llm
-          human_description:
-            en_US: Database username (Original string, not URL-encoded string).
-            ja_JP: Database username (Original string, not URL-encoded string).
-            pt_BR: Database username (Original string, not URL-encoded string).
-            zh_Hans: 数据库的用户名（原始字符串，非URL编码字符串）。
-          label:
-            en_US: Username
-            ja_JP: Username
-            pt_BR: Username
-            zh_Hans: 用户名
-          llm_description: ''
-          max: null
-          min: null
-          name: db_username
-          options: []
-          placeholder: null
-          precision: null
-          required: true
-          scope: null
-          template: null
-          type: string
-        - auto_generate: null
-          default: null
-          form: llm
-          human_description:
-            en_US: Database password (Original string, not URL-encoded string).
-            ja_JP: Database password (Original string, not URL-encoded string).
-            pt_BR: Database password (Original string, not URL-encoded string).
-            zh_Hans: 数据库的密码（原始字符串，非URL编码字符串）。
-          label:
-            en_US: Password
-            ja_JP: Password
-            pt_BR: Password
-            zh_Hans: 密码
-          llm_description: ''
-          max: null
-          min: null
-          name: db_password
-          options: []
-          placeholder: null
-          precision: null
-          required: true
-          scope: null
-          template: null
-          type: secret-input
-        - auto_generate: null
-          default: null
-          form: llm
-          human_description:
-            en_US: Database name (Original string, not URL-encoded string).
-            ja_JP: Database name (Original string, not URL-encoded string).
-            pt_BR: Database name (Original string, not URL-encoded string).
-            zh_Hans: 数据库的名称（原始字符串，非URL编码字符串）。
-          label:
-            en_US: Database name
-            ja_JP: Database name
-            pt_BR: Database name
-            zh_Hans: 库名
-          llm_description: ''
-          max: null
-          min: null
-          name: db_name
-          options: []
-          placeholder: null
-          precision: null
-          required: false
-          scope: null
-          template: null
-          type: string
-        - auto_generate: null
-          default: null
-          form: llm
-          human_description:
-            en_US: 'Database properties, for example: alt_host=host1&alt_host=host2&ssl_cipher=%2Fpath%2Fto%2Fcrt'
-            ja_JP: 'Database properties, for example: alt_host=host1&alt_host=host2&ssl_cipher=%2Fpath%2Fto%2Fcrt'
-            pt_BR: 'Database properties, for example: alt_host=host1&alt_host=host2&ssl_cipher=%2Fpath%2Fto%2Fcrt'
-            zh_Hans: 数据库属性，例如：alt_host=host1&alt_host=host2&ssl_cipher=%2Fpath%2Fto%2Fcrt
-          label:
-            en_US: Database properties
-            ja_JP: Database properties
-            pt_BR: Database properties
-            zh_Hans: 数据库属性
-          llm_description: ''
-          max: null
-          min: null
-          name: db_properties
-          options: []
-          placeholder: null
-          precision: null
-          required: false
-          scope: null
-          template: null
-          type: string
-        - auto_generate: null
-          default: null
-          form: llm
-          human_description:
-            en_US: 'SQL query statement, for example: select * from tbl_name'
-            ja_JP: 'SQL query statement, for example: select * from tbl_name'
-            pt_BR: 'SQL query statement, for example: select * from tbl_name'
-            zh_Hans: SQL查询语句，例如：select * from tbl_name
-          label:
-            en_US: Query SQL
-            ja_JP: Query SQL
-            pt_BR: Query SQL
-            zh_Hans: SQL查询语句
-          llm_description: 'SQL query statement, for example: select * from tbl_name'
-          max: null
-          min: null
-          name: query_sql
-          options: []
-          placeholder: null
-          precision: null
-          required: true
-          scope: null
-          template: null
-          type: string
-        - auto_generate: null
-          default: markdown
-          form: form
-          human_description:
-            en_US: Used for selecting the output format, markdown or json.
-            ja_JP: Used for selecting the output format, markdown or json.
-            pt_BR: Used for selecting the output format, markdown or json.
-            zh_Hans: 用于选择输出格式，markdown或json。
-          label:
-            en_US: Output format
-            ja_JP: Output format
-            pt_BR: Output format
-            zh_Hans: 输出格式
-          llm_description: ''
-          max: null
-          min: null
-          name: output_format
-          options:
-          - icon: ''
-            label:
-              en_US: MARKDOWN
-              ja_JP: MARKDOWN
-              pt_BR: MARKDOWN
-              zh_Hans: MARKDOWN
-            value: markdown
-          - icon: ''
-            label:
-              en_US: JSON
-              ja_JP: JSON
-              pt_BR: JSON
-              zh_Hans: JSON
-            value: json
-          placeholder: null
-          precision: null
-          required: true
-          scope: null
-          template: null
-          type: select
-        params:
-          db_host: ''
-          db_name: ''
-          db_password: ''
-          db_port: ''
-          db_properties: ''
-          db_type: ''
-          db_username: ''
-          output_format: ''
-          query_sql: ''
-        plugin_id: junjiem/db_query
-        plugin_unique_identifier: junjiem/db_query:0.0.9@1060683d13870d0cb77d47664e5100a16a2029dada24cf1193bc2ce312295764
-        provider_icon: http://172.22.132.124:8081/console/api/workspaces/current/plugin/icon?tenant_id=de79cda4-cae0-4be5-8bff-50ddcacf186f&filename=ce2ce5af47e39e9476fc06eea7fbd05446ad16043d4d16c671e69a3c650a976a.svg
-        provider_id: junjiem/db_query/db_query
-        provider_name: junjiem/db_query/db_query
-        provider_type: builtin
-        selected: false
-        title: SQL查询门店位置信息
-        tool_configurations:
-          output_format:
-            type: constant
-            value: markdown
-        tool_description: 数据库SQL查询工具。
-        tool_label: SQL查询
-        tool_name: sql_query
-        tool_node_version: '2'
-        tool_parameters:
-          db_host:
-            type: mixed
-            value: '{{#env.db_url#}}'
-          db_name:
-            type: mixed
-            value: '{{#env.db_dbname#}}'
-          db_password:
-            type: mixed
-            value: '{{#env.db_password#}}'
-          db_port:
-            type: variable
-            value:
-            - env
-            - db_port
-          db_properties:
-            type: mixed
-            value: null
-          db_type:
-            type: constant
-            value: postgresql
-          db_username:
-            type: mixed
-            value: '{{#env.db_user#}}'
-          query_sql:
-            type: mixed
-            value: '{{#1764235048636.sql#}}'
-        type: tool
-      height: 88
-      id: '1764041570402'
-      position:
-        x: 3769.440541668748
-        y: 81
-      positionAbsolute:
-        x: 3769.440541668748
-        y: 81
-      selected: false
-      sourcePosition: right
-      targetPosition: left
-      type: custom
-      width: 242
-    - data:
-        code: "\nfunction parseRow(line) {\n  return String(line).trim().replace(/^\\\
-          |/, '').replace(/\\|$/, '').split('|').map(col => String(col).trim())\n\
-          }\nfunction parseMd(text) {\n  const md = String(text).replace(/(?<!\\|)\\\
-          n(?!\\|)/g, ' ').replaceAll('\\r', ' ')\n  const lines = md.split('\\n')\n\
-          \  const head = parseRow(lines[0])\n  const body = lines.slice(2)\n  return\
-          \ body.map(line => {\n    const obj = {}\n    const arr = parseRow(line)\n\
-          \    head.forEach((key, index) => {\n      obj[key] = arr[index]\n    })\n\
-          \    return obj\n  })\n}\nfunction main({text, list, intent, output, store})\
-          \ {\n  const space = parseMd(text)\n  const space_by_name = {}\n  space.forEach(obj\
-          \ => {\n    space_by_name[obj.child_space_name] = obj\n  })\n  const dear_by_id\
-          \ = {}\n  Array.from(store).forEach((obj, index) => {\n    dear_by_id[obj.store_id]\
-          \ = output[index]\n  })\n  const result = Array.from(list).map(o => {\n\
-          \    return {\n      ...o,\n      space_id: space_by_name[o.store_name].space_id\
-          \ || '',\n      space_name: space_by_name[o.store_name].space_name || '',\n\
-          \      child_space_id: space_by_name[o.store_name].child_space_id || '',\n\
-          \      child_space_name: space_by_name[o.store_name].child_space_name ||\
-          \ '',\n    }\n  })\n  const filter = []\n  const check = {}\n  const list_answer\
-          \ = '根據你的提問，以下商店可能符合你的需求'\n  const target_answer = '根據你的提問，已找到相關資訊'\n  result.forEach(obj\
-          \ => {\n    if (check[obj.store_id] === undefined) {\n      check[obj.store_id]\
+        code: "\nfunction main({list, intent, output, store}) {\n  const dear_by_id\
+          \ = {}\n  Array.from(store).forEach((obj, index) => {\n    dear_by_id[obj.child_space_id]\
+          \ = output[index]\n  })\n  const filter = []\n  const check = {}\n  const\
+          \ array = '根據你的提問，以下商店可能符合你的需求'\n  const target = '根據你的提問，已找到相關資訊'\n  const\
+          \ none = '抱歉，沒有檢索到相關信息，請重新提問。'\n  Array.from(list).forEach(obj => {\n  \
+          \  if (check[obj.child_space_id] === undefined) {\n      check[obj.child_space_id]\
           \ = filter.length\n      filter.push({\n        space_id: obj.space_id,\n\
           \        space_name: obj.space_name,\n        child_space_id: obj.child_space_id,\n\
-          \        child_space_name: obj.child_space_name,\n        time: obj.store_time,\n\
-          \        description: dear_by_id[obj.store_id] ?? obj.store_desciption,\n\
+          \        child_space_name: obj.store_name,\n        time: obj.store_time,\n\
+          \        description: dear_by_id[obj.child_space_id] ?? obj.store_description,\n\
           \        product: []\n      })\n    }\n    if (intent === 'product') {\n\
-          \      filter[check[obj.store_id]].product.push({\n        product_id: obj.product_id,\n\
-          \        product_name: obj.product_name,\n        price: obj.product_price,\n\
-          \      })\n    }\n  })\n  const history = {\n    intent,\n    result: filter,\n\
-          \  }\n  const need_filter = filter.length > 1\n  const answer = {\n    AI_reply:\
-          \ need_filter ? list_answer : target_answer,\n    info: filter,\n  }\n \
-          \ return {\n    history,\n    answer,\n    need_filter,\n  }\n}\n"
+          \      filter[check[obj.child_space_id]].product.push({\n        product_id:\
+          \ obj.product_id,\n        product_name: obj.name,\n        price: obj.price,\n\
+          \      })\n    }\n  })\n  const need_filter = filter.length > 1\n  const\
+          \ history = !need_filter ? {} : {\n    intent,\n    result: filter,\n  }\n\
+          \  const answer = {\n    AI_reply: need_filter ? array : (filter.length\
+          \ === 0 ? none : target),\n    info: filter,\n  }\n  return {\n    history,\n\
+          \    answer,\n  }\n}\n"
         code_language: javascript
         outputs:
           answer:
@@ -1321,18 +682,10 @@ workflow:
           history:
             children: null
             type: object
-          need_filter:
-            children: null
-            type: boolean
         selected: false
-        title: 处理位置信息
+        title: 整合信息
         type: code
         variables:
-        - value_selector:
-          - '1764041570402'
-          - text
-          value_type: string
-          variable: text
         - value_selector:
           - '1764039841850'
           - intent
@@ -1356,41 +709,11 @@ workflow:
       height: 52
       id: '1764041661411'
       position:
-        x: 4928.98762392839
-        y: 81
+        x: 3724
+        y: 303
       positionAbsolute:
-        x: 4928.98762392839
-        y: 81
-      selected: false
-      sourcePosition: right
-      targetPosition: left
-      type: custom
-      width: 242
-    - data:
-        code: "\nfunction main({text}) {\n  const answer = {\n    description: text\n\
-          \  }\n  return {\n    answer\n  }\n}\n"
-        code_language: javascript
-        outputs:
-          answer:
-            children: null
-            type: object
-        selected: false
-        title: 处理回答
-        type: code
-        variables:
-        - value_selector:
-          - '1763709255999'
-          - text
-          value_type: string
-          variable: text
-      height: 52
-      id: '1764212651402'
-      position:
-        x: 4124.935602013145
-        y: 376.93246847708895
-      positionAbsolute:
-        x: 4124.935602013145
-        y: 376.93246847708895
+        x: 3724
+        y: 303
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -1398,7 +721,7 @@ workflow:
       width: 242
     - data:
         dataset_ids:
-        - JGo5ZzTSLRPloMAQtD7mqp14CnzJoh7ewu3PwIIFNzG8Dq8EKTYiYuno3IZoA07S
+        - In3usSDALUZDa+3LdOj9J2rNXsUal5o7Fhp3Tx2epRrls5M3B87EdvSjFWwQYR9t
         multiple_retrieval_config:
           reranking_enable: false
           reranking_mode: weighted_score
@@ -1412,6 +735,7 @@ workflow:
               embedding_provider_name: langgenius/ollama/ollama
               vector_weight: 0.7
             weight_type: customized
+        query_attachment_selector: []
         query_variable_selector:
         - '1763707294052'
         - sys.query
@@ -1422,43 +746,36 @@ workflow:
       height: 90
       id: '1764235028349'
       position:
-        x: 1750
-        y: 57
+        x: 1408
+        y: 44
       positionAbsolute:
-        x: 1750
-        y: 57
+        x: 1408
+        y: 44
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
       width: 242
     - data:
-        code: "\nfunction parseToObject(str) {\n  const obj = {};\n\n  // 只把出现在 行首、分号或换行\
-          \ 后的 \"key:\" 识别为字段名\n  const regex = /(^|;|\\n)\\s*([A-Za-z0-9_]+)\\s*:/g;\n\
-          \  let match;\n  const keys = [];\n\n  while ((match = regex.exec(str))\
-          \ !== null) {\n    // match.index 是整个 match 的起始（包含前缀），\n    // 找到 key 在\
-          \ match[0] 中的偏移以算出 key 的全局起始位置\n    const fullMatch = match[0];\n    const\
-          \ keyName = match[2];\n    const offsetInFull = fullMatch.indexOf(keyName);\n\
-          \    const keyIndex = match.index + offsetInFull;\n    keys.push({ key:\
-          \ keyName, index: keyIndex });\n  }\n\n  for (let i = 0; i < keys.length;\
-          \ i++) {\n    const current = keys[i];\n    const next = keys[i + 1];\n\n\
-          \    const start = current.index + current.key.length + 1; // skip `key:`\n\
-          \    const end = next ? next.index : str.length;\n\n    // 取片段并去掉收尾的分号与空白\n\
-          \    let value = str.slice(start, end).trim();\n    value = value.replace(/^\\\
-          s*;|;\\s*$/g, \"\").trim();\n\n    // 清除 value 末尾的 (数字)\n    value = value.replace(/\\\
-          (\\d+\\)\\s*$/, \"\").trim();\n\n    obj[current.key] = value;\n  }\n\n\
-          \  return obj;\n}\nfunction main({result}) {\n  const list = Array.from(result).map(o\
-          \ => {\n    return parseToObject(o.content)\n  })\n  const need_query =\
-          \ Array.from(new Set(list.map(o => o.store_name))).map(o => `'${o}'`)\n\
-          \  const sql = `SELECT * FROM test_dify.space WHERE child_space_name IN\
-          \ (${need_query.join(', ')});`\n  let chunk = ''\n  if (Array.from(result).length\
-          \ > 0) {\n    chunk = result[0]?.metadata?.child_chunks?.[0]?.content ??\
-          \ ''\n  }\n  const store = []\n  const check = {}\n  list.forEach(obj =>\
-          \ {\n    if (check[obj.store_id] === undefined) {\n      check[obj.store_id]\
-          \ = store.length\n      store.push({\n        store_id: obj.store_id,\n\
-          \        description: obj.store_desciption,\n        product: [],\n    \
-          \  })\n    }\n    store[check[obj.store_id]].product.push(obj.product_name)\n\
-          \  })\n  return {\n    list,\n    sql,\n    chunk,\n    store,\n  }\n}\n"
+        code: "\nfunction parseKeyValueText(input) {\n  const result = {}\n  if (typeof\
+          \ input !== 'string') return result\n\n  const lines = input.split(/\\r?\\\
+          n/).map(line => line.trim()).filter(Boolean)\n\n  for (const line of lines)\
+          \ {\n    // 只切第一个冒号，防止 value 中包含冒号\n    const idx = line.indexOf(':')\n\
+          \    if (idx === -1) continue\n\n    const key = line.slice(0, idx).trim()\n\
+          \    let value = line.slice(idx + 1).trim()\n\n    if (!key) continue\n\n\
+          \    // 去除 value 末尾的 (id)，例如 (34)、(abc123)\n    // 仅在“末尾”才移除，避免误伤正文中的括号\n\
+          \    value = value.replace(/\\s*\\([^()]*\\)\\s*$/, '')\n\n    result[key]\
+          \ = value\n  }\n\n  return result\n}\nfunction main({result, query}) {\n\
+          \  const list = Array.from(result).map(o => {\n    return parseKeyValueText(o.content)\n\
+          \  })\n  let chunk = ''\n  if (Array.from(result).length > 0) {\n    chunk\
+          \ = result[0]?.metadata?.child_chunks?.[0]?.content ?? ''\n  }\n  const\
+          \ store = []\n  const check = {}\n  list.forEach(obj => {\n    if (check[obj.child_space_id]\
+          \ === undefined) {\n      check[obj.child_space_id] = store.length\n   \
+          \   store.push({\n        child_space_id: obj.child_space_id,\n        description:\
+          \ obj.store_description,\n        product: [],\n      })\n    }\n    store[check[obj.child_space_id]].product.push(obj.name)\n\
+          \  })\n  const prompt = store.map(o => {\n    return `\n1. 門店原始簡介：${o.description}\n\
+          2. 用戶問題：${query}\n3. 相關產品檢索結果（可能为空）：${JSON.stringify(o.product)}`\n  })\n\
+          \  return {\n    list,\n    chunk,\n    store,\n    prompt,\n  }\n}\n"
         code_language: javascript
         outputs:
           chunk:
@@ -1467,9 +784,9 @@ workflow:
           list:
             children: null
             type: array[object]
-          sql:
+          prompt:
             children: null
-            type: string
+            type: array[string]
           store:
             children: null
             type: array[object]
@@ -1482,14 +799,19 @@ workflow:
           - result
           value_type: array[object]
           variable: result
+        - value_selector:
+          - sys
+          - query
+          value_type: string
+          variable: query
       height: 52
       id: '1764235048636'
       position:
-        x: 2054.336626437069
-        y: 57
+        x: 1750
+        y: 63
       positionAbsolute:
-        x: 2054.336626437069
-        y: 57
+        x: 1750
+        y: 63
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -1530,19 +852,19 @@ workflow:
       height: 88
       id: '1764235675830'
       position:
-        x: 3404.4825508549684
-        y: -118.2671359086814
+        x: 3138
+        y: 57
       positionAbsolute:
-        x: 3404.4825508549684
-        y: -118.2671359086814
+        x: 3138
+        y: 57
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
       width: 242
     - data:
-        code: "\nfunction main({text}) {\n  const answer = {\n    description: text\n\
-          \  }\n  return {\n    answer\n  }\n}\n"
+        code: "\nfunction main({text}) {\n  const answer = {\n    AI_reply: text,\n\
+          \    info: [],\n  }\n  return {\n    answer\n  }\n}\n"
         code_language: javascript
         outputs:
           answer:
@@ -1560,11 +882,11 @@ workflow:
       height: 52
       id: '1764235765959'
       position:
-        x: 3769.440541668748
-        y: -118.2671359086814
+        x: 3480
+        y: 75
       positionAbsolute:
-        x: 3769.440541668748
-        y: -118.2671359086814
+        x: 3480
+        y: 75
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -1573,12 +895,12 @@ workflow:
     - data:
         error_handle_mode: terminated
         flatten_output: true
-        height: 211
+        height: 208
         is_parallel: false
-        iterator_input_type: array[object]
+        iterator_input_type: array[string]
         iterator_selector:
         - '1764235048636'
-        - store
+        - prompt
         output_selector:
         - '1764310531204'
         - text
@@ -1588,20 +910,20 @@ workflow:
         start_node_id: 1764310450696start
         title: 循环生成门店简介
         type: iteration
-        width: 718.987697769322
-      height: 211
+        width: 486
+      height: 208
       id: '1764310450696'
       position:
-        x: 4124.935602013145
-        y: 81
+        x: 3138
+        y: 225
       positionAbsolute:
-        x: 4124.935602013145
-        y: 81
+        x: 3138
+        y: 225
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
-      width: 719
+      width: 486
       zIndex: 1
     - data:
         desc: ''
@@ -1614,11 +936,11 @@ workflow:
       id: 1764310450696start
       parentId: '1764310450696'
       position:
-        x: 24
-        y: 68
+        x: 60
+        y: 80
       positionAbsolute:
-        x: 4148.935602013145
-        y: 149
+        x: 3198
+        y: 305
       selectable: false
       sourcePosition: right
       targetPosition: left
@@ -1634,45 +956,45 @@ workflow:
         iteration_id: '1764310450696'
         model:
           completion_params:
-            temperature: 0
+            temperature: 0.7
           mode: chat
           name: qwen3:0.6b
           provider: langgenius/ollama/ollama
         prompt_template:
         - id: 61615243-f0d4-4593-aa2c-acf35c9eaf23
           role: system
-          text: '你是一名专业的门店简介生成助手。
+          text: '你是專業的門市查找助手。
 
 
-            任务：
+            任務：
 
-            根据以下输入内容，生成一个 **简洁、自然且与用户当前问题强相关** 的门店动态简介。
-
-
-            你将获得：
-
-            1. 门店原始简介：{{#1764310743265.description#}}
-
-            2. 用户问题：{{#sys.query#}}
-
-            3. 相关产品检索结果（可能为空）：{{#1764310743265.product#}}
+            根據以下內容，說明門店 **簡潔、自然且與用戶當前問題強相關** 的原因。
 
 
-            生成规则（必须遵守）：
+            你將獲得：
 
-            - 你的目标是对门店进行简介，但要 **结合用户问题的上下文**，让简介显得更贴切当前场景。
+            {{#1764310450696.item#}}
 
-            - 必须保留原始简介中的核心信息，但可以压缩、改写、重组。
 
-            - 如果检索到相关产品，需 **自然融入** 简介描述中，但不得堆砌关键词。
+            生成規則（必須遵守）：
 
-            - 简介必须是 **一段自然语言**（禁止条列式、禁止项目符号）。
+            - 你的目標是 **結合使用者問題的上下文**，說明與使用者問題相關的原因。
 
-            - 简介长度：**40～120 字**（若英文则 2–4 句），精炼但完整。
+            - 必須保留核心訊息，但可以壓縮、改寫、重組。
 
-            - 如果相关产品检索结果为空，不要强行补充商品信息。
+            - 若檢索相關產品，需 **自然融入** 簡介說明中，但不得堆砌關鍵字。
 
-            - 禁止回答与简介无关的内容。'
+            - 簡介必須是 **一段自然語言**（禁止條列式、禁止項目符號）。
+
+            - 簡介長度：**40 字以內**（若英文則 2–4 句），精煉但完整。
+
+            - 若相關產品檢索結果為空，請勿強行補充商品資訊。
+
+            - 禁止回答與簡介無關的內容。
+
+            - 請以繁體中文輸出
+
+            - 回復中若有英文請移除'
         selected: false
         title: LLM 生成门店简介
         type: llm
@@ -1682,58 +1004,99 @@ workflow:
       id: '1764310531204'
       parentId: '1764310450696'
       position:
-        x: 437.2365553754098
-        y: 66.66112702232459
+        x: 184
+        y: 60
       positionAbsolute:
-        x: 4562.172157388555
-        y: 147.6611270223246
-      selected: true
-      sourcePosition: right
-      targetPosition: left
-      type: custom
-      width: 242
-      zIndex: 1002
-    - data:
-        code: "\nfunction main({item}) {\n  const description = String(item?.description\
-          \ ?? '')\n  const product = Array.isArray(item?.product) ? Array.from(item.product)\
-          \ : []\n  return {\n    description,\n    product,\n  }\n}\n"
-        code_language: javascript
-        isInIteration: true
-        isInLoop: false
-        iteration_id: '1764310450696'
-        outputs:
-          description:
-            children: null
-            type: string
-          product:
-            children: null
-            type: array[string]
-        selected: false
-        title: 处理门店信息
-        type: code
-        variables:
-        - value_selector:
-          - '1764310450696'
-          - item
-          value_type: object
-          variable: item
-      height: 52
-      id: '1764310743265'
-      parentId: '1764310450696'
-      position:
-        x: 126.68049208922639
-        y: 68.9585237323187
-      positionAbsolute:
-        x: 4251.616094102372
-        y: 149.9585237323187
+        x: 3322
+        y: 285
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
       width: 242
       zIndex: 1002
+    - data:
+        items:
+        - input_type: variable
+          operation: clear
+          value: ''
+          variable_selector:
+          - conversation
+          - history
+          write_mode: over-write
+        selected: false
+        title: 清空历史
+        type: assigner
+        version: '2'
+      height: 84
+      id: '1766711706400'
+      position:
+        x: 1408
+        y: 214
+      positionAbsolute:
+        x: 1408
+        y: 214
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: empty
+            id: 90287275-e1ae-4ccc-9530-8de877e3c852
+            value: ''
+            varType: object
+            variable_selector:
+            - conversation
+            - history
+          id: 'true'
+          logical_operator: and
+        selected: false
+        title: 是否存在历史
+        type: if-else
+      height: 124
+      id: '1766712229458'
+      position:
+        x: 342
+        y: 0
+      positionAbsolute:
+        x: 342
+        y: 0
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        items:
+        - input_type: variable
+          operation: clear
+          value: ''
+          variable_selector:
+          - conversation
+          - history
+          write_mode: over-write
+        selected: false
+        title: 清空历史
+        type: assigner
+        version: '2'
+      height: 84
+      id: '1766713018347'
+      position:
+        x: 3822
+        y: 49
+      positionAbsolute:
+        x: 3822
+        y: 49
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
     viewport:
-      x: -523.2259739330236
-      y: 515.0196520038864
-      zoom: 0.25
+      x: -206.40645081770435
+      y: 192.31689797005606
+      zoom: 0.6093853943072873
   rag_pipeline_variables: []

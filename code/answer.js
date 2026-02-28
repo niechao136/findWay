@@ -91,7 +91,22 @@ function parseKeyValueText(input) {
 
   return result
 }
-function main({result}) {
+function getCurrentTimeByOffset(timezone) {
+  const now = new Date()
+  const sign = timezone.startsWith('-') ? -1 : 1
+  const [hours, minutes] = timezone.slice(1).split(':').map(Number)
+  const offsetInMilliseconds = sign * (hours * 3600000 + minutes * 60000)
+  const targetTime = new Date(now.getTime() + offsetInMilliseconds)
+  const f = (num) => String(num).padStart(2, '0')
+  const YYYY = targetTime.getUTCFullYear()
+  const MM = f(targetTime.getUTCMonth() + 1)
+  const DD = f(targetTime.getUTCDate())
+  const HH = f(targetTime.getUTCHours())
+  const mm = f(targetTime.getUTCMinutes())
+  const ss = f(targetTime.getUTCSeconds())
+  return `${YYYY}-${MM}-${DD} ${HH}:${mm}:${ss}`
+}
+function main({result, timezone}) {
   const list = Array.from(result).map(o => {
     return parseKeyValueText(o.content)
   })
@@ -103,7 +118,6 @@ function main({result}) {
       store.push({
         name: obj.store_name,
         space: obj.space_name,
-        description: obj.store_description,
         time: obj.store_time,
         product: []
       })
@@ -111,13 +125,10 @@ function main({result}) {
     store[check[obj.child_space_id]].product.push({
       name: obj.name,
       price: obj.price,
-      description: obj.description,
     })
   })
-  const now = new Date()
-  const formatted = `${now.getFullYear()}-${(now.getMonth() + 1).toString().padStart(2, '0')}-${now.getDate().toString().padStart(2, '0')} ${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`
   return {
-    now: formatted,
+    now: getCurrentTimeByOffset(timezone),
     result: JSON.stringify(store),
   }
 }
@@ -125,7 +136,7 @@ function main({result}) {
 //#endregion
 //#region 处理历史
 
-function main({query, history}) {
+function main({query, history, lang}) {
   const index = Number(query)
   const filter = history?.result?.[index - 1] ?? null
   const find = Array.from(history?.result ?? []).find(o => {
@@ -133,10 +144,10 @@ function main({query, history}) {
   })
   const can_reply = !!filter || !!find
   const trans = {
-    zh: '{store_name}位於{space_name}，已為您顯示路線於地圖上',
-    en: '{store_name} is located in {space_name}, and the route has been shown on the map.'
+    'zh-TW': '{store_name}位於{space_name}，已為您顯示路線於地圖上',
+    'en-US': '{store_name} is located in {space_name}, and the route has been shown on the map.'
   }
-  const reply = trans[history?.code] || trans.zh
+  const reply = trans[lang] || trans["zh-TW"]
   const info = filter ?? find
   const AI_reply = reply.replace('{store_name}', info?.child_space_name ?? '').replace('{space_name}', info?.space_name ?? '')
   const item = {
@@ -153,4 +164,5 @@ function main({query, history}) {
     answer,
   }
 }
+
 //#endregion
