@@ -1,7 +1,7 @@
 product_id:5GNbualHJSAh
 name:關東煮-黃金魚蛋
 description:爽脆口感，海鮮甜味
-tag:黃金魚蛋，熱食
+tag:關東煮-黃金魚蛋，熱食
 price:15
 store_name:7-11熱食區
 store_description:7-11熱食區 提供各式優質商品與熱食服務。
