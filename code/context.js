@@ -97,6 +97,7 @@ function main({text, result}) {
       })
     }
     info[check[obj.child_space_id]].product.push({
+      id: obj.product_id,
       price: obj.price,
       name: obj.name,
     })
@@ -145,6 +146,7 @@ function main({result}) {
       })
     }
     store[check[obj.child_space_id]].product.push({
+      id: obj.product_id,
       name: obj.name,
       price: obj.price,
     })

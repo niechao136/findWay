@@ -26,7 +26,7 @@
 "space": "",
 "child_space_id": "",
 "time": "00:00~23:59",
-"product": [{"name": "产品名", "price": "价格"}]
+"product": [{"id": "产品ID", "name": "产品名", "price": "价格"}]
 }
 ]
 }
