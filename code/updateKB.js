@@ -667,3 +667,167 @@ const request = {
   "response_mode": "streaming",
   "user": "abc-123"
 }
+
+
+function main({body, name, file}) {
+  const res = JSON.parse(body) || {}
+  const arr = Array.isArray(res.data) ? Array.from(res.data) : []
+  const kb = arr.find(o => o.name === name)
+  const kb_id = String(kb?.id ?? '')
+  const data = JSON.stringify({
+    name: file,
+    indexing_technique: 'high_quality',
+    doc_form: 'hierarchical_model',
+    process_rule: {
+      mode: 'hierarchical',
+      rules: {
+        pre_processing_rules: [
+          {
+            id: 'remove_extra_spaces',
+            enabled: false
+          },
+          {
+            id: 'remove_urls_emails',
+            enabled: false
+          }
+        ],
+        segmentation: {
+          separator: '\n\n',
+          max_tokens: 4000,
+        },
+        parent_mode: 'paragraph',
+        subchunk_segmentation: {
+          separator: '\n',
+          max_tokens: 1000,
+          chunk_overlap: 50,
+        }
+      }
+    }
+  })
+  return {
+    kb_id,
+    data,
+  }
+}
+
+function main({body, kbName}) {
+  const res = JSON.parse(body) || {}
+  const arr = Array.isArray(res.data) ? Array.from(res.data) : []
+  const kb = arr.find(o => o.name === kbName)
+  const kb_id = String(kb?.id ?? '')
+  const data = JSON.stringify({
+    indexing_technique: 'high_quality',
+    doc_form: 'hierarchical_model',
+    process_rule: {
+      mode: 'hierarchical',
+      rules: {
+        pre_processing_rules: [
+          {
+            id: 'remove_extra_spaces',
+            enabled: false
+          },
+          {
+            id: 'remove_urls_emails',
+            enabled: false
+          }
+        ],
+        segmentation: {
+          separator: '\n\n',
+          max_tokens: 4000,
+        },
+        parent_mode: 'paragraph',
+        subchunk_segmentation: {
+          separator: '\n',
+          max_tokens: 1000,
+          chunk_overlap: 50,
+        }
+      }
+    }
+  })
+  return {
+    kb_id,
+    data,
+  }
+}
+
+function main({body}) {
+  const res = JSON.parse(body) || {}
+  const status =  !!res?.document?.id ? 1 : 0
+  const msg = status === 1 ? '上传成功' : (res?.message ?? '上传失败')
+  return {
+    status,
+    msg,
+  }
+}
+
+function main({query, store_type}) {
+  return {
+    request: JSON.stringify({
+      "query": query,
+      "retrieval_model": {
+        "search_method": "hybrid_search",
+        "reranking_enable": false,
+        "reranking_mode": "weighted_score",
+        "reranking_model": {
+          "reranking_model_name": "",
+          "reranking_provider_name": ""
+        },
+        "top_k": 10,
+        "score_threshold_enabled": false,
+        "score_threshold": null,
+        "weights": {
+          "weight_type": "customized",
+          "keyword_setting": {
+            "keyword_weight": 0.3
+          },
+          "vector_setting": {
+            "vector_weight": 0.7,
+            "embedding_model_name": "quentinz/bge-large-zh-v1.5:latest",
+            "embedding_provider_name": "langgenius/ollama/ollama"
+          }
+        },
+        "metadata_filtering_conditions": {
+          "logical_operator": "and",
+          "conditions": [
+            {
+              "name": "store_type",
+              "comparison_operator": "=",
+              "value": store_type
+            }
+          ]
+        }
+      }
+    })
+  }
+}
+
+function main({query}) {
+  return {
+    request: JSON.stringify({
+      "query": query,
+      "retrieval_model": {
+        "search_method": "hybrid_search",
+        "reranking_enable": false,
+        "reranking_mode": "weighted_score",
+        "reranking_model": {
+          "reranking_model_name": "",
+          "reranking_provider_name": ""
+        },
+        "top_k": 10,
+        "score_threshold_enabled": false,
+        "score_threshold": null,
+        "weights": {
+          "weight_type": "customized",
+          "keyword_setting": {
+            "keyword_weight": 0.3
+          },
+          "vector_setting": {
+            "vector_weight": 0.7,
+            "embedding_model_name": "quentinz/bge-large-zh-v1.5:latest",
+            "embedding_provider_name": "langgenius/ollama/ollama"
+          }
+        }
+      }
+    })
+  }
+}

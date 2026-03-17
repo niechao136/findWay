@@ -1,0 +1,490 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: workflow
+  name: FindWay - 模拟问题
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/ollama:0.0.3@9ded90ac00e8510119a24be7396ba77191c9610d5e1e29f59d68fa1229822fc7
+    version: null
+kind: app
+version: 0.5.0
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        image_file_batch_limit: 10
+        image_file_size_limit: 10
+        single_chunk_attachment_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: start
+        targetType: document-extractor
+      id: 1769753466488-source-1769753473367-target
+      source: '1769753466488'
+      sourceHandle: source
+      target: '1769753473367'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: document-extractor
+        targetType: code
+      id: 1769753473367-source-1769753634629-target
+      source: '1769753473367'
+      sourceHandle: source
+      target: '1769753634629'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: if-else
+      id: 1769753634629-source-1769755227193-target
+      source: '1769753634629'
+      sourceHandle: source
+      target: '1769755227193'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: iteration
+      id: 1769755227193-true-1769753671195-target
+      source: '1769755227193'
+      sourceHandle: 'true'
+      target: '1769753671195'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: end
+      id: 1769755227193-false-1769755242965-target
+      source: '1769755227193'
+      sourceHandle: 'false'
+      target: '1769755242965'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '1769753671195'
+        sourceType: iteration-start
+        targetType: llm
+      id: 1769753671195start-source-1769755274148-target
+      source: 1769753671195start
+      sourceHandle: source
+      target: '1769755274148'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: iteration
+        targetType: code
+      id: 1769753671195-source-1769755835793-target
+      source: '1769753671195'
+      sourceHandle: source
+      target: '1769755835793'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: end
+      id: 1769755835793-source-1769755875709-target
+      source: '1769755835793'
+      sourceHandle: source
+      target: '1769755875709'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        selected: false
+        title: 用户输入
+        type: start
+        variables:
+        - allowed_file_extensions: []
+          allowed_file_types:
+          - document
+          allowed_file_upload_methods:
+          - local_file
+          - remote_url
+          default: ''
+          hint: ''
+          label: 标准问答表格文件
+          max_length: 48
+          options: []
+          placeholder: ''
+          required: true
+          type: file
+          variable: standard
+        - default: '10'
+          hint: ''
+          label: 每个标准问题生成模拟问题的数量
+          max_length: 48
+          options: []
+          placeholder: ''
+          required: true
+          type: number
+          variable: question_num
+      height: 135
+      id: '1769753466488'
+      position:
+        x: 0
+        y: 24
+      positionAbsolute:
+        x: 0
+        y: 24
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        is_array_file: false
+        selected: false
+        title: 文档提取器
+        type: document-extractor
+        variable_selector:
+        - '1769753466488'
+        - standard
+      height: 104
+      id: '1769753473367'
+      position:
+        x: 342
+        y: 40
+      positionAbsolute:
+        x: 342
+        y: 40
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        code: "\nfunction markdownTableToTwoDArray(mdString) {\n  // 1. 先將字串按行拆分，並過濾掉純空白行\n\
+          \  const rows = mdString.trim().split('\\n').filter(row => row.trim() !==\
+          \ '')\n  const result = []\n  let separatorCount = 0 // 用來計算遇到了幾次分隔線行\n\n\
+          \  for (let line of rows) {\n    const trimmedLine = line.trim()\n\n   \
+          \ // 如果是空行，直接跳過（不代表結束，增加容錯率）\n    if (!trimmedLine) continue\n\n    // 判斷是否為分隔線行\
+          \ (例如 | --- | --- |)\n    const isSeparator = /^\\|?(\\s*:?-+:?\\s*\\|?)+\\\
+          s*$/.test(trimmedLine)\n\n    if (isSeparator) {\n      separatorCount++;\n\
+          \      // 如果遇到了第二次分隔線，說明進入了第二個 Sheet 的結構\n      if (separatorCount >= 2)\
+          \ {\n        // 移除已經推入 result 的第二個表格的標題行（即 result 的最後一筆）\n        result.pop()\n\
+          \        break\n      }\n      continue // 跳過第一個表格的分隔線行，不存入陣列\n    }\n\n\
+          \    // 解析資料列\n    const cells = trimmedLine\n      .replace(/^\\||\\|$/g,\
+          \ '')\n      .split('|')\n      .map(cell => cell.trim())\n\n    result.push(cells)\n\
+          \  }\n\n  return result\n}\nfunction main({text}) {\n  const list = markdownTableToTwoDArray(text)\n\
+          \  const question = [], answer = []\n  if (list.length > 1) {\n    list.slice(1).forEach(arr\
+          \ => {\n      const q = arr?.[0], a = arr?.[1]\n      if (!!q && !!a &&\
+          \ typeof q === 'string' && typeof a === 'string') {\n        question.push(q)\n\
+          \        answer.push(a)\n      }\n    })\n  }\n  const error = '请上传标准问答表格文件，需要表头并且至少包括一组标准问答！'\n\
+          \  return {\n    answer,\n    error,\n    question,\n  }\n}\n"
+        code_language: javascript
+        outputs:
+          answer:
+            children: null
+            type: array[string]
+          error:
+            children: null
+            type: string
+          question:
+            children: null
+            type: array[string]
+        selected: false
+        title: 解析文档
+        type: code
+        variables:
+        - value_selector:
+          - '1769753473367'
+          - text
+          value_type: string
+          variable: text
+      height: 52
+      id: '1769753634629'
+      position:
+        x: 684
+        y: 66
+      positionAbsolute:
+        x: 684
+        y: 66
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        error_handle_mode: terminated
+        flatten_output: true
+        height: 208
+        is_parallel: false
+        iterator_input_type: array[string]
+        iterator_selector:
+        - '1769753634629'
+        - question
+        output_selector:
+        - '1769755274148'
+        - text
+        output_type: array[string]
+        parallel_nums: 10
+        selected: false
+        start_node_id: 1769753671195start
+        title: 循环生成模拟问题
+        type: iteration
+        width: 486
+      height: 208
+      id: '1769753671195'
+      position:
+        x: 1388
+        y: 0
+      positionAbsolute:
+        x: 1388
+        y: 0
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 486
+      zIndex: 1
+    - data:
+        desc: ''
+        isInIteration: true
+        selected: false
+        title: ''
+        type: iteration-start
+      draggable: false
+      height: 48
+      id: 1769753671195start
+      parentId: '1769753671195'
+      position:
+        x: 60
+        y: 80
+      positionAbsolute:
+        x: 1448
+        y: 80
+      selectable: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom-iteration-start
+      width: 44
+      zIndex: 1002
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: not empty
+            id: 79d510d0-407b-4c58-b03d-d366c54be861
+            value: ''
+            varType: array[string]
+            variable_selector:
+            - '1769753634629'
+            - question
+          id: 'true'
+          logical_operator: and
+        selected: false
+        title: 条件分支
+        type: if-else
+      height: 124
+      id: '1769755227193'
+      position:
+        x: 1026
+        y: 30
+      positionAbsolute:
+        x: 1026
+        y: 30
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        outputs:
+        - value_selector:
+          - '1769753634629'
+          - error
+          value_type: string
+          variable: error
+        selected: false
+        title: 输出
+        type: end
+      height: 88
+      id: '1769755242965'
+      position:
+        x: 1388
+        y: 288
+      positionAbsolute:
+        x: 1388
+        y: 288
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '1769753671195'
+        model:
+          completion_params:
+            format: json
+            temperature: 0.7
+          mode: chat
+          name: qwen3:8b
+          provider: langgenius/ollama/ollama
+        prompt_template:
+        - id: c4d88e32-783c-447a-a0cd-47ce51a4f02c
+          role: system
+          text: "# Role\n数据填充与增强专家。\n\n# Rules\n1. 绝对禁止输出 \"XX\" 或者占位符。必须换成具体名称。\n\
+            2. 生成数量：必须精确生成 {{#1769753466488.question_num#}} 组问题。\n3. 只返回 JSON，禁止 Markdown\
+            \ 标签。\n\n# Thinking Process (CoT)\n在生成过程中，请遵循以下思维步骤：\n1. **意图锚定**：锁定标准问题的核心需求。\n\
+            2. **场景推演**：\n    - **简略场景**：模拟用户赶时间或在手机端输入的口语化短句。\n    - **详述场景**：模拟用户描述背景信息，包含冗余但真实的信息。\n\
+            \    - **书面场景**：模拟用户使用专业术语或礼貌用语。\n3. **句式重组**：利用反问、祈使、疑问等多种句式转换，确保 {{#1769753466488.question_num#}}\
+            \ 个样本间的高方差（多样性）。\n4. **补全占位**：如果【标准问题】中存在 XX 等占位符，在生成模拟问题时需要补全占位符。\n\n\
+            # Examples (模仿此格式，注意数量可变)\nInput: \"XX在哪\" | Count: 2\nOutput: {\"paraphrases\"\
+            :[{\"id\":1,\"text\":\"7-11在哪？\"},{\"id\":2,\"text\":\"全家在哪？\"}]}\n\n\
+            Input: \"XX多少錢\" | Count: 3\nOutput: {\"paraphrases\":[{\"id\":1,\"text\"\
+            :\"珍奶多少錢？\"},{\"id\":2,\"text\":\"這杯拿鐵多少錢？\"},{\"id\":3,\"text\":\"這瓶水多少錢？\"\
+            }]}\n\n# Current Task\n- Input: \"{{#1769753671195.item#}}\"\n- Count:\
+            \ {{#1769753466488.question_num#}}\n  Output:"
+        selected: false
+        title: LLM 生成模拟问题
+        type: llm
+        vision:
+          enabled: false
+      height: 88
+      id: '1769755274148'
+      parentId: '1769753671195'
+      position:
+        x: 184
+        y: 60
+      positionAbsolute:
+        x: 1572
+        y: 60
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 1002
+    - data:
+        code: "\nfunction main({output}) {\n    return {\n        result: ''\n   \
+          \ }\n}\n"
+        code_language: javascript
+        outputs:
+          result:
+            children: null
+            type: string
+        selected: false
+        title: 处理模拟问题
+        type: code
+        variables:
+        - value_selector:
+          - '1769753671195'
+          - output
+          value_type: array[string]
+          variable: output
+      height: 52
+      id: '1769755835793'
+      position:
+        x: 1934
+        y: 0
+      positionAbsolute:
+        x: 1934
+        y: 0
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        outputs:
+        - value_selector:
+          - '1769755835793'
+          - result
+          value_type: string
+          variable: result
+        selected: false
+        title: 输出 2
+        type: end
+      height: 88
+      id: '1769755875709'
+      position:
+        x: 2236
+        y: 0
+      positionAbsolute:
+        x: 2236
+        y: 0
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    viewport:
+      x: -489.69999999999993
+      y: 354.7
+      zoom: 0.7
+  rag_pipeline_variables: []

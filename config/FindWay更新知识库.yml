@@ -1,0 +1,744 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: workflow
+  name: FindWay更新知识库
+  use_icon_as_answer_icon: false
+dependencies: []
+kind: app
+version: 0.5.0
+workflow:
+  conversation_variables: []
+  environment_variables:
+  - description: 文档名称
+    id: 4fa77731-df3e-485d-9110-071ee8484dcb
+    name: docName
+    selector:
+    - env
+    - docName
+    value: product.md
+    value_type: string
+  - description: 知识库名称
+    id: 4eb5b992-eb47-4c1a-916d-d883b88d3359
+    name: kbName
+    selector:
+    - env
+    - kbName
+    value: FindWay知识库
+    value_type: string
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        image_file_batch_limit: 10
+        image_file_size_limit: 10
+        single_chunk_attachment_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: start
+        targetType: http-request
+      id: 1766629217839-source-1766629636916-target
+      source: '1766629217839'
+      sourceHandle: source
+      target: '1766629636916'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: http-request
+        targetType: code
+      id: 1766629636916-source-1766629716589-target
+      source: '1766629636916'
+      sourceHandle: source
+      target: '1766629716589'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: http-request
+      id: 1766629716589-source-1766629873157-target
+      source: '1766629716589'
+      sourceHandle: source
+      target: '1766629873157'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: http-request
+        targetType: code
+      id: 1766629873157-source-1766630351510-target
+      source: '1766629873157'
+      sourceHandle: source
+      target: '1766630351510'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: if-else
+      id: 1766630351510-source-1766629623161-target
+      source: '1766630351510'
+      sourceHandle: source
+      target: '1766629623161'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: end
+      id: 1766629623161-true-1766630933000-target
+      source: '1766629623161'
+      sourceHandle: 'true'
+      target: '1766630933000'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: http-request
+      id: 1766629623161-d77e820b-e981-4f9f-bb3e-025b9e869165-1766631029416-target
+      source: '1766629623161'
+      sourceHandle: d77e820b-e981-4f9f-bb3e-025b9e869165
+      target: '1766631029416'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: http-request
+      id: 1766629623161-false-1766631551507-target
+      source: '1766629623161'
+      sourceHandle: 'false'
+      target: '1766631551507'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: http-request
+        targetType: code
+      id: 1766631029416-source-1766631647397-target
+      source: '1766631029416'
+      sourceHandle: source
+      target: '1766631647397'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: http-request
+        targetType: code
+      id: 1766631551507-source-1766631650943-target
+      source: '1766631551507'
+      sourceHandle: source
+      target: '1766631650943'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: end
+      id: 1766631647397-source-1766632186079-target
+      source: '1766631647397'
+      sourceHandle: source
+      target: '1766632186079'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: end
+      id: 1766631650943-source-1766632287528-target
+      source: '1766631650943'
+      sourceHandle: source
+      target: '1766632287528'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        selected: false
+        title: 用户输入
+        type: start
+        variables:
+        - default: ''
+          hint: ''
+          label: 更新内容
+          max_length: null
+          options: []
+          placeholder: ''
+          required: true
+          type: paragraph
+          variable: content
+        - default: ''
+          hint: ''
+          label: 全量更新
+          max_length: 48
+          options: []
+          placeholder: ''
+          required: true
+          type: checkbox
+          variable: full
+        - default: ''
+          hint: ''
+          label: 知识库 Base Url
+          max_length: null
+          options: []
+          placeholder: ''
+          required: true
+          type: text-input
+          variable: base
+        - default: ''
+          hint: ''
+          label: 知识库token
+          max_length: null
+          options: []
+          placeholder: ''
+          required: true
+          type: text-input
+          variable: token
+      height: 187
+      id: '1766629217839'
+      position:
+        x: -7.142857142857167
+        y: 171
+      positionAbsolute:
+        x: -7.142857142857167
+        y: 171
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        cases:
+        - case_id: 'true'
+          conditions:
+          - comparison_operator: '='
+            id: 32a29243-cf66-4792-a6b1-7071de16082b
+            value: '0'
+            varType: number
+            variable_selector:
+            - '1766630351510'
+            - status
+          id: 'true'
+          logical_operator: and
+        - case_id: d77e820b-e981-4f9f-bb3e-025b9e869165
+          conditions:
+          - comparison_operator: is
+            id: d2ecd967-3633-422a-8354-f7882c46d875
+            value: true
+            varType: boolean
+            variable_selector:
+            - '1766629217839'
+            - full
+          id: d77e820b-e981-4f9f-bb3e-025b9e869165
+          logical_operator: and
+        selected: false
+        title: 分类处理
+        type: if-else
+      height: 172
+      id: '1766629623161'
+      position:
+        x: 1710
+        y: 169
+      positionAbsolute:
+        x: 1710
+        y: 169
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data: []
+          type: none
+        headers: Authorization:Bearer {{#1766629217839.token#}}
+        method: get
+        params: keyword:{{#env.kbName#}}
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        ssl_verify: true
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: 获取知识库列表
+        type: http-request
+        url: '{{#1766629217839.base#}}/datasets'
+        variables: []
+      height: 141
+      id: '1766629636916'
+      position:
+        x: 342
+        y: 192
+      positionAbsolute:
+        x: 342
+        y: 192
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        code: "\nfunction main({body, kbName}) {\n  const res = JSON.parse(body) ||\
+          \ {}\n  const arr = Array.isArray(res.data) ? Array.from(res.data) : []\n\
+          \  const kb = arr.find(o => o.name === kbName)\n  const kb_id = String(kb?.id\
+          \ ?? '')\n  return {\n    kb_id\n  }\n}\n"
+        code_language: javascript
+        outputs:
+          kb_id:
+            children: null
+            type: string
+        selected: false
+        title: 处理知识库列表
+        type: code
+        variables:
+        - value_selector:
+          - '1766629636916'
+          - body
+          value_type: string
+          variable: body
+        - value_selector:
+          - env
+          - kbName
+          value_type: string
+          variable: kbName
+      height: 52
+      id: '1766629716589'
+      position:
+        x: 684
+        y: 229
+      positionAbsolute:
+        x: 684
+        y: 229
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data: []
+          type: none
+        headers: Authorization:Bearer {{#1766629217839.token#}}
+        method: get
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        ssl_verify: true
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: 获取知识库文档列表
+        type: http-request
+        url: '{{#1766629217839.base#}}/datasets/{{#1766629716589.kb_id#}}/documents'
+        variables: []
+      height: 160
+      id: '1766629873157'
+      position:
+        x: 1026
+        y: 174
+      positionAbsolute:
+        x: 1026
+        y: 174
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        code: "\nfunction main({body, docName, kbName, kb_id, content}) {\n  const\
+          \ res = JSON.parse(body) || {}\n  const arr = Array.isArray(res.data) ?\
+          \ Array.from(res.data) : []\n  const doc = arr.find(o => o.name === docName)\n\
+          \  const doc_id = String(doc?.id ?? '')\n  const status = !!kb_id && !!doc_id\
+          \ ? 1 : 0\n  const msg = !kb_id ? `找不到知识库：${kbName}` : (!doc_id ? `找不到文档：${docName}`\
+          \ : '')\n  const full = JSON.stringify({\n    name: docName,\n    text:\
+          \ content,\n    doc_form: 'hierarchical_model',\n    process_rule: {\n \
+          \     mode: 'hierarchical',\n      rules: {\n        pre_processing_rules:\
+          \ [\n          {\n            id: 'remove_extra_spaces',\n            enabled:\
+          \ false\n          },\n          {\n            id: 'remove_urls_emails',\n\
+          \            enabled: false\n          }\n        ],\n        segmentation:\
+          \ {\n          separator: '\\n\\n',\n          max_tokens: 4000,\n     \
+          \   },\n        parent_mode: 'paragraph',\n        subchunk_segmentation:\
+          \ {\n          separator: '\\n',\n          max_tokens: 1000,\n        \
+          \  chunk_overlap: 50,\n        }\n      }\n    }\n  })\n  const segments\
+          \ = String(content).split('\\n\\n').map(content => {\n    return { content\
+          \ }\n  })\n  const increment = JSON.stringify({ segments })\n  return {\n\
+          \    doc_id,\n    status,\n    msg,\n    full,\n    increment,\n  }\n}"
+        code_language: javascript
+        outputs:
+          doc_id:
+            children: null
+            type: string
+          full:
+            children: null
+            type: string
+          increment:
+            children: null
+            type: string
+          msg:
+            children: null
+            type: string
+          status:
+            children: null
+            type: number
+        selected: false
+        title: 处理知识库文档列表
+        type: code
+        variables:
+        - value_selector:
+          - '1766629873157'
+          - body
+          value_type: string
+          variable: body
+        - value_selector:
+          - env
+          - docName
+          value_type: string
+          variable: docName
+        - value_selector:
+          - env
+          - kbName
+          value_type: string
+          variable: kbName
+        - value_selector:
+          - '1766629716589'
+          - kb_id
+          value_type: string
+          variable: kb_id
+        - value_selector:
+          - '1766629217839'
+          - content
+          value_type: string
+          variable: content
+      height: 52
+      id: '1766630351510'
+      position:
+        x: 1368
+        y: 229
+      positionAbsolute:
+        x: 1368
+        y: 229
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        outputs:
+        - value_selector:
+          - '1766630351510'
+          - status
+          value_type: number
+          variable: status
+        - value_selector:
+          - '1766630351510'
+          - msg
+          value_type: string
+          variable: msg
+        selected: false
+        title: 找不到知识库或者文档
+        type: end
+      height: 114
+      id: '1766630933000'
+      position:
+        x: 2072
+        y: 0
+      positionAbsolute:
+        x: 2072
+        y: 0
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data:
+          - id: key-value-356
+            key: ''
+            type: text
+            value: '{{#1766630351510.full#}}'
+          type: json
+        headers: Authorization:Bearer {{#1766629217839.token#}}
+        method: post
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        ssl_verify: true
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: 全量更新文档
+        type: http-request
+        url: '{{#1766629217839.base#}}/datasets/{{#1766629716589.kb_id#}}/documents/{{#1766630351510.doc_id#}}/update-by-text'
+        variables: []
+      height: 195
+      id: '1766631029416'
+      position:
+        x: 2072
+        y: 194
+      positionAbsolute:
+        x: 2072
+        y: 194
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data:
+          - id: key-value-514
+            key: ''
+            type: text
+            value: '{{#1766630351510.increment#}}'
+          type: json
+        headers: Authorization:Bearer {{#1766629217839.token#}}
+        method: post
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        ssl_verify: true
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: 增量更新文档
+        type: http-request
+        url: '{{#1766629217839.base#}}/datasets/{{#1766629716589.kb_id#}}/documents/{{#1766630351510.doc_id#}}/segments'
+        variables: []
+      height: 195
+      id: '1766631551507'
+      position:
+        x: 2072
+        y: 470
+      positionAbsolute:
+        x: 2072
+        y: 470
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        code: "\nfunction main({body}) {\n  const res = JSON.parse(body) || {}\n \
+          \ const status =  !!res?.document?.id ? 1 : 0\n  const msg = status ===\
+          \ 1 ? '更新成功' : (res?.message ?? '更新失败')\n  return {\n    status,\n    msg,\n\
+          \  }\n}\n"
+        code_language: javascript
+        outputs:
+          msg:
+            children: null
+            type: string
+          status:
+            children: null
+            type: number
+        selected: false
+        title: 全量更新结果
+        type: code
+        variables:
+        - value_selector:
+          - '1766631029416'
+          - body
+          value_type: string
+          variable: body
+      height: 52
+      id: '1766631647397'
+      position:
+        x: 2414
+        y: 266
+      positionAbsolute:
+        x: 2414
+        y: 266
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        code: "\nfunction main({body}) {\n  const res = JSON.parse(body) || {}\n \
+          \ const status =  Array.isArray(res?.data) ? 1 : 0\n  const msg = status\
+          \ === 1 ? '更新成功' : (res?.message ?? '更新失败')\n  return {\n    status,\n \
+          \   msg,\n  }\n}\n"
+        code_language: javascript
+        outputs:
+          msg:
+            children: null
+            type: string
+          status:
+            children: null
+            type: number
+        selected: false
+        title: 增量更新结果
+        type: code
+        variables:
+        - value_selector:
+          - '1766631551507'
+          - body
+          value_type: string
+          variable: body
+      height: 52
+      id: '1766631650943'
+      position:
+        x: 2414
+        y: 542
+      positionAbsolute:
+        x: 2414
+        y: 542
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        outputs:
+        - value_selector:
+          - '1766631647397'
+          - status
+          value_type: number
+          variable: status
+        - value_selector:
+          - '1766631647397'
+          - msg
+          value_type: string
+          variable: msg
+        selected: false
+        title: 返回结果
+        type: end
+      height: 114
+      id: '1766632186079'
+      position:
+        x: 2756
+        y: 235
+      positionAbsolute:
+        x: 2756
+        y: 235
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        outputs:
+        - value_selector:
+          - '1766631650943'
+          - status
+          value_type: number
+          variable: status
+        - value_selector:
+          - '1766631650943'
+          - msg
+          value_type: string
+          variable: msg
+        selected: false
+        title: 返回结果
+        type: end
+      height: 114
+      id: '1766632287528'
+      position:
+        x: 2756
+        y: 511
+      positionAbsolute:
+        x: 2756
+        y: 511
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    viewport:
+      x: 218.63638287147114
+      y: 198.77753405317884
+      zoom: 0.8040888484979245
+  rag_pipeline_variables: []

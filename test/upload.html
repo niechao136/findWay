@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Dify 工作流文件上传测试</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; max-width: 600px; margin: auto; line-height: 1.6; }
+        .field { margin-bottom: 15px; }
+        label { display: block; font-weight: bold; margin-bottom: 5px; }
+        input[type="text"], input[type="file"] { width: 100%; padding: 8px; box-sizing: border-box; }
+        button { background: #155eef; color: white; border: none; padding: 10px 20px; cursor: pointer; border-radius: 4px; }
+        button:hover { background: #004dc7; }
+        #result { margin-top: 20px; padding: 15px; background: #f4f4f4; border-radius: 4px; white-space: pre-wrap; word-break: break-all; }
+    </style>
+</head>
+<body>
+
+<h2>Dify 工作流测试工具</h2>
+
+<div class="field">
+    <label>知识库 Base URL</label>
+    <input type="text" id="baseUrl" placeholder="http://172.22.132.118:8081/v1" value="http://172.22.132.118:8081/v1">
+</div>
+
+<div class="field">
+    <label>知识库名称</label>
+    <input type="text" id="kbName" placeholder="FindWay知识库-Elvis测试" value="FindWay知识库-Elvis测试">
+</div>
+
+<div class="field">
+    <label>API Token</label>
+    <input type="text" id="apiToken" placeholder="dataset-Y4QLUTrJJLb1Lm57plIzTrQ8" value="dataset-Y4QLUTrJJLb1Lm57plIzTrQ8">
+</div>
+
+<div class="field">
+    <label>上传文件 (变量名: file)</label>
+    <input type="file" id="fileInput">
+</div>
+
+<button onclick="uploadToDify()">点击上传并执行工作流</button>
+
+<div id="result">等待操作...</div>
+
+<script>
+  async function uploadToDify() {
+    const BASE = 'http://172.22.132.118:8081/v1'
+    const USER = 'test-add'
+    const TOKEN = 'app-WeOOAWCwxQwuy0FWQTUViw73'
+    const baseUrl = document.getElementById('baseUrl').value.trim();
+    const kbName = document.getElementById('kbName').value.trim();
+    const apiToken = document.getElementById('apiToken').value.trim();
+    const fileInput = document.getElementById('fileInput').files[0];
+    const resultDiv = document.getElementById('result');
+
+    if (!fileInput || !baseUrl || !kbName || !apiToken) {
+      alert("请确保填写了表单并选择了文件");
+      return;
+    }
+
+    resultDiv.innerText = "正在上传中...";
+
+    const formData = new FormData();
+    formData.append('file', fileInput);
+    formData.append('user', USER);
+
+    try {
+      const response = await fetch(`${BASE}/files/upload`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${TOKEN}`
+          // 注意：使用 FormData 时，不要手动设置 Content-Type，浏览器会自动处理
+        },
+        body: formData
+      });
+
+      const data = await response.json();
+      const upload_file_id = data?.id ?? '';
+      if (!!upload_file_id) {
+        const response = await fetch(`${BASE}/workflows/run`, {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${TOKEN}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            inputs: {
+              base: baseUrl,
+              token: apiToken,
+              kbName: kbName,
+              doc: {
+                transfer_method: 'local_file',
+                upload_file_id: upload_file_id,
+                type: 'document'
+              }
+            },
+            response_mode: 'blocking',
+            user: USER
+          })
+        });
+        const data = await response.json();
+        resultDiv.innerText = JSON.stringify(data, null, 2);
+      } else {
+        resultDiv.innerText = "上传文件失败"
+      }
+    } catch (error) {
+      resultDiv.innerText = "错误: " + error.message;
+    }
+  }
+</script>
+</body>
+</html>

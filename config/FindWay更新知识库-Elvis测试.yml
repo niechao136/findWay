@@ -1,0 +1,382 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: workflow
+  name: FindWay更新知识库-Elvis测试
+  use_icon_as_answer_icon: false
+dependencies: []
+kind: app
+version: 0.6.0
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        attachment_image_file_size_limit: 2
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        file_upload_limit: 20
+        image_file_batch_limit: 10
+        image_file_size_limit: 10
+        single_chunk_attachment_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: http-request
+        targetType: code
+      id: 1766629636916-source-1766629716589-target
+      source: '1766629636916'
+      sourceHandle: source
+      target: '1766629716589'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: http-request
+      id: 1766629716589-source-1766629873157-target
+      source: '1766629716589'
+      sourceHandle: source
+      target: '1766629873157'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: http-request
+        targetType: code
+      id: 1766629873157-source-1766630351510-target
+      source: '1766629873157'
+      sourceHandle: source
+      target: '1766630351510'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: start
+        targetType: http-request
+      id: 1766629217839-source-1766629636916-target
+      source: '1766629217839'
+      sourceHandle: source
+      target: '1766629636916'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: end
+      id: 1766630351510-source-1773190743425-target
+      source: '1766630351510'
+      sourceHandle: source
+      target: '1773190743425'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        selected: false
+        title: 用户输入
+        type: start
+        variables:
+        - allowed_file_extensions: []
+          allowed_file_types:
+          - document
+          allowed_file_upload_methods:
+          - local_file
+          - remote_url
+          default: ''
+          hint: ''
+          label: 上传文档
+          options: []
+          placeholder: ''
+          required: true
+          type: file
+          variable: doc
+        - default: http://172.22.132.118:8081/v1
+          hint: ''
+          label: 知识库 Base Url
+          options: []
+          placeholder: ''
+          required: true
+          type: text-input
+          variable: base
+        - default: dataset-Y4QLUTrJJLb1Lm57plIzTrQ8
+          hint: ''
+          label: 知识库 Token
+          options: []
+          placeholder: ''
+          required: true
+          type: text-input
+          variable: token
+        - default: FindWay知识库-Elvis测试
+          hint: ''
+          label: 知识库名称
+          options: []
+          placeholder: ''
+          required: true
+          type: text-input
+          variable: kbName
+      height: 187
+      id: '1766629217839'
+      position:
+        x: 0
+        y: 0
+      positionAbsolute:
+        x: 0
+        y: 0
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data: []
+          type: none
+        headers: Authorization:Bearer {{#1766629217839.token#}}
+        method: get
+        params: keyword:{{#1766629217839.kbName#}}
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        ssl_verify: true
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: 获取知识库列表
+        type: http-request
+        url: '{{#1766629217839.base#}}/datasets'
+        variables: []
+      height: 141
+      id: '1766629636916'
+      position:
+        x: 342
+        y: 23
+      positionAbsolute:
+        x: 342
+        y: 23
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        code: "\nfunction main({body, kbName}) {\n  const res = JSON.parse(body) ||\
+          \ {}\n  const arr = Array.isArray(res.data) ? Array.from(res.data) : []\n\
+          \  const kb = arr.find(o => o.name === kbName)\n  const kb_id = String(kb?.id\
+          \ ?? '')\n  const data = JSON.stringify({\n    indexing_technique: 'high_quality',\n\
+          \    doc_form: 'hierarchical_model',\n    process_rule: {\n      mode: 'hierarchical',\n\
+          \      rules: {\n        pre_processing_rules: [\n          {\n        \
+          \    id: 'remove_extra_spaces',\n            enabled: false\n          },\n\
+          \          {\n            id: 'remove_urls_emails',\n            enabled:\
+          \ false\n          }\n        ],\n        segmentation: {\n          separator:\
+          \ '\\n\\n',\n          max_tokens: 4000,\n        },\n        parent_mode:\
+          \ 'paragraph',\n        subchunk_segmentation: {\n          separator: '\\\
+          n',\n          max_tokens: 1000,\n          chunk_overlap: 50,\n       \
+          \ }\n      }\n    }\n  })\n  return {\n    kb_id,\n    data,\n  }\n}\n"
+        code_language: javascript
+        outputs:
+          data:
+            children: null
+            type: string
+          kb_id:
+            children: null
+            type: string
+        selected: false
+        title: 处理知识库列表
+        type: code
+        variables:
+        - value_selector:
+          - '1766629636916'
+          - body
+          value_type: string
+          variable: body
+        - value_selector:
+          - '1766629217839'
+          - kbName
+          value_type: string
+          variable: kbName
+      height: 52
+      id: '1766629716589'
+      position:
+        x: 684
+        y: 68
+      positionAbsolute:
+        x: 684
+        y: 68
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data:
+          - id: key-value-21
+            key: data
+            type: text
+            value: '{{#1766629716589.data#}}'
+          - file:
+            - '1766629217839'
+            - doc
+            id: key-value-32
+            key: file
+            type: file
+            value: ''
+          type: form-data
+        headers: 'Authorization:Bearer {{#1766629217839.token#}}
+
+          Content-Type:application/json'
+        method: post
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        ssl_verify: true
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: 知识库上传文档
+        type: http-request
+        url: '{{#1766629217839.base#}}/datasets/{{#1766629716589.kb_id#}}/document/create-by-file'
+        variables: []
+      height: 160
+      id: '1766629873157'
+      position:
+        x: 1026
+        y: 14
+      positionAbsolute:
+        x: 1026
+        y: 14
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        code: "\nfunction main({body}) {\n  const res = JSON.parse(body) || {}\n \
+          \ const status =  !!res?.document?.id ? 1 : 0\n  const msg = status ===\
+          \ 1 ? '上传成功' : (res?.message ?? '上传失败')\n  return {\n    status,\n    msg,\n\
+          \  }\n}\n"
+        code_language: javascript
+        outputs:
+          msg:
+            children: null
+            type: string
+          status:
+            children: null
+            type: number
+        selected: false
+        title: 处理知识库文档列表
+        type: code
+        variables:
+        - value_selector:
+          - '1766629873157'
+          - body
+          value_type: string
+          variable: body
+      height: 52
+      id: '1766630351510'
+      position:
+        x: 1368
+        y: 68
+      positionAbsolute:
+        x: 1368
+        y: 68
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        outputs:
+        - value_selector:
+          - '1766630351510'
+          - status
+          value_type: number
+          variable: status
+        - value_selector:
+          - '1766630351510'
+          - msg
+          value_type: string
+          variable: msg
+        selected: false
+        title: 输出
+        type: end
+      height: 114
+      id: '1773190743425'
+      position:
+        x: 1710
+        y: 37
+      positionAbsolute:
+        x: 1710
+        y: 37
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    viewport:
+      x: 136.29999999999995
+      y: 303.70000000000005
+      zoom: 0.7
+  rag_pipeline_variables: []
