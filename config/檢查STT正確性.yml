@@ -1,0 +1,254 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: advanced-chat
+  name: 檢查STT正確性
+  use_icon_as_answer_icon: false
+dependencies:
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/ollama:0.0.8@22213ae036605d41ea73bdd16908e03de1b9d5ab4656a49b8fb0343723f4cb4a
+    version: null
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: langgenius/azure_openai:0.0.34@d12c44c83a845ebe00b0285272011587bb118e2f411c546ffcfd9fe723d205ff
+    version: null
+kind: app
+version: 0.6.0
+workflow:
+  conversation_variables: []
+  environment_variables: []
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        attachment_image_file_size_limit: 2
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        file_upload_limit: 20
+        image_file_batch_limit: 10
+        image_file_size_limit: 10
+        single_chunk_attachment_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: start
+        targetType: knowledge-retrieval
+      id: 1764916731443-source-1764916849227-target
+      source: '1764916731443'
+      sourceHandle: source
+      target: '1764916849227'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: knowledge-retrieval
+        targetType: llm
+      id: 1764916849227-source-1764916916625-target
+      source: '1764916849227'
+      sourceHandle: source
+      target: '1764916916625'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: llm
+        targetType: answer
+      id: 1764916916625-source-1764917005659-target
+      source: '1764916916625'
+      sourceHandle: source
+      target: '1764917005659'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        selected: false
+        title: 用户输入
+        type: start
+        variables:
+        - default: ''
+          hint: ''
+          label: user_input
+          max_length: 48
+          options: []
+          placeholder: ''
+          required: true
+          type: text-input
+          variable: user_input
+      height: 109
+      id: '1764916731443'
+      position:
+        x: 82
+        y: 261
+      positionAbsolute:
+        x: 82
+        y: 261
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        dataset_ids:
+        - 5Ac8qQqSWW8f7XZRfrBkJRNgVFLBkhtXMWz/dJk+MvPVu1z/kSK53FiuvgAj7O1Y
+        multiple_retrieval_config:
+          reranking_enable: false
+          reranking_mode: weighted_score
+          score_threshold: 0.3
+          top_k: 3
+          weights:
+            keyword_setting:
+              keyword_weight: 0
+            vector_setting:
+              embedding_model_name: quentinz/bge-large-zh-v1.5:latest
+              embedding_provider_name: langgenius/ollama/ollama
+              vector_weight: 1
+            weight_type: customized
+        query_variable_selector:
+        - '1764916731443'
+        - user_input
+        retrieval_mode: multiple
+        selected: false
+        title: 知识检索
+        type: knowledge-retrieval
+      height: 90
+      id: '1764916849227'
+      position:
+        x: 382
+        y: 282
+      positionAbsolute:
+        x: 382
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        context:
+          enabled: true
+          variable_selector:
+          - '1764916849227'
+          - result
+        model:
+          completion_params:
+            temperature: 0
+          mode: chat
+          name: gpt-4o
+          provider: langgenius/azure_openai/azure_openai
+        prompt_template:
+        - id: c154e391-9ae2-4b70-9e01-ee78841c53c1
+          role: system
+          text: '你是一个文字校对助手。请根据以下标准词典修正文本中的品牌名和商店名：
+
+
+            【标准词典】
+
+            {{#context#}}
+
+
+            【修正规则】
+
+            1. 优先使用官方正式名称
+
+            2. 保持品牌名的大小写格式
+
+            3. 标注修正位置
+
+
+            【输出要求】
+
+            只返回修正后的完整文本，不要包含任何说明、解释、对比或标注。
+
+
+            请修正以下文本：
+
+            {{#1764916731443.user_input#}}'
+        selected: true
+        title: LLM
+        type: llm
+        vision:
+          enabled: false
+      height: 88
+      id: '1764916916625'
+      position:
+        x: 684
+        y: 282
+      positionAbsolute:
+        x: 684
+        y: 282
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        answer: '{{#1764916916625.text#}}'
+        selected: false
+        title: 直接回复
+        type: answer
+        variables: []
+      height: 103
+      id: '1764917005659'
+      position:
+        x: 986
+        y: 282
+      positionAbsolute:
+        x: 986
+        y: 282
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    viewport:
+      x: 87
+      y: 63
+      zoom: 1
+  rag_pipeline_variables: []

@@ -801,33 +801,245 @@ function main({query, store_type}) {
   }
 }
 
-function main({query}) {
+function main({body, query}) {
+  const obj = JSON.parse(body)
   return {
     request: JSON.stringify({
       "query": query,
       "retrieval_model": {
-        "search_method": "hybrid_search",
-        "reranking_enable": false,
-        "reranking_mode": "weighted_score",
+        "search_method": obj?.retrieval_model_dict?.search_method ?? "hybrid_search",
+        "reranking_enable": obj?.retrieval_model_dict?.reranking_enable ?? false,
+        "reranking_mode": obj?.retrieval_model_dict?.reranking_mode ?? "weighted_score",
         "reranking_model": {
-          "reranking_model_name": "",
-          "reranking_provider_name": ""
+          "reranking_model_name": obj?.retrieval_model_dict?.reranking_model?.reranking_model_name ?? "",
+          "reranking_provider_name": obj?.retrieval_model_dict?.reranking_model?.reranking_provider_name ?? "",
         },
-        "top_k": 10,
-        "score_threshold_enabled": false,
-        "score_threshold": null,
+        "top_k": obj?.retrieval_model_dict?.top_k ?? 10,
+        "score_threshold_enabled": obj?.retrieval_model_dict?.score_threshold_enabled ?? false,
+        "score_threshold": obj?.retrieval_model_dict?.score_threshold ?? null,
         "weights": {
-          "weight_type": "customized",
+          "weight_type": obj?.retrieval_model_dict?.weights?.weight_type ?? "customized",
           "keyword_setting": {
-            "keyword_weight": 0.3
+            "keyword_weight": obj?.retrieval_model_dict?.weights?.keyword_setting?.keyword_weight ?? 0.3
           },
           "vector_setting": {
-            "vector_weight": 0.7,
-            "embedding_model_name": "quentinz/bge-large-zh-v1.5:latest",
-            "embedding_provider_name": "langgenius/ollama/ollama"
+            "vector_weight": obj?.retrieval_model_dict?.weights?.vector_setting?.vector_weight ?? 0.7,
+            "embedding_model_name": obj?.retrieval_model_dict?.weights?.vector_setting?.embedding_model_name ?? "quentinz/bge-large-zh-v1.5:latest",
+            "embedding_provider_name": obj?.retrieval_model_dict?.weights?.vector_setting?.embedding_provider_name ?? "langgenius/ollama/ollama"
           }
         }
       }
+    }),
+  }
+}
+
+function main({}) {
+  return {
+    status: 0,
+    msg: '检索失败，知识库不存在！',
+  }
+}
+
+function main({body, query}) {
+  const obj = JSON.parse(body)
+  return {
+    query: obj?.query ?? { content: query },
+    records: obj?.records ?? [],
+    status: 1,
+  }
+}
+
+function main({body, query}) {
+  const obj = JSON.parse(body)
+  return {
+    request: JSON.stringify({
+      "query": query,
+      "retrieval_model": {
+        ...(obj?.retrieval_model_dict ?? {}),
+        "top_k": 10,
+        "score_threshold_enabled": true,
+        "score_threshold": 0.3,
+      }
+    }),
+  }
+}
+
+function parseKeyValueText(input) {
+  const result = {}
+  if (typeof input !== 'string') return result
+  const lines = input.split(/\r?\n/).map(line => line.trim()).filter(Boolean)
+  for (const line of lines) {
+    // 只切第一个冒号，防止 value 中包含冒号
+    const idx = line.indexOf(':')
+    if (idx === -1) continue
+    const key = line.slice(0, idx).trim()
+    let value = line.slice(idx + 1).trim()
+    if (!key) continue
+    result[key] = value
+  }
+  return result
+}
+function getCurrentTimeByOffset(timezone) {
+  const now = new Date()
+  const sign = timezone.startsWith('-') ? -1 : 1
+  const [hours, minutes] = timezone.slice(1).split(':').map(Number)
+  const offsetInMilliseconds = sign * (hours * 3600000 + minutes * 60000)
+  const targetTime = new Date(now.getTime() + offsetInMilliseconds)
+  const f = (num) => String(num).padStart(2, '0')
+  const YYYY = targetTime.getUTCFullYear()
+  const MM = f(targetTime.getUTCMonth() + 1)
+  const DD = f(targetTime.getUTCDate())
+  const HH = f(targetTime.getUTCHours())
+  const mm = f(targetTime.getUTCMinutes())
+  const ss = f(targetTime.getUTCSeconds())
+  return `${YYYY}-${MM}-${DD} ${HH}:${mm}:${ss}`
+}
+function main({body, timezone}) {
+  const res = JSON.parse(body)
+  const kb_error = !res?.records
+  const kb_empty = Array.from(res?.records ?? [])?.length === 0
+  const list = Array.from(res?.records ?? []).map(o => {
+    return parseKeyValueText(o.segment.content)
+  })
+  const store = []
+  const check = {}
+  list.forEach(obj => {
+    if (check[obj.child_space_id] === undefined) {
+      check[obj.child_space_id] = store.length
+      store.push({
+        name: obj.store_name,
+        space: obj.space_name,
+        time: obj.store_time,
+        product: []
+      })
+    }
+    store[check[obj.child_space_id]].product.push({
+      name: obj.name,
+      price: obj.price,
     })
+  })
+  return {
+    now: getCurrentTimeByOffset(timezone),
+    result: JSON.stringify(store),
+    kb_error,
+    kb_empty,
+  }
+}
+
+
+function parseKeyValueText(input) {
+  const result = {}
+  if (typeof input !== 'string') return result
+
+  const lines = input.split(/\r?\n/).map(line => line.trim()).filter(Boolean)
+
+  for (const line of lines) {
+    // 只切第一个冒号，防止 value 中包含冒号
+    const idx = line.indexOf(':')
+    if (idx === -1) continue
+
+    const key = line.slice(0, idx).trim()
+    let value = line.slice(idx + 1).trim()
+
+    if (!key) continue
+
+    result[key] = value
+  }
+
+  return result
+}
+function main({text, body}) {
+  const res = JSON.parse(body)
+  const list = Array.from(res?.records ?? []).map(o => {
+    return parseKeyValueText(o.segment.content)
+  })
+  const AI_reply = text.replaceAll(/<think>[\s\S]*?<\/think>/g, '')
+  const info = []
+  const check = {}
+  list.forEach(obj => {
+    if (check[obj.child_space_id] === undefined) {
+      check[obj.child_space_id] = info.length
+      info.push({
+        space_id: obj.space_id,
+        space: obj.space_name,
+        child_space_id: obj.child_space_id,
+        name: obj.store_name,
+        time: obj.store_time,
+        product: []
+      })
+    }
+    info[check[obj.child_space_id]].product.push({
+      id: obj.product_id,
+      price: obj.price,
+      name: obj.name,
+    })
+  })
+  const answer = {
+    AI_reply,
+    info,
+  }
+  return {
+    answer,
+  }
+}
+
+
+function main({body, query}) {
+  const obj = JSON.parse(body)
+  return {
+    request: JSON.stringify({
+      "query": query,
+      "retrieval_model": {
+        ...(obj?.retrieval_model_dict ?? {}),
+        "top_k": 6,
+        "score_threshold_enabled": true,
+        "score_threshold": 0.3,
+      }
+    }),
+  }
+}
+
+function parseKeyValueText(input) {
+  const result = {}
+  if (typeof input !== 'string') return result
+  const lines = input.split(/\r?\n/).map(line => line.trim()).filter(Boolean)
+  for (const line of lines) {
+    // 只切第一个冒号，防止 value 中包含冒号
+    const idx = line.indexOf(':')
+    if (idx === -1) continue
+    const key = line.slice(0, idx).trim()
+    let value = line.slice(idx + 1).trim()
+    if (!key) continue
+    result[key] = value
+  }
+  return result
+}
+function main({body}) {
+  const obj = JSON.parse(body)
+  const list = Array.isArray(obj?.records) ? Array.from(obj.records).map(o => {
+    return parseKeyValueText(o.segment.content)
+  }) : []
+  const store = []
+  const check = {}
+  list.forEach(obj => {
+    if (check[obj.child_space_id] === undefined) {
+      check[obj.child_space_id] = store.length
+      store.push({
+        space_id: obj.space_id,
+        space: obj.space_name,
+        child_space_id: obj.child_space_id,
+        name: obj.store_name,
+        time: obj.store_time,
+        product: []
+      })
+    }
+    store[check[obj.child_space_id]].product.push({
+      id: obj.product_id,
+      name: obj.name,
+      price: obj.price,
+    })
+  })
+  return {
+    result: JSON.stringify(store),
   }
 }

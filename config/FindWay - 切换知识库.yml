@@ -3,7 +3,7 @@ app:
   icon: 🤖
   icon_background: '#FFEAD5'
   mode: advanced-chat
-  name: FindWay
+  name: FindWay - 切换知识库
   use_icon_as_answer_icon: false
 dependencies:
 - current_identifier: null
@@ -88,54 +88,6 @@ workflow:
     - data:
         isInIteration: false
         isInLoop: false
-        sourceType: code
-        targetType: llm
-      id: 1764235048636-source-1764039554614-target
-      selected: false
-      source: '1764235048636'
-      sourceHandle: source
-      target: '1764039554614'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInIteration: false
-        isInLoop: false
-        sourceType: knowledge-retrieval
-        targetType: if-else
-      id: 1764235028349-source-1770797503707-target
-      source: '1764235028349'
-      sourceHandle: source
-      target: '1770797503707'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInLoop: false
-        sourceType: if-else
-        targetType: code
-      id: 1770797503707-false-1764235048636-target
-      selected: false
-      source: '1770797503707'
-      sourceHandle: 'false'
-      target: '1764235048636'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInLoop: false
-        sourceType: if-else
-        targetType: llm
-      id: 1770797503707-true-1770797643897-target
-      source: '1770797503707'
-      sourceHandle: 'true'
-      target: '1770797643897'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInIteration: false
-        isInLoop: false
         sourceType: start
         targetType: llm
       id: 1763707294052-source-1771027512810-target
@@ -154,17 +106,6 @@ workflow:
       source: '1771027512810'
       sourceHandle: source
       target: '1771027538709'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInLoop: false
-        sourceType: if-else
-        targetType: knowledge-retrieval
-      id: 1771027538709-true-1764235028349-target
-      source: '1771027538709'
-      sourceHandle: 'true'
-      target: '1764235028349'
       targetHandle: target
       type: custom
       zIndex: 0
@@ -242,18 +183,6 @@ workflow:
     - data:
         isInIteration: false
         isInLoop: false
-        sourceType: knowledge-retrieval
-        targetType: code
-      id: 1772243937527-source-1772243969967-target
-      source: '1772243937527'
-      sourceHandle: source
-      target: '1772243969967'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInIteration: false
-        isInLoop: false
         sourceType: code
         targetType: llm
       id: 1772243969967-source-1771033378518-target
@@ -284,17 +213,6 @@ workflow:
       source: '1772247910977'
       sourceHandle: source
       target: '1772248075476'
-      targetHandle: target
-      type: custom
-      zIndex: 0
-    - data:
-        isInLoop: false
-        sourceType: if-else
-        targetType: knowledge-retrieval
-      id: 1772248075476-true-1772243937527-target
-      source: '1772248075476'
-      sourceHandle: 'true'
-      target: '1772243937527'
       targetHandle: target
       type: custom
       zIndex: 0
@@ -333,6 +251,157 @@ workflow:
       targetHandle: target
       type: custom
       zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: http-request
+      id: 1771027538709-true-1773739383111-target
+      source: '1771027538709'
+      sourceHandle: 'true'
+      target: '1773739383111'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: http-request
+        targetType: code
+      id: 1773739383111-source-1773739647222-target
+      source: '1773739383111'
+      sourceHandle: source
+      target: '1773739647222'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: http-request
+      id: 1773739647222-source-1773740235143-target
+      source: '1773739647222'
+      sourceHandle: source
+      target: '1773740235143'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: http-request
+        targetType: code
+      id: 1773740235143-source-1773740323685-target
+      source: '1773740235143'
+      sourceHandle: source
+      target: '1773740323685'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: code
+        targetType: if-else
+      id: 1773740323685-source-1770797503707-target
+      source: '1773740323685'
+      sourceHandle: source
+      target: '1770797503707'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: llm
+      id: 1770797503707-be5fce64-8dd3-4c4e-8dbe-9f24a14db942-1770797643897-target
+      source: '1770797503707'
+      sourceHandle: be5fce64-8dd3-4c4e-8dbe-9f24a14db942
+      target: '1770797643897'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: if-else
+        targetType: llm
+      id: 1770797503707-false-1764039554614-target
+      source: '1770797503707'
+      sourceHandle: 'false'
+      target: '1764039554614'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: if-else
+        targetType: http-request
+      id: 1772248075476-true-1773741367804-target
+      source: '1772248075476'
+      sourceHandle: 'true'
+      target: '1773741367804'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: http-request
+        targetType: code
+      id: 1773741367804-source-1773741371967-target
+      source: '1773741367804'
+      sourceHandle: source
+      target: '1773741371967'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: http-request
+      id: 1773741371967-source-1773741376541-target
+      source: '1773741371967'
+      sourceHandle: source
+      target: '1773741376541'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: http-request
+        targetType: code
+      id: 1773741376541-source-1772243969967-target
+      source: '1773741376541'
+      sourceHandle: source
+      target: '1772243969967'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: http-request
+        targetType: answer
+      id: 1773739383111-fail-branch-17737951384410-target
+      source: '1773739383111'
+      sourceHandle: fail-branch
+      target: '17737951384410'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: http-request
+        targetType: answer
+      id: 1773741367804-fail-branch-1773795397265-target
+      source: '1773741367804'
+      sourceHandle: fail-branch
+      target: '1773795397265'
+      targetHandle: target
+      type: custom
+      zIndex: 0
     nodes:
     - data:
         selected: false
@@ -344,7 +413,7 @@ workflow:
           label: 时区
           options: []
           placeholder: ''
-          required: false
+          required: true
           type: text-input
           variable: timezone
         - default: zh-TW
@@ -352,10 +421,34 @@ workflow:
           label: 语言
           options: []
           placeholder: ''
-          required: false
+          required: true
           type: text-input
           variable: lang
-      height: 135
+        - default: http://172.22.132.129:8081/v1
+          hint: ''
+          label: 知识库 Base Url
+          options: []
+          placeholder: ''
+          required: true
+          type: text-input
+          variable: base
+        - default: dataset-Y4QLUTrJJLb1Lm57plIzTrQ8
+          hint: ''
+          label: 知识库 Token
+          options: []
+          placeholder: ''
+          required: true
+          type: text-input
+          variable: token
+        - default: e57385c2-a717-429a-94d7-3716108e3ca5
+          hint: ''
+          label: 知识库 ID
+          options: []
+          placeholder: ''
+          required: true
+          type: text-input
+          variable: kb_id
+      height: 213
       id: '1763707294052'
       position:
         x: -619.8010420593663
@@ -372,7 +465,7 @@ workflow:
         context:
           enabled: true
           variable_selector:
-          - '1764235048636'
+          - '1773740323685'
           - result
         memory:
           query_prompt_template: '{{#sys.query#}}
@@ -395,7 +488,7 @@ workflow:
         - id: e3e20c31-8ba8-42df-829e-3a8ed19b46d3
           role: system
           text: "# Role\n你是一个智能购物助手。为你提供一份商品列表 JSON 数据。根据以下规则为用户生成回复：\n\n# Logic\n\
-            1. 强制使用 {{#1763707294052.lang#}} 回答。\n2. 营业状态严格参考当前时间为 {{#1764235048636.now#}}\
+            1. 强制使用 {{#1763707294052.lang#}} 回答。\n2. 营业状态严格参考当前时间为 {{#1773740323685.now#}}\
             \ 进行判断\n3. 结构化回复规则\n   - 先以“目前最符合您要求的商品是”列出一个最符合需求的商品（包含名称与价格）。\n   -\
             \ 如果还存在其他推荐，则以 “其他推荐” 为标题，简要列出后续推荐的商品名称与价格。\n   - 每个商品（包括最推荐项）都必须以 - 开头另起一行。\n\
             \   - 所有内容必须严格转换为 {{#1763707294052.lang#}}。\n4. 若没有精准匹配的产品时，必须先明确告知，再推荐替代品，禁止把替代品直接当成用户要求的产品。\n\
@@ -415,12 +508,12 @@ workflow:
       height: 88
       id: '1764039554614'
       position:
-        x: 1811.1135218075688
-        y: -28.032788754607523
+        x: 2620.5513355060534
+        y: -45.31265295123179
       positionAbsolute:
-        x: 1811.1135218075688
-        y: -28.032788754607523
-      selected: true
+        x: 2620.5513355060534
+        y: -45.31265295123179
+      selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
@@ -433,8 +526,9 @@ workflow:
           \    if (idx === -1) continue\n\n    const key = line.slice(0, idx).trim()\n\
           \    let value = line.slice(idx + 1).trim()\n\n    if (!key) continue\n\n\
           \    result[key] = value\n  }\n\n  return result\n}\nfunction main({text,\
-          \ result}) {\n  const list = Array.from(result).map(o => {\n    return parseKeyValueText(o.content)\n\
-          \  })\n  const AI_reply = text.replaceAll(/<think>[\\s\\S]*?<\\/think>/g,\
+          \ body}) {\n  const res = JSON.parse(body)\n  const list = Array.from(res?.records\
+          \ ?? []).map(o => {\n    return parseKeyValueText(o.segment.content)\n \
+          \ })\n  const AI_reply = text.replaceAll(/<think>[\\s\\S]*?<\\/think>/g,\
           \ '')\n  const info = []\n  const check = {}\n  list.forEach(obj => {\n\
           \    if (check[obj.child_space_id] === undefined) {\n      check[obj.child_space_id]\
           \ = info.length\n      info.push({\n        space_id: obj.space_id,\n  \
@@ -459,116 +553,18 @@ workflow:
           value_type: string
           variable: text
         - value_selector:
-          - '1764235028349'
-          - result
-          value_type: array[object]
-          variable: result
+          - '1773740235143'
+          - body
+          value_type: string
+          variable: body
       height: 52
       id: '1764039841850'
       position:
-        x: 2199.9303127869903
-        y: -28.032788754607523
+        x: 3017.1237355190674
+        y: -45.31265295123179
       positionAbsolute:
-        x: 2199.9303127869903
-        y: -28.032788754607523
-      selected: false
-      sourcePosition: right
-      targetPosition: left
-      type: custom
-      width: 242
-    - data:
-        dataset_ids:
-        - 1CjSZ28x/m6kmNBuDObTTjC5S/eenlD0P2001v9v+pFIM6rO5kmh5DVBf8Li29gu
-        multiple_retrieval_config:
-          reranking_enable: false
-          reranking_mode: weighted_score
-          score_threshold: 0.3
-          top_k: 10
-          weights:
-            keyword_setting:
-              keyword_weight: 0.3
-            vector_setting:
-              embedding_model_name: text-embedding-3-large
-              embedding_provider_name: langgenius/azure_openai/azure_openai
-              vector_weight: 0.7
-            weight_type: customized
-        query_attachment_selector: []
-        query_variable_selector:
-        - '1763707294052'
-        - sys.query
-        retrieval_mode: multiple
-        selected: false
-        title: 知识检索
-        type: knowledge-retrieval
-      height: 90
-      id: '1764235028349'
-      position:
-        x: 601.4181706379916
-        y: -105.21962304100887
-      positionAbsolute:
-        x: 601.4181706379916
-        y: -105.21962304100887
-      selected: false
-      sourcePosition: right
-      targetPosition: left
-      type: custom
-      width: 242
-    - data:
-        code: "\nfunction parseKeyValueText(input) {\n  const result = {}\n  if (typeof\
-          \ input !== 'string') return result\n  const lines = input.split(/\\r?\\\
-          n/).map(line => line.trim()).filter(Boolean)\n  for (const line of lines)\
-          \ {\n    // 只切第一个冒号，防止 value 中包含冒号\n    const idx = line.indexOf(':')\n\
-          \    if (idx === -1) continue\n    const key = line.slice(0, idx).trim()\n\
-          \    let value = line.slice(idx + 1).trim()\n    if (!key) continue\n  \
-          \  result[key] = value\n  }\n  return result\n}\nfunction getCurrentTimeByOffset(timezone)\
-          \ {\n  const now = new Date()\n  const sign = timezone.startsWith('-') ?\
-          \ -1 : 1\n  const [hours, minutes] = timezone.slice(1).split(':').map(Number)\n\
-          \  const offsetInMilliseconds = sign * (hours * 3600000 + minutes * 60000)\n\
-          \  const targetTime = new Date(now.getTime() + offsetInMilliseconds)\n \
-          \ const f = (num) => String(num).padStart(2, '0')\n  const YYYY = targetTime.getUTCFullYear()\n\
-          \  const MM = f(targetTime.getUTCMonth() + 1)\n  const DD = f(targetTime.getUTCDate())\n\
-          \  const HH = f(targetTime.getUTCHours())\n  const mm = f(targetTime.getUTCMinutes())\n\
-          \  const ss = f(targetTime.getUTCSeconds())\n  return `${YYYY}-${MM}-${DD}\
-          \ ${HH}:${mm}:${ss}`\n}\nfunction main({result, timezone}) {\n  const list\
-          \ = Array.from(result).map(o => {\n    return parseKeyValueText(o.content)\n\
-          \  })\n  const store = []\n  const check = {}\n  list.forEach(obj => {\n\
-          \    if (check[obj.child_space_id] === undefined) {\n      check[obj.child_space_id]\
-          \ = store.length\n      store.push({\n        name: obj.store_name,\n  \
-          \      space: obj.space_name,\n        time: obj.store_time,\n        product:\
-          \ []\n      })\n    }\n    store[check[obj.child_space_id]].product.push({\n\
-          \      name: obj.name,\n      price: obj.price,\n    })\n  })\n  return\
-          \ {\n    now: getCurrentTimeByOffset(timezone),\n    result: JSON.stringify(store),\n\
-          \  }\n}\n"
-        code_language: javascript
-        outputs:
-          now:
-            children: null
-            type: string
-          result:
-            children: null
-            type: string
-        selected: false
-        title: 处理检索结果
-        type: code
-        variables:
-        - value_selector:
-          - '1764235028349'
-          - result
-          value_type: array[object]
-          variable: result
-        - value_selector:
-          - '1763707294052'
-          - timezone
-          value_type: string
-          variable: timezone
-      height: 52
-      id: '1764235048636'
-      position:
-        x: 1409.7329508253563
-        y: -28.032788754607523
-      positionAbsolute:
-        x: 1409.7329508253563
-        y: -28.032788754607523
+        x: 3017.1237355190674
+        y: -45.31265295123179
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -576,16 +572,16 @@ workflow:
       width: 242
     - data:
         cases:
-        - case_id: 'true'
+        - case_id: be5fce64-8dd3-4c4e-8dbe-9f24a14db942
           conditions:
-          - comparison_operator: empty
-            id: d14a723a-2b6a-4354-9fff-89109f22f5ec
-            value: ''
-            varType: array[object]
+          - comparison_operator: is
+            id: 8a833dcd-3857-4f16-b7c8-271a818c9baf
+            value: true
+            varType: boolean
             variable_selector:
-            - '1764235028349'
-            - result
-          id: 'true'
+            - '1773740323685'
+            - kb_empty
+          id: be5fce64-8dd3-4c4e-8dbe-9f24a14db942
           logical_operator: and
         selected: false
         title: 是否有检索结果
@@ -593,11 +589,11 @@ workflow:
       height: 124
       id: '1770797503707'
       position:
-        x: 999.1685188138279
-        y: -105.21962304100887
+        x: 2199.9303127869903
+        y: -142.48294805230103
       positionAbsolute:
-        x: 999.1685188138279
-        y: -105.21962304100887
+        x: 2199.9303127869903
+        y: -142.48294805230103
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -698,11 +694,11 @@ workflow:
       height: 88
       id: '1770797643897'
       position:
-        x: 1409.7329508253563
-        y: -213.68256009003377
+        x: 2620.5513355060534
+        y: -246.0804077073922
       positionAbsolute:
-        x: 1409.7329508253563
-        y: -213.68256009003377
+        x: 2620.5513355060534
+        y: -246.0804077073922
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -815,11 +811,11 @@ workflow:
       height: 103
       id: '1771031320907'
       position:
-        x: 2588.313960428207
-        y: -28.032788754607523
+        x: 3408.4684538614865
+        y: -45.31265295123179
       positionAbsolute:
-        x: 2588.313960428207
-        y: -28.032788754607523
+        x: 3408.4684538614865
+        y: -45.31265295123179
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -834,11 +830,11 @@ workflow:
       height: 103
       id: '1771031337789'
       position:
-        x: 1811.1135218075688
-        y: -213.68256009003377
+        x: 3017.1237355190674
+        y: -246.0804077073922
       positionAbsolute:
-        x: 1811.1135218075688
-        y: -213.68256009003377
+        x: 3017.1237355190674
+        y: -246.0804077073922
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -894,11 +890,11 @@ workflow:
       height: 88
       id: '1771033378518'
       position:
-        x: 2199.9303127869903
-        y: 115.9164145682874
+        x: 3017.1237355190674
+        y: 129.13888473358458
       positionAbsolute:
-        x: 2199.9303127869903
-        y: 115.9164145682874
+        x: 3017.1237355190674
+        y: 129.13888473358458
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -913,11 +909,11 @@ workflow:
       height: 103
       id: '1771034102431'
       position:
-        x: 2588.313960428207
-        y: 115.9164145682874
+        x: 3408.4684538614865
+        y: 129.13888473358458
       positionAbsolute:
-        x: 2588.313960428207
-        y: 115.9164145682874
+        x: 3408.4684538614865
+        y: 129.13888473358458
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -991,60 +987,23 @@ workflow:
       type: custom
       width: 242
     - data:
-        dataset_ids:
-        - 1CjSZ28x/m6kmNBuDObTTjC5S/eenlD0P2001v9v+pFIM6rO5kmh5DVBf8Li29gu
-        multiple_retrieval_config:
-          reranking_enable: false
-          reranking_mode: weighted_score
-          score_threshold: 0.3
-          top_k: 6
-          weights:
-            keyword_setting:
-              keyword_weight: 0.3
-            vector_setting:
-              embedding_model_name: text-embedding-3-large
-              embedding_provider_name: langgenius/azure_openai/azure_openai
-              vector_weight: 0.7
-            weight_type: customized
-        query_attachment_selector: []
-        query_variable_selector:
-        - '1763707294052'
-        - sys.query
-        retrieval_mode: multiple
-        selected: false
-        title: 产品检索
-        type: knowledge-retrieval
-      height: 90
-      id: '1772243937527'
-      position:
-        x: 1409.7329508253563
-        y: 115.9164145682874
-      positionAbsolute:
-        x: 1409.7329508253563
-        y: 115.9164145682874
-      selected: false
-      sourcePosition: right
-      targetPosition: left
-      type: custom
-      width: 242
-    - data:
         code: "\nfunction parseKeyValueText(input) {\n  const result = {}\n  if (typeof\
           \ input !== 'string') return result\n  const lines = input.split(/\\r?\\\
           n/).map(line => line.trim()).filter(Boolean)\n  for (const line of lines)\
           \ {\n    // 只切第一个冒号，防止 value 中包含冒号\n    const idx = line.indexOf(':')\n\
           \    if (idx === -1) continue\n    const key = line.slice(0, idx).trim()\n\
           \    let value = line.slice(idx + 1).trim()\n    if (!key) continue\n  \
-          \  result[key] = value\n  }\n  return result\n}\nfunction main({result})\
-          \ {\n  const list = Array.isArray(result) ? Array.from(result).map(o =>\
-          \ {\n    return parseKeyValueText(o.content)\n  }) : []\n  const store =\
-          \ []\n  const check = {}\n  list.forEach(obj => {\n    if (check[obj.child_space_id]\
-          \ === undefined) {\n      check[obj.child_space_id] = store.length\n   \
-          \   store.push({\n        space_id: obj.space_id,\n        space: obj.space_name,\n\
-          \        child_space_id: obj.child_space_id,\n        name: obj.store_name,\n\
-          \        time: obj.store_time,\n        product: []\n      })\n    }\n \
-          \   store[check[obj.child_space_id]].product.push({\n      id: obj.product_id,\n\
-          \      name: obj.name,\n      price: obj.price,\n    })\n  })\n  return\
-          \ {\n    result: JSON.stringify(store),\n  }\n}\n"
+          \  result[key] = value\n  }\n  return result\n}\nfunction main({body}) {\n\
+          \  const obj = JSON.parse(body)\n  const list = Array.isArray(obj?.records)\
+          \ ? Array.from(obj.records).map(o => {\n    return parseKeyValueText(o.segment.content)\n\
+          \  }) : []\n  const store = []\n  const check = {}\n  list.forEach(obj =>\
+          \ {\n    if (check[obj.child_space_id] === undefined) {\n      check[obj.child_space_id]\
+          \ = store.length\n      store.push({\n        space_id: obj.space_id,\n\
+          \        space: obj.space_name,\n        child_space_id: obj.child_space_id,\n\
+          \        name: obj.store_name,\n        time: obj.store_time,\n        product:\
+          \ []\n      })\n    }\n    store[check[obj.child_space_id]].product.push({\n\
+          \      id: obj.product_id,\n      name: obj.name,\n      price: obj.price,\n\
+          \    })\n  })\n  return {\n    result: JSON.stringify(store),\n  }\n}\n"
         code_language: javascript
         outputs:
           result:
@@ -1055,18 +1014,18 @@ workflow:
         type: code
         variables:
         - value_selector:
-          - '1772243937527'
-          - result
-          value_type: array[object]
-          variable: result
+          - '1773741376541'
+          - body
+          value_type: string
+          variable: body
       height: 52
       id: '1772243969967'
       position:
-        x: 1811.1135218075688
-        y: 115.9164145682874
+        x: 2620.5513355060534
+        y: 129.13888473358458
       positionAbsolute:
-        x: 1811.1135218075688
-        y: 115.9164145682874
+        x: 2620.5513355060534
+        y: 129.13888473358458
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -1202,10 +1161,10 @@ workflow:
       id: '1772267135844'
       position:
         x: 1409.7329508253563
-        y: 279.29476975246604
+        y: 308.44727127607035
       positionAbsolute:
         x: 1409.7329508253563
-        y: 279.29476975246604
+        y: 308.44727127607035
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -1221,17 +1180,358 @@ workflow:
       id: '1772267405841'
       position:
         x: 1811.1135218075688
-        y: 279.29476975246604
+        y: 308.44727127607035
       positionAbsolute:
         x: 1811.1135218075688
-        y: 279.29476975246604
+        y: 308.44727127607035
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data: []
+          type: none
+        error_strategy: fail-branch
+        headers: Authorization:Bearer {{#1763707294052.token#}}
+        method: get
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        ssl_verify: true
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: 知识库信息
+        type: http-request
+        url: '{{#1763707294052.base#}}/datasets/{{#1763707294052.kb_id#}}'
+        variables: []
+      height: 180
+      id: '1773739383111'
+      position:
+        x: 601.4181706379916
+        y: -142.48294805230103
+      positionAbsolute:
+        x: 601.4181706379916
+        y: -142.48294805230103
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        code: "\nfunction main({body, query}) {\n  const obj = JSON.parse(body)\n\
+          \  return {\n    request: JSON.stringify({\n      \"query\": query,\n  \
+          \    \"retrieval_model\": {\n        ...(obj?.retrieval_model_dict ?? {}),\n\
+          \        \"top_k\": 10,\n        \"score_threshold_enabled\": true,\n  \
+          \      \"score_threshold\": 0.3,\n      }\n    }),\n  }\n}"
+        code_language: javascript
+        outputs:
+          request:
+            children: null
+            type: string
+        selected: false
+        title: 处理Request
+        type: code
+        variables:
+        - value_selector:
+          - '1773739383111'
+          - body
+          value_type: string
+          variable: body
+        - value_selector:
+          - sys
+          - query
+          value_type: string
+          variable: query
+      height: 52
+      id: '1773739647222'
+      position:
+        x: 999.1685188138279
+        y: -142.48294805230103
+      positionAbsolute:
+        x: 999.1685188138279
+        y: -142.48294805230103
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data:
+          - id: key-value-214
+            key: ''
+            type: text
+            value: '{{#1773739647222.request#}}'
+          type: json
+        headers: Authorization:Bearer {{#1763707294052.token#}}
+        method: post
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        ssl_verify: true
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: 知识库检索
+        type: http-request
+        url: '{{#1763707294052.base#}}/datasets/{{#1763707294052.kb_id#}}/retrieve'
+        variables: []
+      height: 160
+      id: '1773740235143'
+      position:
+        x: 1409.7329508253563
+        y: -142.48294805230103
+      positionAbsolute:
+        x: 1409.7329508253563
+        y: -142.48294805230103
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        code: "\nfunction parseKeyValueText(input) {\n  const result = {}\n  if (typeof\
+          \ input !== 'string') return result\n  const lines = input.split(/\\r?\\\
+          n/).map(line => line.trim()).filter(Boolean)\n  for (const line of lines)\
+          \ {\n    // 只切第一个冒号，防止 value 中包含冒号\n    const idx = line.indexOf(':')\n\
+          \    if (idx === -1) continue\n    const key = line.slice(0, idx).trim()\n\
+          \    let value = line.slice(idx + 1).trim()\n    if (!key) continue\n  \
+          \  result[key] = value\n  }\n  return result\n}\nfunction getCurrentTimeByOffset(timezone)\
+          \ {\n  const now = new Date()\n  const sign = timezone.startsWith('-') ?\
+          \ -1 : 1\n  const [hours, minutes] = timezone.slice(1).split(':').map(Number)\n\
+          \  const offsetInMilliseconds = sign * (hours * 3600000 + minutes * 60000)\n\
+          \  const targetTime = new Date(now.getTime() + offsetInMilliseconds)\n \
+          \ const f = (num) => String(num).padStart(2, '0')\n  const YYYY = targetTime.getUTCFullYear()\n\
+          \  const MM = f(targetTime.getUTCMonth() + 1)\n  const DD = f(targetTime.getUTCDate())\n\
+          \  const HH = f(targetTime.getUTCHours())\n  const mm = f(targetTime.getUTCMinutes())\n\
+          \  const ss = f(targetTime.getUTCSeconds())\n  return `${YYYY}-${MM}-${DD}\
+          \ ${HH}:${mm}:${ss}`\n}\nfunction main({body, timezone}) {\n  const res\
+          \ = JSON.parse(body)\n  const kb_error = !res?.records\n  const kb_empty\
+          \ = Array.from(res?.records ?? [])?.length === 0\n  const list = Array.from(res?.records\
+          \ ?? []).map(o => {\n    return parseKeyValueText(o.segment.content)\n \
+          \ })\n  const store = []\n  const check = {}\n  list.forEach(obj => {\n\
+          \    if (check[obj.child_space_id] === undefined) {\n      check[obj.child_space_id]\
+          \ = store.length\n      store.push({\n        name: obj.store_name,\n  \
+          \      space: obj.space_name,\n        time: obj.store_time,\n        product:\
+          \ []\n      })\n    }\n    store[check[obj.child_space_id]].product.push({\n\
+          \      name: obj.name,\n      price: obj.price,\n    })\n  })\n  return\
+          \ {\n    now: getCurrentTimeByOffset(timezone),\n    result: JSON.stringify(store),\n\
+          \    kb_error,\n    kb_empty,\n  }\n}\n"
+        code_language: javascript
+        outputs:
+          kb_empty:
+            children: null
+            type: boolean
+          kb_error:
+            children: null
+            type: boolean
+          now:
+            children: null
+            type: string
+          result:
+            children: null
+            type: string
+        selected: false
+        title: 处理检索
+        type: code
+        variables:
+        - value_selector:
+          - '1773740235143'
+          - body
+          value_type: string
+          variable: body
+        - value_selector:
+          - '1763707294052'
+          - timezone
+          value_type: string
+          variable: timezone
+      height: 52
+      id: '1773740323685'
+      position:
+        x: 1811.1135218075688
+        y: -142.48294805230103
+      positionAbsolute:
+        x: 1811.1135218075688
+        y: -142.48294805230103
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data: []
+          type: none
+        error_strategy: fail-branch
+        headers: Authorization:Bearer {{#1763707294052.token#}}
+        method: get
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        ssl_verify: true
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: 知识库信息
+        type: http-request
+        url: '{{#1763707294052.base#}}/datasets/{{#1763707294052.kb_id#}}'
+        variables: []
+      height: 180
+      id: '1773741367804'
+      position:
+        x: 1409.7329508253563
+        y: 92.9975111121683
+      positionAbsolute:
+        x: 1409.7329508253563
+        y: 92.9975111121683
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        code: "\nfunction main({body, query}) {\n  const obj = JSON.parse(body)\n\
+          \  return {\n    request: JSON.stringify({\n      \"query\": query,\n  \
+          \    \"retrieval_model\": {\n        ...(obj?.retrieval_model_dict ?? {}),\n\
+          \        \"top_k\": 6,\n        \"score_threshold_enabled\": true,\n   \
+          \     \"score_threshold\": 0.3,\n      }\n    }),\n  }\n}"
+        code_language: javascript
+        outputs:
+          request:
+            children: null
+            type: string
+        selected: false
+        title: 处理Request
+        type: code
+        variables:
+        - value_selector:
+          - '1773741367804'
+          - body
+          value_type: string
+          variable: body
+        - value_selector:
+          - sys
+          - query
+          value_type: string
+          variable: query
+      height: 52
+      id: '1773741371967'
+      position:
+        x: 1819.118840374633
+        y: 92.9975111121683
+      positionAbsolute:
+        x: 1819.118840374633
+        y: 92.9975111121683
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data:
+          - id: key-value-441
+            key: ''
+            type: text
+            value: '{{#1773741371967.request#}}'
+          type: json
+        headers: Authorization:Bearer {{#1763707294052.token#}}
+        method: post
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        ssl_verify: true
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: 知识库检索
+        type: http-request
+        url: '{{#1763707294052.base#}}/datasets/{{#1763707294052.kb_id#}}/retrieve'
+        variables: []
+      height: 160
+      id: '1773741376541'
+      position:
+        x: 2199.9303127869903
+        y: 92.9975111121683
+      positionAbsolute:
+        x: 2199.9303127869903
+        y: 92.9975111121683
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        answer: 获取知识库信息失败，请检查知识库ID
+        selected: false
+        title: 报错
+        type: answer
+        variables: []
+      height: 116
+      id: '17737951384410'
+      position:
+        x: 999.1685188138279
+        y: -45.31265295123179
+      positionAbsolute:
+        x: 999.1685188138279
+        y: -45.31265295123179
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        answer: 获取知识库信息失败，请检查知识库ID
+        selected: false
+        title: 报错
+        type: answer
+        variables: []
+      height: 116
+      id: '1773795397265'
+      position:
+        x: 1819.118840374633
+        y: 176.67243820726287
+      positionAbsolute:
+        x: 1819.118840374633
+        y: 176.67243820726287
       selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
       width: 242
     viewport:
-      x: 214.06993492327888
-      y: 397.49191792109303
-      zoom: 0.831917173000688
+      x: 610.8486720431908
+      y: 433.7238573221983
+      zoom: 0.3789291416275994
   rag_pipeline_variables: []

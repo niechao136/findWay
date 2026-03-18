@@ -7,17 +7,25 @@ app:
   use_icon_as_answer_icon: false
 dependencies: []
 kind: app
-version: 0.5.0
+version: 0.6.0
 workflow:
   conversation_variables: []
   environment_variables:
+  - description: 知识库token
+    id: 24d2d918-f2ba-47a9-a1b9-46d75fabbdf3
+    name: token
+    selector:
+    - env
+    - token
+    value: dataset-Y4QLUTrJJLb1Lm57plIzTrQ8
+    value_type: string
   - description: 文档名称
     id: 4fa77731-df3e-485d-9110-071ee8484dcb
     name: docName
     selector:
     - env
     - docName
-    value: product.md
+    value: aic_kv_format 2.md
     value_type: string
   - description: 知识库名称
     id: 4eb5b992-eb47-4c1a-916d-d883b88d3359
@@ -43,9 +51,11 @@ workflow:
       - remote_url
       enabled: false
       fileUploadConfig:
+        attachment_image_file_size_limit: 2
         audio_file_size_limit: 50
         batch_count_limit: 5
         file_size_limit: 15
+        file_upload_limit: 20
         image_file_batch_limit: 10
         image_file_size_limit: 10
         single_chunk_attachment_limit: 10
@@ -251,16 +261,7 @@ workflow:
           required: true
           type: text-input
           variable: base
-        - default: ''
-          hint: ''
-          label: 知识库token
-          max_length: null
-          options: []
-          placeholder: ''
-          required: true
-          type: text-input
-          variable: token
-      height: 187
+      height: 161
       id: '1766629217839'
       position:
         x: -7.142857142857167
@@ -268,7 +269,7 @@ workflow:
       positionAbsolute:
         x: -7.142857142857167
         y: 171
-      selected: true
+      selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
@@ -320,7 +321,7 @@ workflow:
         body:
           data: []
           type: none
-        headers: Authorization:Bearer {{#1766629217839.token#}}
+        headers: Authorization:Bearer {{#env.token#}}
         method: get
         params: keyword:{{#env.kbName#}}
         retry_config:
@@ -394,7 +395,7 @@ workflow:
         body:
           data: []
           type: none
-        headers: Authorization:Bearer {{#1766629217839.token#}}
+        headers: Authorization:Bearer {{#env.token#}}
         method: get
         params: ''
         retry_config:
@@ -425,24 +426,35 @@ workflow:
       type: custom
       width: 242
     - data:
-        code: "\nfunction main({body, docName, kbName, kb_id, content}) {\n  const\
+        code: "\nfunction formatText(content) {\n  let data\n  try {\n    data = JSON.parse(content)\n\
+          \    data = Array.isArray(data) ? data : [data]\n  } catch (e) {\n    data\
+          \ = []\n  }\n  return Array.from(data).map(item => {\n    if (!item || typeof\
+          \ item !== 'object') return ''\n    return Object.keys(Object(item)).map(key\
+          \ => {\n      if (key === 'option' && Array.isArray(item.option)) {\n  \
+          \      const optionString = item.option.map(opt => `${opt.text}:${opt.price}`).join(';')\n\
+          \        return `${key}:[${optionString}]`\n      }\n      const value =\
+          \ item[key] ?? ''\n      if (typeof value !== 'string' && typeof value !==\
+          \ 'number') return null\n      return `${key}:${value}`\n    }).filter(line\
+          \ => line !== null).join('\\n')\n  }).filter(block => block.trim() !== '').join('\\\
+          n\\n')\n}\nfunction main({body, docName, kbName, kb_id, content}) {\n  const\
           \ res = JSON.parse(body) || {}\n  const arr = Array.isArray(res.data) ?\
           \ Array.from(res.data) : []\n  const doc = arr.find(o => o.name === docName)\n\
           \  const doc_id = String(doc?.id ?? '')\n  const status = !!kb_id && !!doc_id\
           \ ? 1 : 0\n  const msg = !kb_id ? `找不到知识库：${kbName}` : (!doc_id ? `找不到文档：${docName}`\
-          \ : '')\n  const full = JSON.stringify({\n    name: docName,\n    text:\
-          \ content,\n    doc_form: 'hierarchical_model',\n    process_rule: {\n \
-          \     mode: 'hierarchical',\n      rules: {\n        pre_processing_rules:\
-          \ [\n          {\n            id: 'remove_extra_spaces',\n            enabled:\
-          \ false\n          },\n          {\n            id: 'remove_urls_emails',\n\
-          \            enabled: false\n          }\n        ],\n        segmentation:\
-          \ {\n          separator: '\\n\\n',\n          max_tokens: 4000,\n     \
-          \   },\n        parent_mode: 'paragraph',\n        subchunk_segmentation:\
-          \ {\n          separator: '\\n',\n          max_tokens: 1000,\n        \
-          \  chunk_overlap: 50,\n        }\n      }\n    }\n  })\n  const segments\
-          \ = String(content).split('\\n\\n').map(content => {\n    return { content\
-          \ }\n  })\n  const increment = JSON.stringify({ segments })\n  return {\n\
-          \    doc_id,\n    status,\n    msg,\n    full,\n    increment,\n  }\n}"
+          \ : '')\n  const text = formatText(content)\n  const full = JSON.stringify({\n\
+          \    name: docName,\n    text: text,\n    doc_form: 'hierarchical_model',\n\
+          \    process_rule: {\n      mode: 'hierarchical',\n      rules: {\n    \
+          \    pre_processing_rules: [\n          {\n            id: 'remove_extra_spaces',\n\
+          \            enabled: false\n          },\n          {\n            id:\
+          \ 'remove_urls_emails',\n            enabled: false\n          }\n     \
+          \   ],\n        segmentation: {\n          separator: '\\n\\n',\n      \
+          \    max_tokens: 4000,\n        },\n        parent_mode: 'paragraph',\n\
+          \        subchunk_segmentation: {\n          separator: '\\n',\n       \
+          \   max_tokens: 1000,\n          chunk_overlap: 50,\n        }\n      }\n\
+          \    }\n  })\n  const segments = String(text).split('\\n\\n').map(content\
+          \ => {\n    return { content }\n  })\n  const increment = JSON.stringify({\
+          \ segments })\n  return {\n    doc_id,\n    status,\n    msg,\n    full,\n\
+          \    increment,\n  }\n}\n"
         code_language: javascript
         outputs:
           doc_id:
@@ -541,7 +553,7 @@ workflow:
             type: text
             value: '{{#1766630351510.full#}}'
           type: json
-        headers: Authorization:Bearer {{#1766629217839.token#}}
+        headers: Authorization:Bearer {{#env.token#}}
         method: post
         params: ''
         retry_config:
@@ -582,7 +594,7 @@ workflow:
             type: text
             value: '{{#1766630351510.increment#}}'
           type: json
-        headers: Authorization:Bearer {{#1766629217839.token#}}
+        headers: Authorization:Bearer {{#env.token#}}
         method: post
         params: ''
         retry_config:
@@ -625,7 +637,7 @@ workflow:
           status:
             children: null
             type: number
-        selected: false
+        selected: true
         title: 全量更新结果
         type: code
         variables:
@@ -642,7 +654,7 @@ workflow:
       positionAbsolute:
         x: 2414
         y: 266
-      selected: false
+      selected: true
       sourcePosition: right
       targetPosition: left
       type: custom
@@ -738,7 +750,7 @@ workflow:
       type: custom
       width: 242
     viewport:
-      x: 218.63638287147114
-      y: 198.77753405317884
+      x: -1151.2899092271198
+      y: 148.2614324815272
       zoom: 0.8040888484979245
   rag_pipeline_variables: []

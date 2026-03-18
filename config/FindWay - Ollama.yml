@@ -3,13 +3,13 @@ app:
   icon: 🤖
   icon_background: '#FFEAD5'
   mode: advanced-chat
-  name: FindWay - 测试
+  name: FindWay - Ollama
   use_icon_as_answer_icon: false
 dependencies:
 - current_identifier: null
   type: marketplace
   value:
-    marketplace_plugin_unique_identifier: langgenius/xinference:0.0.9@70724a48be26657dfb7b3f18a378e78ef7784e97e3824da4cf1d76c79c6b547d
+    marketplace_plugin_unique_identifier: langgenius/ollama:0.0.8@22213ae036605d41ea73bdd16908e03de1b9d5ab4656a49b8fb0343723f4cb4a
     version: null
 kind: app
 version: 0.6.0
@@ -267,11 +267,11 @@ workflow:
       height: 73
       id: '1763707294052'
       position:
-        x: -3.27412905625323
-        y: -13.200742259418377
+        x: 0
+        y: 24
       positionAbsolute:
-        x: -3.27412905625323
-        y: -13.200742259418377
+        x: 0
+        y: 24
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -279,13 +279,11 @@ workflow:
       width: 242
     - data:
         code: "\nfunction main({query, history}) {\n  const index = Number(query)\n\
-          \  const filter = history?.result?.[index - 1] ?? null\n  const find = Array.from(history?.result\
+          \  const filter = history?.result?.[index] ?? null\n  const find = Array.from(history?.result\
           \ ?? []).find(o => {\n    return o?.child_space_name === query || !!o?.product?.find(v\
           \ => v.product_name === query)\n  })\n  const can_reply = !!filter || !!find\n\
-          \  const trans = {\n    zh: '根據你的提問，已找到相關資訊',\n    en: 'I\\'ve found some\
-          \ info regarding your question.'\n  }\n  const answer = {\n    AI_reply:\
-          \ trans[history?.code] || trans.zh,\n    info: [filter ?? find],\n  }\n\
-          \  return {\n    can_reply,\n    answer,\n  }\n}\n"
+          \  const answer = {\n    AI_reply: '根據你的提問，已找到相關資訊',\n    info: [filter\
+          \ ?? find],\n  }\n  return {\n    can_reply,\n    answer,\n  }\n}\n"
         code_language: javascript
         outputs:
           answer:
@@ -375,21 +373,46 @@ workflow:
           variable_selector: []
         model:
           completion_params:
+            format: json
             temperature: 0
-            think: false
           mode: chat
-          name: qwen3
-          provider: langgenius/xinference/xinference
+          name: qwen3:0.6b
+          provider: langgenius/ollama/ollama
         prompt_template:
         - id: e3e20c31-8ba8-42df-829e-3a8ed19b46d3
           role: system
-          text: "# Role\n你是一个严格模式的高级意图识别专家。\n\n# Task\n你的任务是分析检索结果和用户输入，通过逻辑推理确定唯一的意图类别，并识别用户输入的语言。\n\
-            \n# Rule（意图判定规则）\n1. store（门店/地点）判定： 检索结果包含具体门店信息；或用户询问“在哪里”、“哪里买”、“附近有吗”；或涉及品牌、位置、商店等地理/实体属性。\n\
-            2. product（商品/服务）判定： 用户表达“想要”、“想买”、“想吃”、“想喝”；或输入内容主要聚焦于产品参数、规格、服务内容本身。\n\
-            3. other（其他）： 不符合上述明确意图的请求。\n\n# Thinking Process (CoT)\n1. 语言识别：识别用户输入所使用的语言，返回标准语言代码（如\
-            \ en-US, zh-CN, zh-TW, ja-JP）。\n2. 意图推理：结合判定规则，分析用户输入与检索结果，得到唯一意图类别。\n\
-            \n# Output Schema\n```json\n{\n  \"language\": \"识别到的语言代码\",\n  \"intent\"\
-            : \"store/product/other\"\n}\n```"
+          text: '你是一个严格模式的高级智能意图识别助手。
+
+
+            任务：
+
+            根据检索结果和用户输入判断唯一意图类别，输出格式：
+
+            {
+
+            "intent": ""
+
+            }
+
+
+            判定规则：
+
+            1. 只要检索结果指向具体的门店 → intent = "store"
+
+            2. 只要用户输入涉及在哪里/哪里有/哪里买等寻找购买地点的描述 → intent = "store"
+
+            3. 只要用户输入涉及想要/想吃/想喝/想买某个商品或者服务的意图 → intent = "product"
+
+            4. 如果检索结果或用户输入涉及商店、品牌、地点、位置等 → intent = "store"
+
+            5. 如果检索结果或用户输入涉及商品、产品、服务 → intent = "product"
+
+            6. 否则 → intent = "other"
+
+
+            禁止：
+
+            - 仅输出 "intent"，不允许任何其他内容或解释。'
         - id: a063b819-2984-404c-b17c-6f095fa18608
           role: user
           text: '检索结果：{{#1764235048636.chunk#}}
@@ -409,7 +432,7 @@ workflow:
       positionAbsolute:
         x: 2092
         y: 45
-      selected: false
+      selected: true
       sourcePosition: right
       targetPosition: left
       type: custom
@@ -422,16 +445,11 @@ workflow:
           *[\\s\\S]*?\\*\\//g, '')\n  let obj\n  try {\n    obj = JSON.parse(str)\n\
           \  } catch (e) {\n    obj = {}\n  }\n  return obj\n}\nfunction main({text,\
           \ list}) {\n  const obj = handleLLM(text)\n  const intent = obj.intent ||\
-          \ ''\n  const lang = obj.language || 'zh'\n  const code = lang.includes('zh')\
-          \ ? 'zh' : 'en'\n  const trans = {\n    zh: {\n      multiple: '根據你的提問，以下商店可能符合你的需求',\n\
-          \      single: '根據你的提問，已找到相關資訊',\n      none: '抱歉，沒有檢索到相關信息，請重新提問。'\n  \
-          \  },\n    en: {\n      multiple: 'Based on your question, here are some\
-          \ stores you might like.',\n      single: 'I\\'ve found some info regarding\
-          \ your question.',\n      none: 'Sorry, I couldn\\'t find anything for that\
-          \ question. Please try again!'\n    }\n  }\n  let history = {}, answer =\
-          \ {}\n  if (intent === 'product' || intent === 'store') {\n    const filter\
-          \ = []\n    const check = {}\n    Array.from(list).forEach(obj => {\n  \
-          \    if (check[obj.child_space_id] === undefined) {\n        check[obj.child_space_id]\
+          \ ''\n  let history = {}, answer = {}\n  if (intent === 'product' || intent\
+          \ === 'store') {\n    const filter = []\n    const check = {}\n    const\
+          \ array = '根據你的提問，以下商店可能符合你的需求'\n    const target = '根據你的提問，已找到相關資訊'\n \
+          \   const none = '抱歉，沒有檢索到相關信息，請重新提問。'\n    Array.from(list).forEach(obj\
+          \ => {\n      if (check[obj.child_space_id] === undefined) {\n        check[obj.child_space_id]\
           \ = filter.length\n        filter.push({\n          space_id: obj.space_id,\n\
           \          space_name: obj.space_name,\n          child_space_id: obj.child_space_id,\n\
           \          child_space_name: obj.store_name,\n          time: obj.store_time,\n\
@@ -439,11 +457,10 @@ workflow:
           \        })\n      }\n      if (intent === 'product') {\n        filter[check[obj.child_space_id]].product.push({\n\
           \          product_id: obj.product_id,\n          product_name: obj.name,\n\
           \          price: obj.price,\n        })\n      }\n    })\n    if (filter.length\
-          \ > 1) {\n      history = {\n        intent,\n        code,\n        result:\
-          \ filter,\n      }\n    }\n    answer = {\n      AI_reply: filter.length\
-          \ > 1 ? trans[code].multiple : (filter.length === 0 ? trans[code].none :\
-          \ trans[code].single),\n      info: filter,\n    }\n  }\n  return {\n  \
-          \  intent,\n    history,\n    answer,\n  }\n}\n"
+          \ > 1) {\n      history = {\n        intent,\n        result: filter,\n\
+          \      }\n    }\n    answer = {\n      AI_reply: filter.length > 1 ? array\
+          \ : (filter.length === 0 ? none : target),\n      info: filter,\n    }\n\
+          \  }\n  return {\n    intent,\n    history,\n    answer,\n  }\n}\n"
         code_language: javascript
         outputs:
           answer:
@@ -539,7 +556,7 @@ workflow:
       width: 242
     - data:
         dataset_ids:
-        - kBfBWoJToVmkMza5b/EnoR3zzntv73zeewj6FSvXq41bnYYAF8YDW6yFwszueBYg
+        - VYxwvybu7SpeOlY1WBq+l+9TfiaYW0IqJD0EhzELKS926BBUweh9iEVYZ0IMgxDO
         multiple_retrieval_config:
           reranking_enable: false
           reranking_mode: weighted_score
@@ -549,8 +566,8 @@ workflow:
             keyword_setting:
               keyword_weight: 0.3
             vector_setting:
-              embedding_model_name: bge-large-zh-v1.5
-              embedding_provider_name: langgenius/xinference/xinference
+              embedding_model_name: quentinz/bge-large-zh-v1.5:latest
+              embedding_provider_name: langgenius/ollama/ollama
               vector_weight: 0.7
             weight_type: customized
         query_attachment_selector: []
@@ -640,10 +657,9 @@ workflow:
         model:
           completion_params:
             temperature: 0
-            think: false
           mode: chat
-          name: qwen3
-          provider: langgenius/xinference/xinference
+          name: qwen3:0.6b
+          provider: langgenius/ollama/ollama
         prompt_template:
         - id: 823e14b9-cf73-4c18-ae72-8419922a22bc
           role: system
@@ -657,13 +673,11 @@ workflow:
 
             要求：
 
-            - 回答要简洁、明确、友好。
-
-            - 要使用用户提问的语言进行回答。'
+            - 回答要简洁、明确、友好。'
         - id: cca34b78-a737-4f46-af22-a478196b557c
           role: user
           text: '{{#sys.query#}}'
-        selected: true
+        selected: false
         title: LLM 回答用户闲聊
         type: llm
         vision:
@@ -672,19 +686,18 @@ workflow:
       id: '1764235675830'
       position:
         x: 3480
-        y: 63
+        y: 60
       positionAbsolute:
         x: 3480
-        y: 63
-      selected: true
+        y: 60
+      selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
       width: 242
     - data:
-        code: "\nfunction main({text}) {\n  const answer = {\n    AI_reply: text.replaceAll(/<think>[\\\
-          s\\S]*?<\\/think>/g, ''),\n    info: [],\n  }\n  return {\n    answer\n\
-          \  }\n}\n"
+        code: "\nfunction main({text}) {\n  const answer = {\n    AI_reply: text,\n\
+          \    info: [],\n  }\n  return {\n    answer\n  }\n}\n"
         code_language: javascript
         outputs:
           answer:
@@ -762,7 +775,6 @@ workflow:
       positionAbsolute:
         x: 342
         y: 0
-      selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
@@ -790,7 +802,6 @@ workflow:
       positionAbsolute:
         x: 2776
         y: 47
-      selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
@@ -815,7 +826,7 @@ workflow:
       type: custom
       width: 242
     viewport:
-      x: -794.6111984896779
-      y: 454.9029230573341
-      zoom: 0.45586124985949733
+      x: -2875.0771055949212
+      y: 148.1608570838775
+      zoom: 1.203025006628649
   rag_pipeline_variables: []

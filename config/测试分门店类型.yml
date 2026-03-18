@@ -1,0 +1,261 @@
+app:
+  description: ''
+  icon: 🤖
+  icon_background: '#FFEAD5'
+  mode: advanced-chat
+  name: 测试分门店类型
+  use_icon_as_answer_icon: false
+dependencies: []
+kind: app
+version: 0.6.0
+workflow:
+  conversation_variables: []
+  environment_variables:
+  - description: 知识库ID
+    id: cd1f5aef-9339-44c7-93ac-c483a2d2c923
+    name: kb_id
+    selector:
+    - env
+    - kb_id
+    value: 6efd6476-8fe6-4ff6-830f-e8a113a0de8a
+    value_type: string
+  - description: 知识库token
+    id: 5f4321af-88a0-421f-a157-548ce52f0234
+    name: token
+    selector:
+    - env
+    - token
+    value: dataset-Y4QLUTrJJLb1Lm57plIzTrQ8
+    value_type: string
+  - description: 知识库base
+    id: 89e7bdc9-f4f1-4996-a6fc-57af085d09f8
+    name: base
+    selector:
+    - env
+    - base
+    value: http://172.22.132.118:8081/v1
+    value_type: string
+  features:
+    file_upload:
+      allowed_file_extensions:
+      - .JPG
+      - .JPEG
+      - .PNG
+      - .GIF
+      - .WEBP
+      - .SVG
+      allowed_file_types:
+      - image
+      allowed_file_upload_methods:
+      - local_file
+      - remote_url
+      enabled: false
+      fileUploadConfig:
+        attachment_image_file_size_limit: 2
+        audio_file_size_limit: 50
+        batch_count_limit: 5
+        file_size_limit: 15
+        file_upload_limit: 20
+        image_file_batch_limit: 10
+        image_file_size_limit: 10
+        single_chunk_attachment_limit: 10
+        video_file_size_limit: 100
+        workflow_file_upload_limit: 10
+      image:
+        enabled: false
+        number_limits: 3
+        transfer_methods:
+        - local_file
+        - remote_url
+      number_limits: 3
+    opening_statement: ''
+    retriever_resource:
+      enabled: true
+    sensitive_word_avoidance:
+      enabled: false
+    speech_to_text:
+      enabled: false
+    suggested_questions: []
+    suggested_questions_after_answer:
+      enabled: false
+    text_to_speech:
+      enabled: false
+      language: ''
+      voice: ''
+  graph:
+    edges:
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: start
+        targetType: code
+      id: 1773302614023-source-1773304228987-target
+      source: '1773302614023'
+      sourceHandle: source
+      target: '1773304228987'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: http-request
+      id: 1773304228987-source-1773304404213-target
+      source: '1773304228987'
+      sourceHandle: source
+      target: '1773304404213'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInLoop: false
+        sourceType: http-request
+        targetType: answer
+      id: 1773304404213-source-answer-target
+      source: '1773304404213'
+      sourceHandle: source
+      target: answer
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    nodes:
+    - data:
+        selected: false
+        title: 用户输入
+        type: start
+        variables:
+        - default: direct
+          hint: ''
+          label: 门店类型
+          options: []
+          placeholder: ''
+          required: true
+          type: text-input
+          variable: store_type
+      height: 109
+      id: '1773302614023'
+      position:
+        x: 0
+        y: 0
+      positionAbsolute:
+        x: 0
+        y: 0
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        answer: '{{#1773304404213.body#}}'
+        selected: false
+        title: 直接回复
+        type: answer
+        variables: []
+      height: 103
+      id: answer
+      position:
+        x: 984
+        y: 3
+      positionAbsolute:
+        x: 984
+        y: 3
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        code: "\nfunction main({query, store_type}) {\n  return {\n    request: JSON.stringify({\n\
+          \      \"query\": query,\n      \"retrieval_model\": {\n        \"search_method\"\
+          : \"hybrid_search\",\n        \"reranking_enable\": false,\n        \"reranking_mode\"\
+          : \"weighted_score\",\n        \"reranking_model\": {\n          \"reranking_model_name\"\
+          : \"\",\n          \"reranking_provider_name\": \"\"\n        },\n     \
+          \   \"top_k\": 10,\n        \"score_threshold_enabled\": false,\n      \
+          \  \"score_threshold\": null,\n        \"weights\": {\n          \"weight_type\"\
+          : \"customized\",\n          \"keyword_setting\": {\n            \"keyword_weight\"\
+          : 0.3\n          },\n          \"vector_setting\": {\n            \"vector_weight\"\
+          : 0.7,\n            \"embedding_model_name\": \"quentinz/bge-large-zh-v1.5:latest\"\
+          ,\n            \"embedding_provider_name\": \"langgenius/ollama/ollama\"\
+          \n          }\n        },\n        \"metadata_filtering_conditions\": {\n\
+          \          \"logical_operator\": \"and\",\n          \"conditions\": [\n\
+          \            {\n              \"name\": \"store_type\",\n              \"\
+          comparison_operator\": \"=\",\n              \"value\": store_type\n   \
+          \         }\n          ]\n        }\n      }\n    })\n  }\n}\n"
+        code_language: javascript
+        outputs:
+          request:
+            children: null
+            type: string
+        selected: false
+        title: 代码执行
+        type: code
+        variables:
+        - value_selector:
+          - sys
+          - query
+          value_type: string
+          variable: query
+        - value_selector:
+          - '1773302614023'
+          - store_type
+          value_type: string
+          variable: store_type
+      height: 52
+      id: '1773304228987'
+      position:
+        x: 342
+        y: 8.57142857142857
+      positionAbsolute:
+        x: 342
+        y: 8.57142857142857
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data:
+          - id: key-value-87
+            key: ''
+            type: text
+            value: '{{#1773304228987.request#}}'
+          type: json
+        headers: Authorization:Bearer {{#env.token#}}
+        method: post
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        ssl_verify: true
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: HTTP 请求
+        type: http-request
+        url: '{{#env.base#}}/datasets/{{#env.kb_id#}}/retrieve'
+        variables: []
+      height: 146
+      id: '1773304404213'
+      position:
+        x: 644
+        y: 8.57142857142857
+      positionAbsolute:
+        x: 644
+        y: 8.57142857142857
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    viewport:
+      x: -117.94161749205568
+      y: 277.03649410032824
+      zoom: 1.4000000000000004
+  rag_pipeline_variables: []

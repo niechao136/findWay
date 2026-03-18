@@ -9,10 +9,15 @@ dependencies:
 - current_identifier: null
   type: marketplace
   value:
-    marketplace_plugin_unique_identifier: langgenius/ollama:0.0.3@9ded90ac00e8510119a24be7396ba77191c9610d5e1e29f59d68fa1229822fc7
+    marketplace_plugin_unique_identifier: langgenius/azure_openai:0.0.34@d12c44c83a845ebe00b0285272011587bb118e2f411c546ffcfd9fe723d205ff
+    version: null
+- current_identifier: null
+  type: marketplace
+  value:
+    marketplace_plugin_unique_identifier: bowenliang123/md_exporter:3.4.0@a5ce3ac3114f3dd6ab4fe49f0bb931a31af49ff555e479ec45e8aaa5d44157ee
     version: null
 kind: app
-version: 0.5.0
+version: 0.6.0
 workflow:
   conversation_variables: []
   environment_variables: []
@@ -32,9 +37,11 @@ workflow:
       - remote_url
       enabled: false
       fileUploadConfig:
+        attachment_image_file_size_limit: 2
         audio_file_size_limit: 50
         batch_count_limit: 5
         file_size_limit: 15
+        file_upload_limit: 20
         image_file_batch_limit: 10
         image_file_size_limit: 10
         single_chunk_attachment_limit: 10
@@ -151,9 +158,95 @@ workflow:
         isInIteration: false
         isInLoop: false
         sourceType: code
-        targetType: end
-      id: 1769755835793-source-1769755875709-target
+        targetType: iteration
+      id: 1769755835793-source-1769993665403-target
       source: '1769755835793'
+      sourceHandle: source
+      target: '1769993665403'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '1769993665403'
+        sourceType: iteration-start
+        targetType: http-request
+      id: 1769993665403start-source-1769993856764-target
+      source: 1769993665403start
+      sourceHandle: source
+      target: '1769993856764'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: iteration
+        targetType: code
+      id: 1769993665403-source-1769994782508-target
+      source: '1769993665403'
+      sourceHandle: source
+      target: '1769994782508'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: iteration
+      id: 1769994782508-source-1769995968412-target
+      source: '1769994782508'
+      sourceHandle: source
+      target: '1769995968412'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '1769995968412'
+        sourceType: iteration-start
+        targetType: llm
+      id: 1769995968412start-source-1769996000716-target
+      source: 1769995968412start
+      sourceHandle: source
+      target: '1769996000716'
+      targetHandle: target
+      type: custom
+      zIndex: 1002
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: iteration
+        targetType: code
+      id: 1769995968412-source-1769996172468-target
+      source: '1769995968412'
+      sourceHandle: source
+      target: '1769996172468'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: code
+        targetType: tool
+      id: 1769996172468-source-1769997323388-target
+      source: '1769996172468'
+      sourceHandle: source
+      target: '1769997323388'
+      targetHandle: target
+      type: custom
+      zIndex: 0
+    - data:
+        isInIteration: false
+        isInLoop: false
+        sourceType: tool
+        targetType: end
+      id: 1769997323388-source-1769755875709-target
+      source: '1769997323388'
       sourceHandle: source
       target: '1769755875709'
       targetHandle: target
@@ -189,14 +282,32 @@ workflow:
           required: true
           type: number
           variable: question_num
-      height: 135
+        - default: http://172.22.132.118:8081/v1
+          hint: ''
+          label: FindWay Base URL
+          max_length: null
+          options: []
+          placeholder: ''
+          required: false
+          type: text-input
+          variable: base
+        - default: app-eEFdRqZkkgoyoVSwmNa8Ny1R
+          hint: ''
+          label: FindWay API Key
+          max_length: null
+          options: []
+          placeholder: ''
+          required: false
+          type: text-input
+          variable: token
+      height: 187
       id: '1769753466488'
       position:
         x: 0
-        y: 24
+        y: 25
       positionAbsolute:
         x: 0
-        y: 24
+        y: 25
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -214,10 +325,10 @@ workflow:
       id: '1769753473367'
       position:
         x: 342
-        y: 40
+        y: 67
       positionAbsolute:
         x: 342
-        y: 40
+        y: 67
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -266,10 +377,10 @@ workflow:
       id: '1769753634629'
       position:
         x: 684
-        y: 66
+        y: 93
       positionAbsolute:
         x: 684
-        y: 66
+        y: 93
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -298,10 +409,10 @@ workflow:
       id: '1769753671195'
       position:
         x: 1388
-        y: 0
+        y: 27
       positionAbsolute:
         x: 1388
-        y: 0
+        y: 27
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -323,7 +434,7 @@ workflow:
         y: 80
       positionAbsolute:
         x: 1448
-        y: 80
+        y: 107
       selectable: false
       sourcePosition: right
       targetPosition: left
@@ -350,10 +461,10 @@ workflow:
       id: '1769755227193'
       position:
         x: 1026
-        y: 30
+        y: 57
       positionAbsolute:
         x: 1026
-        y: 30
+        y: 57
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -367,16 +478,16 @@ workflow:
           value_type: string
           variable: error
         selected: false
-        title: 输出
+        title: 报错
         type: end
       height: 88
       id: '1769755242965'
       position:
         x: 1388
-        y: 288
+        y: 315
       positionAbsolute:
         x: 1388
-        y: 288
+        y: 315
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -391,26 +502,32 @@ workflow:
         iteration_id: '1769753671195'
         model:
           completion_params:
-            format: json
+            max_tokens: 5120
             temperature: 0.7
           mode: chat
-          name: qwen3:8b
-          provider: langgenius/ollama/ollama
+          name: gpt-4o
+          provider: langgenius/azure_openai/azure_openai
         prompt_template:
         - id: c4d88e32-783c-447a-a0cd-47ce51a4f02c
           role: system
-          text: "# Role\n数据填充与增强专家。\n\n# Rules\n1. 绝对禁止输出 \"XX\" 或者占位符。必须换成具体名称。\n\
-            2. 生成数量：必须精确生成 {{#1769753466488.question_num#}} 组问题。\n3. 只返回 JSON，禁止 Markdown\
-            \ 标签。\n\n# Thinking Process (CoT)\n在生成过程中，请遵循以下思维步骤：\n1. **意图锚定**：锁定标准问题的核心需求。\n\
-            2. **场景推演**：\n    - **简略场景**：模拟用户赶时间或在手机端输入的口语化短句。\n    - **详述场景**：模拟用户描述背景信息，包含冗余但真实的信息。\n\
-            \    - **书面场景**：模拟用户使用专业术语或礼貌用语。\n3. **句式重组**：利用反问、祈使、疑问等多种句式转换，确保 {{#1769753466488.question_num#}}\
-            \ 个样本间的高方差（多样性）。\n4. **补全占位**：如果【标准问题】中存在 XX 等占位符，在生成模拟问题时需要补全占位符。\n\n\
-            # Examples (模仿此格式，注意数量可变)\nInput: \"XX在哪\" | Count: 2\nOutput: {\"paraphrases\"\
-            :[{\"id\":1,\"text\":\"7-11在哪？\"},{\"id\":2,\"text\":\"全家在哪？\"}]}\n\n\
-            Input: \"XX多少錢\" | Count: 3\nOutput: {\"paraphrases\":[{\"id\":1,\"text\"\
-            :\"珍奶多少錢？\"},{\"id\":2,\"text\":\"這杯拿鐵多少錢？\"},{\"id\":3,\"text\":\"這瓶水多少錢？\"\
-            }]}\n\n# Current Task\n- Input: \"{{#1769753671195.item#}}\"\n- Count:\
-            \ {{#1769753466488.question_num#}}\n  Output:"
+          text: "# Role\n你是一位精通 NLP 的数据标注专家，擅长利用“语义等价但表达异构”技术，结合具体门店与产品清单为意图识别模型生成高质量训练样本。\n\
+            \n# Task\n根据【标准问题】与提供的【门店与产品清单】，精确生成 {{#1769753466488.question_num#}}\
+            \ 组语义相同但表达方式不同的【模拟问题】。\n\n# Context（门店与产品清单）\n- Costco 好市多 (1F)：\n   \
+            \ - 产品：科克兰冷冻生虾仁(2磅)、石安牧场动福蛋(30入)、宝滢洗衣凝露(4L)、科克兰三层卫生纸(24入)、纯在芭乐柠檬绿茶。\n\
+            \    - 时间：10:00~21:30\n- 可不可熟成红茶 (1F)：\n    - 产品：白玉欧蕾(珍珠奶茶)、熟成欧蕾、胭脂多多、冷露欧蕾。\n\
+            \    - 时间：10:00~22:00\n- 早安美芝城 (1F)：\n    - 产品：金黄总汇萝卜糕、卡啦辣鸡腿堡、鲔鱼沙拉蛋饼、铁板面、麥克雞塊。\n\
+            \    - 时间：06:00~13:00\n- 东森宠物 (1F)：\n    - 产品：汪喵星球豆腐砂、超级SP豆腐砂、GooToe夹心鸡肉条、欧姆猫冻干粒。\n\
+            \    - 时间：10:00~21:30\n\n# Thinking Process (CoT)\n1. **意图锚定**：识别标准问题核心（问价格、位置、营业时间、设施或产品属性）。\n\
+            2. **实体注入**：若标准问题包含“XX”等占位符，**必须**根据语义将其替换为【门店与产品清单】中具体的门店名或产品名。\n3. **句式裂变**：\n\
+            \    - **极简式**：核心词+疑问词。\n    - **倒装/变换式**：将谓语或宾语前置。\n    - **情景化叙述**：加入（我想、请问、麻烦查一下）等前缀或背景冗余信息。\n\
+            \    - **存在性反问**：通过确认存在来询问信息。\n4. **多样性自检**：确保每条样本的动词或句法结构重合度低于 40%。\n\
+            \n# Constraints\n- **禁止敷衍**：不得仅通过增删“吗、呢、吧”来生成新样本。\n- **强制补全**：严禁在输出中出现“XX”等占位符，必须是完整的具象问题。\n\
+            - **禁止代词**：生成的问题中，严禁出现“这家店”、“这个东西”、“它”等指代不明的词汇。必须替换成真实的、具体的专有名词。\n- **输出格式**：严格返回\
+            \ JSON，不得包含 Markdown 代码块标识符（如 ```json）或任何解释性文字。\n- **数量控制**：精确生成 {{#1769753466488.question_num#}}\
+            \ 条。\n\n# Input\n- 标准问题：{{#1769753671195.item#}}\n\n# Output Schema\n\
+            ```json\n{\n  \"standard_question\": \"标准问题原文\",\n  \"core_requirement\"\
+            : \"标准问题的核心需求\",\n  \"paraphrases\": [\n    {\"id\": 1, \"text\": \"模拟问题1\"\
+            },\n    {\"id\": 2, \"text\": \"模拟问题2\"}\n  ]\n}\n```\n"
         selected: false
         title: LLM 生成模拟问题
         type: llm
@@ -424,21 +541,45 @@ workflow:
         y: 60
       positionAbsolute:
         x: 1572
-        y: 60
-      selected: true
+        y: 87
+      selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
       width: 242
       zIndex: 1002
     - data:
-        code: "\nfunction main({output}) {\n    return {\n        result: ''\n   \
-          \ }\n}\n"
+        code: "\nfunction handleLLM(text = '') {\n  let str = text.replaceAll(/<think>[\\\
+          s\\S]*?<\\/think>/g, '')\n  const blockMatch = str.match(/```json\\s*([\\\
+          s\\S]*)/i)\n  let jsonPart = blockMatch ? blockMatch[1] : str\n  jsonPart\
+          \ = jsonPart.replace(/```[\\s\\S]*$/, '').trim()\n  const cleanJson = jsonPart\n\
+          \    .replace(/\\/\\/(?!\\s*http)[^\\n]*/g, '') // 移除单行注释\n    .replace(/\\\
+          /\\*[\\s\\S]*?\\*\\//g, '')     // 移除多行注释\n    .replace(/\\xA0/g, ' ') \
+          \                // 关键：修复 \\xA0 空格\n    .replace(/,\\s*([\\]}])/g, '$1')\
+          \         // 关键：修复 JSON 尾随逗号\n    .trim()\n  try {\n    return JSON.parse(cleanJson)\n\
+          \  } catch (e) {\n    return {}\n  }\n}\nfunction main({output}) {\n  const\
+          \ simulation = []\n  const simulation_question = []\n  const simulation_index\
+          \ = {}\n  Array.from(output).forEach((text, index) => {\n    const obj =\
+          \ handleLLM(text)\n    const list = Array.isArray(obj?.paraphrases) ? Array.from(obj?.paraphrases)\
+          \ : []\n    list.forEach(item => {\n      const query = String(item?.text\
+          \ ?? '')\n      if (!!query) {\n        simulation_index[simulation.length]\
+          \ = index\n        const request = {\n          inputs: {},\n          query,\n\
+          \          response_mode: 'blocking',\n          conversation_id: '',\n\
+          \          user: 'simulation_test',\n          files: [],\n        }\n \
+          \       simulation.push(JSON.stringify(request))\n        simulation_question.push(query)\n\
+          \      }\n    })\n  })\n  return {\n    simulation,\n    simulation_index,\n\
+          \    simulation_question,\n  }\n}\n"
         code_language: javascript
         outputs:
-          result:
+          simulation:
             children: null
-            type: string
+            type: array[string]
+          simulation_index:
+            children: null
+            type: object
+          simulation_question:
+            children: null
+            type: array[string]
         selected: false
         title: 处理模拟问题
         type: code
@@ -451,11 +592,11 @@ workflow:
       height: 52
       id: '1769755835793'
       position:
-        x: 1934
-        y: 0
+        x: 1974
+        y: 105
       positionAbsolute:
-        x: 1934
-        y: 0
+        x: 1974
+        y: 105
       selected: false
       sourcePosition: right
       targetPosition: left
@@ -464,27 +605,492 @@ workflow:
     - data:
         outputs:
         - value_selector:
-          - '1769755835793'
-          - result
-          value_type: string
-          variable: result
+          - '1769997323388'
+          - files
+          value_type: array[file]
+          variable: file
         selected: false
-        title: 输出 2
+        title: 输出报告
         type: end
       height: 88
       id: '1769755875709'
       position:
-        x: 2236
+        x: 4514
+        y: 87
+      positionAbsolute:
+        x: 4514
+        y: 87
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        error_handle_mode: terminated
+        flatten_output: true
+        height: 261
+        is_parallel: false
+        iterator_input_type: array[string]
+        iterator_selector:
+        - '1769755835793'
+        - simulation
+        output_selector:
+        - '1769993856764'
+        - body
+        output_type: array[string]
+        parallel_nums: 10
+        selected: false
+        start_node_id: 1769993665403start
+        title: 循环调用FindWay
+        type: iteration
+        width: 486
+      height: 261
+      id: '1769993665403'
+      position:
+        x: 2316
         y: 0
       positionAbsolute:
-        x: 2236
+        x: 2316
         y: 0
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 486
+      zIndex: 1
+    - data:
+        desc: ''
+        isInIteration: true
+        selected: false
+        title: ''
+        type: iteration-start
+      draggable: false
+      height: 48
+      id: 1769993665403start
+      parentId: '1769993665403'
+      position:
+        x: 60
+        y: 107
+      positionAbsolute:
+        x: 2376
+        y: 107
+      selectable: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom-iteration-start
+      width: 44
+      zIndex: 1002
+    - data:
+        authorization:
+          config: null
+          type: no-auth
+        body:
+          data:
+          - id: key-value-144
+            key: ''
+            type: text
+            value: '{{#1769993665403.item#}}'
+          type: json
+        headers: Authorization:Bearer {{#1769753466488.token#}}
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '1769993665403'
+        method: post
+        params: ''
+        retry_config:
+          max_retries: 3
+          retry_enabled: true
+          retry_interval: 100
+        selected: false
+        ssl_verify: true
+        timeout:
+          max_connect_timeout: 0
+          max_read_timeout: 0
+          max_write_timeout: 0
+        title: 调用FindWay
+        type: http-request
+        url: '{{#1769753466488.base#}}/chat-messages'
+        variables: []
+      height: 141
+      id: '1769993856764'
+      parentId: '1769993665403'
+      position:
+        x: 184
+        y: 65
+      positionAbsolute:
+        x: 2500
+        y: 65
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 1002
+    - data:
+        code: "\nfunction main({output, simulation_index, question, answer, simulation_question})\
+          \ {\n  const question_list = Array.from(question)\n  const answer_list =\
+          \ Array.from(answer)\n  const simulation_list = Array.from(simulation_question)\n\
+          \  const prompt = []\n  const simulation_obj = []\n  Array.from(output).forEach((body,\
+          \ index) => {\n    const event = JSON.parse(String(body ?? '{}'))\n    const\
+          \ res = JSON.parse(String(event?.answer ?? '{}'))\n    const replay = String(res?.AI_reply\
+          \ ?? '')\n    const question = question_list[simulation_index[index]]\n\
+          \    const answer = answer_list[simulation_index[index]]\n    const simulation\
+          \ = simulation_list[index]\n    prompt.push(`\n- 【标准问题】：${question}\n- 【标准答案】：${answer}\n\
+          - 【模拟问题】：${simulation}\n- 【模拟答案】：${replay}\n      `)\n    simulation_obj.push({\n\
+          \      question,\n      answer,\n      simulation,\n      replay,\n    })\n\
+          \  })\n  return {\n    prompt,\n    simulation_obj,\n  }\n}\n"
+        code_language: javascript
+        outputs:
+          prompt:
+            children: null
+            type: array[string]
+          simulation_obj:
+            children: null
+            type: array[object]
+        selected: false
+        title: 处理调用结果
+        type: code
+        variables:
+        - value_selector:
+          - '1769993665403'
+          - output
+          value_type: array[string]
+          variable: output
+        - value_selector:
+          - '1769755835793'
+          - simulation_index
+          value_type: object
+          variable: simulation_index
+        - value_selector:
+          - '1769753634629'
+          - question
+          value_type: array[string]
+          variable: question
+        - value_selector:
+          - '1769753634629'
+          - answer
+          value_type: array[string]
+          variable: answer
+        - value_selector:
+          - '1769755835793'
+          - simulation_question
+          value_type: array[string]
+          variable: simulation_question
+      height: 52
+      id: '1769994782508'
+      position:
+        x: 2902
+        y: 105
+      positionAbsolute:
+        x: 2902
+        y: 105
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        error_handle_mode: terminated
+        flatten_output: true
+        height: 208
+        is_parallel: false
+        iterator_input_type: array[string]
+        iterator_selector:
+        - '1769994782508'
+        - prompt
+        output_selector:
+        - '1769996000716'
+        - text
+        output_type: array[string]
+        parallel_nums: 10
+        selected: false
+        start_node_id: 1769995968412start
+        title: 循环评估相似度
+        type: iteration
+        width: 486
+      height: 208
+      id: '1769995968412'
+      position:
+        x: 3244
+        y: 27
+      positionAbsolute:
+        x: 3244
+        y: 27
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 486
+      zIndex: 1
+    - data:
+        desc: ''
+        isInIteration: true
+        selected: false
+        title: ''
+        type: iteration-start
+      draggable: false
+      height: 48
+      id: 1769995968412start
+      parentId: '1769995968412'
+      position:
+        x: 60
+        y: 80
+      positionAbsolute:
+        x: 3304
+        y: 107
+      selectable: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom-iteration-start
+      width: 44
+      zIndex: 1002
+    - data:
+        context:
+          enabled: false
+          variable_selector: []
+        isInIteration: true
+        isInLoop: false
+        iteration_id: '1769995968412'
+        model:
+          completion_params:
+            temperature: 0
+          mode: chat
+          name: gpt-4o
+          provider: langgenius/azure_openai/azure_openai
+        prompt_template:
+        - id: d1b5dd34-504f-44d9-9a0a-86e281b5d6f4
+          role: system
+          text: "# Role\n你是一位精通自然语言处理（NLP）的语义评估专家，擅长通过对比标准参考答案来评估模型输出的准确性与相似度。\n\n\
+            # Task\n我会为你提供四项数据：【标准问题】、【模拟问题】、【标准答案】以及【模拟答案】。\n你需要综合分析这些信息，最终给出一个 0\
+            \ 到 1 之间的相似度评分（精确到小数点后两位）。\n\n# Evaluation Steps (Chain of Thought)\n\
+            在给出分数前，请按以下步骤进行思考分析：\n1. **意图对齐**：对比【标准问题】与【模拟问题】，确认两者意图是否一致。\n2. **要点提取**：识别【标准答案】中的核心知识点和必须包含的关键信息。\n\
+            3. **内容比对**：\n    - 模拟答案是否覆盖了所有核心知识点？\n    - 模拟答案是否存在逻辑错误或事实性幻觉？\n   \
+            \ - 模拟答案的表述是否虽然措辞不同但语义高度一致？\n4. **扣分因素**：漏掉关键点、包含错误信息、或者回答完全偏离意图。\n5.\
+            \ **最终打分**：0代表完全无关或错误，1代表完美契合。\n\n# Output Format\n请严格按照以下JSON格式输出，不要包含任何多余的解释文字：\n\
+            ```json\n{\n  \"thought_process\": \"简要描述你的分析逻辑（100字以内）\",\n  \"key_points_matched\"\
+            : \"匹配到的关键点数量/总关键点数量\",\n  \"similarity_score\": \"0.XX\"\n}\n```\n\n\
+            # Input Data\n{{#1769995968412.item#}}"
+        selected: false
+        title: LLM 评估相似度
+        type: llm
+        vision:
+          enabled: false
+      height: 88
+      id: '1769996000716'
+      parentId: '1769995968412'
+      position:
+        x: 184
+        y: 60
+      positionAbsolute:
+        x: 3428
+        y: 87
+      selected: true
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+      zIndex: 1002
+    - data:
+        code: "\nfunction handleLLM(text = '') {\n  let str = text.replaceAll(/<think>[\\\
+          s\\S]*?<\\/think>/g, '')\n  const blockMatch = str.match(/```json\\s*([\\\
+          s\\S]*)/i)\n  let jsonPart = blockMatch ? blockMatch[1] : str\n  jsonPart\
+          \ = jsonPart.replace(/```[\\s\\S]*$/, '').trim()\n  const cleanJson = jsonPart\n\
+          \    .replace(/\\/\\/(?!\\s*http)[^\\n]*/g, '') // 移除单行注释\n    .replace(/\\\
+          /\\*[\\s\\S]*?\\*\\//g, '')     // 移除多行注释\n    .replace(/\\xA0/g, ' ') \
+          \                // 关键：修复 \\xA0 空格\n    .replace(/,\\s*([\\]}])/g, '$1')\
+          \         // 关键：修复 JSON 尾随逗号\n    .trim()\n  try {\n    return JSON.parse(cleanJson)\n\
+          \  } catch (e) {\n    return {}\n  }\n}\nfunction main({output, simulation_obj})\
+          \ {\n  const head = '|標準問題|標準回答|模擬問題|模擬答案|相關係數|\\n'\n  const split = '|---|---|---|---|---|\\\
+          n'\n  const file = '評估報告'\n  const list = Array.from(simulation_obj)\n \
+          \ let markdown = head + split\n  Array.from(output).forEach((text, index)\
+          \ => {\n    const obj = handleLLM(text)\n    const item = list[index]\n\
+          \    const question = String(item.question).replaceAll('\\n', ';').replaceAll('|',\
+          \ '¦')\n    const answer = String(item.answer).replaceAll('\\n', ';').replaceAll('|',\
+          \ '¦')\n    const simulation = String(item.simulation).replaceAll('\\n',\
+          \ ';').replaceAll('|', '¦')\n    const replay = String(item.replay).replaceAll('\\\
+          n', ';').replaceAll('|', '¦')\n    const score = String(obj.similarity_score).replaceAll('\\\
+          n', ';').replaceAll('|', '¦')\n    markdown += `|${question}|${answer}|${simulation}|${replay}|${score}|\\\
+          n`\n  })\n  return {\n    markdown,\n    file,\n  }\n}\n"
+        code_language: javascript
+        outputs:
+          file:
+            children: null
+            type: string
+          markdown:
+            children: null
+            type: string
+        selected: false
+        title: 处理相似度
+        type: code
+        variables:
+        - value_selector:
+          - '1769995968412'
+          - output
+          value_type: array[string]
+          variable: output
+        - value_selector:
+          - '1769994782508'
+          - simulation_obj
+          value_type: array[object]
+          variable: simulation_obj
+      height: 52
+      id: '1769996172468'
+      position:
+        x: 3830
+        y: 105
+      positionAbsolute:
+        x: 3830
+        y: 105
+      selected: false
+      sourcePosition: right
+      targetPosition: left
+      type: custom
+      width: 242
+    - data:
+        is_team_authorization: true
+        paramSchemas:
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: 'Input text of single or multiple Markdown tables, with worksheets
+              supported. All the heading texts (eg. #, ##) will be used as worksheet
+              names in order.'
+            ja_JP: 'Input text of single or multiple Markdown tables, with worksheets
+              supported. All the heading texts (eg. #, ##) will be used as worksheet
+              names in order.'
+            pt_BR: 'Input text of single or multiple Markdown tables, with worksheets
+              supported. All the heading texts (eg. #, ##) will be used as worksheet
+              names in order.'
+            zh_Hans: '单个或多个 Markdown 表格的文本输入，支持工作表。所有标题文本（例如 #, ##）将依次用作工作表名称。'
+          label:
+            en_US: Markdown table text
+            ja_JP: Markdown table text
+            pt_BR: Markdown table text
+            zh_Hans: Markdown 表格文本
+          llm_description: ''
+          max: null
+          min: null
+          name: md_text
+          options: []
+          placeholder: null
+          precision: null
+          required: true
+          scope: null
+          template: null
+          type: string
+        - auto_generate: null
+          default: 'true'
+          form: form
+          human_description:
+            en_US: Convert cell values into text type to void decimal precision loss
+              in display
+            ja_JP: Convert cell values into text type to void decimal precision loss
+              in display
+            pt_BR: Convert cell values into text type to void decimal precision loss
+              in display
+            zh_Hans: 转换单元格值为文本类型，避免显示时的小数精度丢失
+          label:
+            en_US: Enforce text type
+            ja_JP: Enforce text type
+            pt_BR: Enforce text type
+            zh_Hans: 强制单元格值为文本类型
+          llm_description: Whether to convert cell values into string type, default
+            to "true"
+          max: null
+          min: null
+          name: force_text_value
+          options:
+          - icon: ''
+            label:
+              en_US: 'Yes'
+              ja_JP: 'Yes'
+              pt_BR: 'Yes'
+              zh_Hans: 是
+            value: 'true'
+          - icon: ''
+            label:
+              en_US: 'No'
+              ja_JP: 'No'
+              pt_BR: 'No'
+              zh_Hans: 否
+            value: 'false'
+          placeholder: null
+          precision: null
+          required: true
+          scope: null
+          template: null
+          type: select
+        - auto_generate: null
+          default: null
+          form: llm
+          human_description:
+            en_US: Optional custom output file name, and the filename suffix is not
+              required.
+            ja_JP: Optional custom output file name, and the filename suffix is not
+              required.
+            pt_BR: Optional custom output file name, and the filename suffix is not
+              required.
+            zh_Hans: 可选的自定义输出文件名，后缀名无需指定
+          label:
+            en_US: Output Filename
+            ja_JP: Output Filename
+            pt_BR: Output Filename
+            zh_Hans: 输出文件名
+          llm_description: ''
+          max: null
+          min: null
+          name: output_filename
+          options: []
+          placeholder: null
+          precision: null
+          required: false
+          scope: null
+          template: null
+          type: string
+        params:
+          force_text_value: ''
+          md_text: ''
+          output_filename: ''
+        plugin_id: bowenliang123/md_exporter
+        plugin_unique_identifier: bowenliang123/md_exporter:3.4.0@a5ce3ac3114f3dd6ab4fe49f0bb931a31af49ff555e479ec45e8aaa5d44157ee
+        provider_icon: http://172.22.132.118:8081/console/api/workspaces/current/plugin/icon?tenant_id=de79cda4-cae0-4be5-8bff-50ddcacf186f&filename=f0bad95cda1671b4e49f0e05df6122ef9ec5d554e138f128795d11d3806c00ef.svg
+        provider_id: bowenliang123/md_exporter/md_exporter
+        provider_name: bowenliang123/md_exporter/md_exporter
+        provider_type: builtin
+        selected: false
+        title: Markdown 表格 ⮕ XLSX
+        tool_configurations:
+          force_text_value:
+            type: constant
+            value: 'true'
+        tool_description: 将 Markdown 表格转换为 XLSX 文件的工具
+        tool_label: Markdown 表格 ⮕ XLSX
+        tool_name: md_to_xlsx
+        tool_node_version: '2'
+        tool_parameters:
+          md_text:
+            type: mixed
+            value: '{{#1769996172468.markdown#}}'
+          output_filename:
+            type: mixed
+            value: '{{#1769996172468.file#}}'
+        type: tool
+      height: 88
+      id: '1769997323388'
+      position:
+        x: 4172
+        y: 87
+      positionAbsolute:
+        x: 4172
+        y: 87
+      selected: false
       sourcePosition: right
       targetPosition: left
       type: custom
       width: 242
     viewport:
-      x: -489.69999999999993
-      y: 354.7
-      zoom: 0.7
+      x: 288.8880375445581
+      y: 339.86881866123656
+      zoom: 0.734867267128043
   rag_pipeline_variables: []
